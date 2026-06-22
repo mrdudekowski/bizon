@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getAllTireIQSlugs, getTireIQArticleBySlug } from "@/lib/cms";
 import { createPageMetadata } from "@/lib/seo/metadata";
+import { LexicalContent } from "@/components/content/LexicalContent";
 import { CatalogImage } from "@/components/catalog/CatalogImage";
 import { PageHeader } from "@/components/catalog/PageHeader";
 
@@ -49,7 +50,7 @@ export default async function TireIQArticlePage({ params }: PageProps) {
       </div>
       <article className="card-base info-card max-w-3xl">
         <p className="text-sm text-muted mb-4">{article.publishedAt}</p>
-        <p className="info-card-text whitespace-pre-line">{article.content}</p>
+        <LexicalContent data={article.content} fallback={article.excerpt} />
       </article>
       <p className="mt-8">
         <Link href="/tire-iq" className="btn-glass inline-flex">

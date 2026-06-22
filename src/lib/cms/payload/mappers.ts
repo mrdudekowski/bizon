@@ -24,7 +24,7 @@ import type {
   CmsWheelType,
   CmsWheelVariant,
 } from "../types";
-import { formatPublishedDate, lexicalToPlainText } from "./richText";
+import { formatPublishedDate, isLexicalContent, lexicalToPlainText } from "./richText";
 import { resolveMedia } from "../media";
 
 const DEFAULT_BRAND = "DOUBLESTAR";
@@ -225,7 +225,7 @@ function mapArticleBase(doc: {
     title: doc.title,
     excerpt,
     publishedAt: formatPublishedDate(doc.publishedAt),
-    content: lexicalToPlainText(doc.content) || excerpt,
+    content: isLexicalContent(doc.content) ? doc.content : null,
     imageUrl: mapImageUrl(doc.featuredImage),
   };
 }

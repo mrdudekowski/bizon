@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getAllPeopleStorySlugs, getPeopleStoryBySlug } from "@/lib/cms";
 import { createPageMetadata } from "@/lib/seo/metadata";
+import { LexicalContent } from "@/components/content/LexicalContent";
 import { CatalogImage } from "@/components/catalog/CatalogImage";
 import { PageHeader } from "@/components/catalog/PageHeader";
 
@@ -54,7 +55,7 @@ export default async function PeopleStoryPage({ params }: PageProps) {
             {[story.clientName, story.industry].filter(Boolean).join(" · ")}
           </p>
         ) : null}
-        <p className="info-card-text whitespace-pre-line">{story.content}</p>
+        <LexicalContent data={story.content} fallback={story.excerpt} />
       </article>
       <p className="mt-8">
         <Link href="/people-stories" className="btn-glass inline-flex">

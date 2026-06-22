@@ -70,7 +70,8 @@ export type CmsArticle = {
   title: string;
   excerpt: string;
   publishedAt: string;
-  content: string;
+  /** Payload Lexical JSON — render with LexicalContent on detail pages. */
+  content: unknown;
   imageUrl?: string | null;
 };
 

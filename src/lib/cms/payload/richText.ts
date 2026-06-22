@@ -27,6 +27,12 @@ export function lexicalToPlainText(value: unknown): string {
   return parts.join(" ").replace(/\s+/g, " ").trim();
 }
 
+export function isLexicalContent(
+  value: unknown,
+): value is { root: Record<string, unknown> } {
+  return Boolean(value && typeof value === "object" && "root" in value && (value as { root?: unknown }).root);
+}
+
 export function formatPublishedDate(value?: string | null): string {
   if (!value) return "";
 
