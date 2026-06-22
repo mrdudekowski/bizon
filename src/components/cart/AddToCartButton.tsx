@@ -1,5 +1,6 @@
 "use client";
 
+import { requestOpenCart } from "@/lib/cart/cartStorage";
 import { useCart } from "@/hooks/useCart";
 import type { RequestItemInput } from "@/types/requestItem";
 
@@ -16,11 +17,11 @@ export function AddToCartButton({
   className = "btn-glass",
   openCartOnAdd = true,
 }: AddToCartButtonProps) {
-  const { addItem, setOpen } = useCart();
+  const { addItem } = useCart();
 
   function handleClick() {
     addItem({ ...item, quantity: item.quantity ?? 1 });
-    if (openCartOnAdd) setOpen(true);
+    if (openCartOnAdd) requestOpenCart();
   }
 
   return (

@@ -2,6 +2,7 @@ import type { RequestItemInput } from "@/types/requestItem";
 
 export const CART_STORAGE_KEY = "bizon-cart";
 export const CART_UPDATED_EVENT = "bizon-cart-updated";
+export const CART_OPEN_EVENT = "bizon-cart-open";
 
 export function cartItemKey(item: RequestItemInput): string {
   const type = String(item.itemType ?? "shopProduct");
@@ -59,6 +60,11 @@ export function writeCart(items: RequestItemInput[]): void {
 export function dispatchCartUpdated(): void {
   if (typeof window === "undefined") return;
   window.dispatchEvent(new Event(CART_UPDATED_EVENT));
+}
+
+export function requestOpenCart(): void {
+  if (typeof window === "undefined") return;
+  window.dispatchEvent(new Event(CART_OPEN_EVENT));
 }
 
 export function addCartItem(incoming: RequestItemInput): RequestItemInput[] {

@@ -17,7 +17,7 @@ import {
   slugField,
   statusField,
 } from "@/collections/fields";
-import { setPublishedAt } from "@/payload/hooks/setPublishedAt";
+import { catalogContentHooks } from "@/payload/hooks/catalogContentHooks";
 
 export const TireModels: CollectionConfig = {
   slug: "tire-models",
@@ -38,9 +38,7 @@ export const TireModels: CollectionConfig = {
     update: catalogWriteAccess,
     delete: catalogDeleteAccess,
   },
-  hooks: {
-    beforeChange: [setPublishedAt],
-  },
+  hooks: catalogContentHooks,
   fields: [
     {
       name: "name",

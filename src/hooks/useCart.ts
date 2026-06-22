@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 
 import {
   addCartItem,
+  CART_OPEN_EVENT,
   CART_UPDATED_EVENT,
   CART_STORAGE_KEY,
   clearCart,
@@ -31,10 +32,13 @@ export function useCart() {
 
     window.addEventListener(CART_UPDATED_EVENT, onUpdate);
     window.addEventListener("storage", onStorage);
+    const onOpenRequest = () => setOpen(true);
+    window.addEventListener(CART_OPEN_EVENT, onOpenRequest);
 
     return () => {
       window.removeEventListener(CART_UPDATED_EVENT, onUpdate);
       window.removeEventListener("storage", onStorage);
+      window.removeEventListener(CART_OPEN_EVENT, onOpenRequest);
     };
   }, [refresh]);
 

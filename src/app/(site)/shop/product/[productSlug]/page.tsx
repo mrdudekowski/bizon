@@ -34,7 +34,7 @@ export default async function ProductPage({ params }: PageProps) {
   const structuredData = createProductStructuredData({
     name: product.name,
     description: product.descriptionShort,
-    slug: product.slug,
+    path: `/shop/product/${product.slug}`,
     brand: product.brand,
     category: product.categorySlug,
   });

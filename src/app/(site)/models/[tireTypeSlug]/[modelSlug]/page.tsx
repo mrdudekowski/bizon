@@ -51,7 +51,7 @@ export default async function TireModelPage({ params }: PageProps) {
   const structuredData = createProductStructuredData({
     name: model.name,
     description: model.descriptionShort,
-    slug: model.slug,
+    path: modelPath,
     brand: model.brand,
     category: tireType.name,
   });

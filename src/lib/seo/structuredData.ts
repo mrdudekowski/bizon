@@ -1,16 +1,17 @@
+import { SITE_CONTACT } from "@/constants/contact";
 import { getSiteUrl } from "./metadata";
 
 export type ProductStructuredDataInput = {
   name: string;
   description?: string;
-  slug: string;
+  path: string;
   brand?: string;
   category?: string;
 };
 
-/** JSON-LD placeholder — extend when Payload product schema is ready */
 export function createProductStructuredData(product: ProductStructuredDataInput) {
   const siteUrl = getSiteUrl();
+  const path = product.path.startsWith("/") ? product.path : `/${product.path}`;
 
   return {
     "@context": "https://schema.org",
@@ -22,7 +23,7 @@ export function createProductStructuredData(product: ProductStructuredDataInput)
       name: product.brand ?? "BIZON",
     },
     category: product.category,
-    url: `${siteUrl}/shop/product/${product.slug}`,
+    url: `${siteUrl}${path}`,
   };
 }
 
@@ -38,7 +39,8 @@ export function createOrganizationStructuredData() {
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "sales",
-      email: "info@bizontires.example",
+      email: SITE_CONTACT.email,
+      telephone: SITE_CONTACT.phone,
       availableLanguage: ["Russian"],
     },
   };

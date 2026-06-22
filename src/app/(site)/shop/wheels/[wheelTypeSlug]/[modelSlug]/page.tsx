@@ -52,7 +52,7 @@ export default async function WheelModelPage({ params }: PageProps) {
   const structuredData = createProductStructuredData({
     name: model.name,
     description: model.descriptionShort,
-    slug: model.slug,
+    path: modelPath,
     brand: model.series ?? "BIZON",
     category: wheelType.name,
   });

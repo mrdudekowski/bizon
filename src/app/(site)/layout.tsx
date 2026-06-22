@@ -13,6 +13,9 @@ const inter = Inter({
 
 export const metadata: Metadata = createPageMetadata();
 
+/** ponytail: ISR baseline — admin publishes appear within ~60s even without on-demand revalidate */
+export const revalidate = 60;
+
 export default async function SiteLayout({
   children,
 }: {

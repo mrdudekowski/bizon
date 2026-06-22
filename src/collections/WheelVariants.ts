@@ -6,7 +6,7 @@ import {
   catalogWriteAccess,
 } from "@/access/content";
 import { ADMIN_GROUPS, priceFieldsRow, publishedAtField, statusField } from "@/collections/fields";
-import { setPublishedAt } from "@/payload/hooks/setPublishedAt";
+import { catalogContentHooks } from "@/payload/hooks/catalogContentHooks";
 
 export const WheelVariants: CollectionConfig = {
   slug: "wheel-variants",
@@ -26,9 +26,7 @@ export const WheelVariants: CollectionConfig = {
     update: catalogWriteAccess,
     delete: catalogDeleteAccess,
   },
-  hooks: {
-    beforeChange: [setPublishedAt],
-  },
+  hooks: catalogContentHooks,
   fields: [
     {
       name: "wheelModel",

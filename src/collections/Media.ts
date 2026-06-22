@@ -21,6 +21,10 @@ import {
 } from "@/payload/hooks/mediaStorage";
 import { setPublishedAt } from "@/payload/hooks/setPublishedAt";
 import {
+  revalidateSiteCache,
+  revalidateSiteCacheAfterDelete,
+} from "@/payload/hooks/revalidateSiteCache";
+import {
   ALLOWED_MEDIA_MIME_TYPES,
   isS3StorageEnabled,
   MAX_MEDIA_FILE_SIZE_BYTES,
@@ -52,6 +56,8 @@ export const Media: CollectionConfig = {
   },
   hooks: {
     beforeChange: [setMediaStoragePrefix, sanitizeMediaFilename, validateMediaUpload, setPublishedAt],
+    afterChange: [revalidateSiteCache],
+    afterDelete: [revalidateSiteCacheAfterDelete],
   },
   upload: {
     ...(isS3StorageEnabled() ? {} : { staticDir: localMediaDir }),

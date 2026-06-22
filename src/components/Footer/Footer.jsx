@@ -1,3 +1,5 @@
+import { SITE_CONTACT, contactEmailHref } from "@/constants/contact";
+
 /**
  * Футер сайта
  */
@@ -9,7 +11,9 @@ export const Footer = () => {
       <div className="footer-content">
         <span>BIZON Tires</span>
         <span>Premium heavy-duty solutions</span>
-        <span>info@bizontires.example</span>
+        <a href={contactEmailHref()} className="underline">
+          {SITE_CONTACT.email}
+        </a>
         <span>© {year}</span>
       </div>
     </footer>

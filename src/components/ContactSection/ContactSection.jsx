@@ -1,4 +1,9 @@
 import { SECTIONS } from "@/constants/sections";
+import {
+  SITE_CONTACT,
+  contactEmailHref,
+  contactPhoneHref,
+} from "@/constants/contact";
 
 /**
  * Секция контактов
@@ -7,15 +12,17 @@ export const ContactSection = () => {
   const contacts = [
     {
       title: "Телефон",
-      text: "+7 (000) 000-00-00",
+      text: SITE_CONTACT.phone,
+      href: contactPhoneHref(),
     },
     {
       title: "Email",
-      text: "info@bizontires.example",
+      text: SITE_CONTACT.email,
+      href: contactEmailHref(),
     },
     {
       title: "География",
-      text: "Работаем по всей стране — поставки для автопарков.",
+      text: SITE_CONTACT.geography,
     },
   ];
 
@@ -29,7 +36,13 @@ export const ContactSection = () => {
         {contacts.map((contact) => (
           <article key={contact.title} className="card-base info-card">
             <h3 className="info-card-title">{contact.title}</h3>
-            <p className="info-card-text">{contact.text}</p>
+            {contact.href ? (
+              <a href={contact.href} className="info-card-text underline">
+                {contact.text}
+              </a>
+            ) : (
+              <p className="info-card-text">{contact.text}</p>
+            )}
           </article>
         ))}
       </div>
