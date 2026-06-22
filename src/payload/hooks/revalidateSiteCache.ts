@@ -10,15 +10,23 @@ const SITE_PATHS = [
   "/contact",
 ] as const;
 
+function safeRevalidatePath(path: string, type?: "layout" | "page"): void {
+  try {
+    revalidatePath(path, type);
+  } catch {
+    // ponytail: payload run / CLI has no Next static store — ISR revalidate=60 covers seeds
+  }
+}
+
 function revalidatePublicSite(): void {
   for (const path of SITE_PATHS) {
-    revalidatePath(path);
+    safeRevalidatePath(path);
   }
 
-  revalidatePath("/", "layout");
-  revalidatePath("/models", "layout");
-  revalidatePath("/shop", "layout");
-  revalidatePath("/sitemap.xml");
+  safeRevalidatePath("/", "layout");
+  safeRevalidatePath("/models", "layout");
+  safeRevalidatePath("/shop", "layout");
+  safeRevalidatePath("/sitemap.xml");
 }
 
 /** Invalidate static pages after catalog/content saves in Payload admin. */
