@@ -11,7 +11,7 @@
     "admin:fix": "node -e \"require('fs').rmSync('.next',{recursive:true,force:true})\" && cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
     "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
-    "lint": "next lint",
+    "lint": "eslint src scripts payload.config.ts next.config.mjs",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
     "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",

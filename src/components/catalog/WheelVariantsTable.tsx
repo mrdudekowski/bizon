@@ -25,7 +25,7 @@ function formatAvailability(available: boolean): string {
   return available ? "В наличии" : "Под заказ";
 }
 
-export function WheelVariantsTable({ model, variants, modelPath }: WheelVariantsTableProps) {
+export function WheelVariantsTable({ variants, modelPath }: WheelVariantsTableProps) {
   if (variants.length === 0) {
     return (
       <p className="section-description mt-6">

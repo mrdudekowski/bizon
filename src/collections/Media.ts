@@ -4,7 +4,6 @@ import type { CollectionConfig } from "payload";
 
 import {
   catalogDeleteAccess,
-  catalogWriteAccess,
   mediaReadAccess,
   mediaWriteAccess,
 } from "@/access/content";

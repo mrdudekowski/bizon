@@ -1,4 +1,4 @@
-import { mapTireIQArticle, mapPeopleStory } from "./payload/mappers";
+import { mapTireIQArticle } from "./payload/mappers";
 import { findPublished, findPublishedBySlug, findPublishedSlugs } from "./payload/query";
 import type { TireIqArticle } from "@/payload-types";
 import type { CmsArticle } from "./types";
