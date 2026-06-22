@@ -1,31 +1,33 @@
 import { SECTIONS } from "@/constants/sections";
 
 /**
- * Компонент секции преимуществ
- * Отображает карточки с ключевыми преимуществами
+ * Секция преимуществ — светлый premium grid
  */
 export const FeaturesSection = () => {
   const features = [
     {
-      title: "Надежность",
-      description: "Выдерживает тяжелые нагрузки.",
+      title: "Надёжность",
+      description:
+        "Конструкции для экстремальных нагрузок: карьеры, магистрали, бездорожье.",
     },
     {
       title: "Экономичность",
-      description: "Оптимальный ресурс пробега.",
+      description:
+        "Оптимальный ресурс пробега и снижение простоев автопарка.",
     },
     {
       title: "Сервис",
-      description: "Поддержка и консультации.",
+      description:
+        "Подбор, поставки и сопровождение — от консультации до брендирования резины.",
     },
   ];
 
   return (
-    <section id={SECTIONS.FEATURES} className="section">
-      <h2 className="section-title">Преимущества</h2>
+    <section id={SECTIONS.FEATURES} className="section section--muted">
+      <h2 className="section-title">Почему BIZON</h2>
       <p className="section-description">
-        Три ключевых преимущества Bizon Tires, на которые будем опираться
-        при дальнейшем развитии.
+        Премиальный industrial-партнёр для fleet-операторов и владельцев тяжёлой
+        техники — не каталог, а решение под задачу.
       </p>
       <div className="section-grid">
         {features.map((feature) => (

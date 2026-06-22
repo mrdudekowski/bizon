@@ -1,11 +1,13 @@
+import Link from "next/link";
 import BurgerToggle from "../BurgerToggle/BurgerToggle.jsx";
-import { SECTIONS } from "@/constants/sections";
+import { ThemeToggle } from "../ThemeToggle/ThemeToggle.jsx";
+import { HEADER_NAV, ROUTES } from "@/constants/navigation";
 
 /**
  * Компонент хедера сайта
  * Содержит навигацию, логотип и кнопку контакта
  */
-export const Header = ({ menuOpen, onMenuToggle, onScrollToSection, onScrollToTop }) => {
+export const Header = ({ menuOpen, onMenuToggle }) => {
   return (
     <header className="site-header">
       <div className="navbar">
@@ -17,34 +19,28 @@ export const Header = ({ menuOpen, onMenuToggle, onScrollToSection, onScrollToTo
           <BurgerToggle isOpen={menuOpen} onToggle={onMenuToggle} />
         </div>
 
-        <button
-          type="button"
-          className="brand"
-          aria-label="Bizon Tires"
-          onClick={onScrollToTop}
-        >
+        <Link className="brand" href={ROUTES.home} aria-label="Bizon Tires — на главную">
           <img
-            src="bizon_inverted_hd.svg"
+            src="/bizon_inverted_hd.svg"
             alt="Bizon Tires"
             className="brand-logo"
-            draggable="false"
+            draggable={false}
             onDragStart={(event) => event.preventDefault()}
           />
-        </button>
+        </Link>
 
         <div className="nav-actions">
+          <ThemeToggle />
           <nav className="desktop-nav" aria-label="Основная навигация">
-            <a href={`#${SECTIONS.PRODUCTS}`}>Продукты</a>
-            <a href={`#${SECTIONS.FEATURES}`}>Преимущества</a>
-            <a href={`#${SECTIONS.CONTACT}`}>Контакты</a>
+            {HEADER_NAV.map((item) => (
+              <Link key={item.href} href={item.href}>
+                {item.label}
+              </Link>
+            ))}
           </nav>
-          <button
-            type="button"
-            className="contact-button"
-            onClick={() => onScrollToSection(SECTIONS.CONTACT)}
-          >
+          <Link href={ROUTES.contact} className="contact-button">
             Связаться
-          </button>
+          </Link>
         </div>
       </div>
     </header>

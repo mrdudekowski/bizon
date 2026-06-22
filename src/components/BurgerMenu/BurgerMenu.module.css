@@ -132,6 +132,18 @@
   border-radius: 12px;
   padding: 16px;
   min-height: 140px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform var(--transition-fast);
+}
+
+.submenuCardSingle {
+  grid-template-columns: minmax(0, 1fr);
+  min-height: auto;
+}
+
+.submenuCard:hover {
+  transform: var(--transform-hover-lift);
 }
 
 .imagePlaceholder {

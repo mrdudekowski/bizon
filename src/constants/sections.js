@@ -7,5 +7,6 @@ export const SECTIONS = {
   HERO: 'hero',
   PRODUCTS: 'products',
   FEATURES: 'features',
+  ACCESSORIES: 'accessories',
   CONTACT: 'contact',
 };

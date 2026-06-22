@@ -1,8 +1,7 @@
 import { SECTIONS } from "@/constants/sections";
 
 /**
- * Компонент секции контактов
- * Отображает контактную информацию
+ * Секция контактов
  */
 export const ContactSection = () => {
   const contacts = [
@@ -16,7 +15,7 @@ export const ContactSection = () => {
     },
     {
       title: "География",
-      text: "Работаем по всей стране.",
+      text: "Работаем по всей стране — поставки для автопарков.",
     },
   ];
 
@@ -24,7 +23,7 @@ export const ContactSection = () => {
     <section id={SECTIONS.CONTACT} className="section">
       <h2 className="section-title">Контакты</h2>
       <p className="section-description">
-        Свяжитесь с нами для расчета или консультации.
+        Свяжитесь с нами для расчёта, подбора шин или консультации по парку.
       </p>
       <div className="section-grid">
         {contacts.map((contact) => (

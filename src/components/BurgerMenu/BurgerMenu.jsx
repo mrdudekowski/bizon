@@ -1,11 +1,13 @@
+"use client";
+
 import { useEffect, useMemo, useState } from "react";
-import menuItems from "./menuData.js";
+import Link from "next/link";
 import styles from "./BurgerMenu.module.css";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { parseBulletPoints } from "@/utils/textUtils";
 
-const BurgerMenu = ({ isOpen, onClose }) => {
+const BurgerMenu = ({ isOpen, onClose, menuItems = [] }) => {
   const isMobile = useMediaQuery("(max-width: 768px)");
   const [activeId, setActiveId] = useState(menuItems[0]?.id ?? null);
   const [contentId, setContentId] = useState(menuItems[0]?.id ?? null);
@@ -14,11 +16,18 @@ const BurgerMenu = ({ isOpen, onClose }) => {
 
   const activeContentItem = useMemo(
     () => menuItems.find((item) => item.id === contentId),
-    [contentId]
+    [contentId, menuItems],
   );
 
   const showRightPane = !isMobile || submenuView;
   const showLeftPane = !isMobile || !submenuView;
+
+  useEffect(() => {
+    if (menuItems[0]?.id) {
+      setActiveId(menuItems[0].id);
+      setContentId(menuItems[0].id);
+    }
+  }, [menuItems]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -125,7 +134,12 @@ const BurgerMenu = ({ isOpen, onClose }) => {
               {activeContentItem?.hasSubmenu ? (
                 <div className={styles.submenuContent}>
                   {activeContentItem.submenu?.map((submenuItem) => (
-                    <div className={styles.submenuCard} key={submenuItem.id || submenuItem.name}>
+                    <Link
+                      className={styles.submenuCard}
+                      href={submenuItem.link}
+                      key={submenuItem.id || submenuItem.name}
+                      onClick={onClose}
+                    >
                       {"image" in submenuItem && (
                         <div className={styles.imagePlaceholder}>
                           IMAGE PLACEHOLDER
@@ -150,9 +164,22 @@ const BurgerMenu = ({ isOpen, onClose }) => {
                           </div>
                         )}
                       </div>
-                    </div>
+                    </Link>
                   ))}
                 </div>
+              ) : activeContentItem?.href ? (
+                <Link
+                  className={`${styles.submenuCard} ${styles.submenuCardSingle}`}
+                  href={activeContentItem.href}
+                  onClick={onClose}
+                >
+                  <div className={styles.submenuText}>
+                    <span className={styles.submenuName}>{activeContentItem.label}</span>
+                    <span className={styles.submenuDescription}>
+                      Перейти в раздел
+                    </span>
+                  </div>
+                </Link>
               ) : (
                 <p className={styles.comingSoon}>Скоро будет доступно.</p>
               )}

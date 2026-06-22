@@ -1,13 +1,14 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react';
-import tireTypesData from '@/data/tireTypes.json';
+"use client";
+
+import React, { useRef, useState, useEffect, useCallback, useMemo } from 'react';
 import { useThrottledCallback } from '@/hooks/useThrottledCallback';
 import { useDebouncedCallback } from '@/hooks/useDebouncedCallback';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { parseBulletPoints } from '@/utils/textUtils';
 
-const CAROUSEL_GAP_PX = 16;
+const CAROUSEL_GAP_PX = 24;
 
-const ProductCarousel = () => {
+const ProductCarousel = ({ items = [] }) => {
   const trackRef = useRef(null);
   const isDraggingRef = useRef(false);
   const dragStartXRef = useRef(0);
@@ -19,29 +20,20 @@ const ProductCarousel = () => {
   const isMobilePagination = useMediaQuery('(max-width: 639px)');
   const dataLengthRef = useRef(0);
 
-  const [data, setData] = useState([]);
-  const [error, setError] = useState(null);
+  const data = useMemo(
+    () =>
+      items.map((item) => ({
+        id: item.slug,
+        name: item.name,
+        description_short: item.shortDescription,
+      })),
+    [items],
+  );
+  const error = data.length === 0 ? 'Нет доступных категорий шин' : null;
 
   useEffect(() => {
     dataLengthRef.current = data.length;
   }, [data.length]);
-
-  useEffect(() => {
-    try {
-      if (!tireTypesData || !Array.isArray(tireTypesData)) {
-        throw new Error('Данные о шинах имеют неверный формат');
-      }
-      
-      if (tireTypesData.length === 0) {
-        throw new Error('Данные о шинах не найдены');
-      }
-      
-      setData(tireTypesData);
-    } catch (err) {
-      console.error('Ошибка загрузки данных о шинах:', err);
-      setError(err.message);
-    }
-  }, []);
 
   const updateArrowState = useCallback(() => {
     const track = trackRef.current;
@@ -199,17 +191,19 @@ const ProductCarousel = () => {
   // Split description_short by bullet points
   const renderCard = (tire) => {
     const bulletPoints = parseBulletPoints(tire.description_short);
+    const summary = bulletPoints.slice(0, 3).join(" · ");
 
     return (
-      <article key={tire.id} className="card-base product-card">
-        <h3 className="product-card-title">{tire.name}</h3>
-        <ul className="product-card-list">
-          {bulletPoints.map((item) => (
-            <li key={`${tire.id}-${item.substring(0, 20)}`} className="product-card-item">
-              • {item}
-            </li>
-          ))}
-        </ul>
+      <article key={tire.id} className="category-card">
+        <div className="category-card-media" aria-hidden="true" />
+        <div className="category-card-overlay" aria-hidden="true" />
+        <div className="category-card-content">
+          <h3 className="category-card-title">{tire.name}</h3>
+          {summary && <p className="category-card-desc">{summary}</p>}
+        </div>
+        <span className="category-card-arrow" aria-hidden="true">
+          →
+        </span>
       </article>
     );
   };
@@ -219,7 +213,7 @@ const ProductCarousel = () => {
     return (
       <div className="product-carousel" role="alert" aria-live="assertive">
         <div className="section">
-          <p className="section-description" style={{ color: 'var(--color-muted)' }}>
+          <p className="section-description">
             Ошибка загрузки данных: {error}
           </p>
         </div>
@@ -231,7 +225,7 @@ const ProductCarousel = () => {
     return (
       <div className="product-carousel" role="status" aria-live="polite">
         <div className="section">
-          <p className="section-description" style={{ color: 'var(--color-muted)' }}>
+          <p className="section-description">
             Нет доступных продуктов
           </p>
         </div>

@@ -11,6 +11,8 @@ coverage/
 # Production build
 dist/
 build/
+.next/
+out/
 *.local
 
 # Environment variables
@@ -60,5 +62,11 @@ Desktop.ini
 *.temp
 .cache/
 
-# Catalog (generated PDF, models, use-cases)
-catalog/
+# Catalog (generated PDF, models, use-cases) — repo root only, not src/components/catalog/
+/catalog/
+
+# Project documentation (local only, not in repo)
+docs/
+
+# Payload reference monorepo (not used — app uses npm @payloadcms/*)
+payload-bizon/

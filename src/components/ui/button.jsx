@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva } from "class-variance-authority";
@@ -12,21 +14,28 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground shadow hover:bg-primary/90",
+          "rounded-xl bg-[var(--bizon-black)] text-white shadow hover:bg-[var(--bizon-dark)] hover:-translate-y-0.5 transition-all duration-300",
+        primary:
+          "rounded-xl bg-[var(--bizon-black)] text-white hover:bg-[var(--bizon-dark)] hover:-translate-y-0.5 transition-all duration-300",
+        accent:
+          "rounded-xl bg-[var(--bizon-accent)] text-[var(--bizon-black)] font-semibold hover:bg-[var(--bizon-accent-dark)] hover:-translate-y-0.5 transition-all duration-300",
+        secondary:
+          "rounded-xl border border-foreground/20 bg-transparent hover:bg-secondary hover:-translate-y-0.5 transition-all duration-300",
+        ghost:
+          "rounded-xl border border-current bg-transparent hover:-translate-y-0.5 transition-all duration-300",
+        glass:
+          "rounded-xl border border-white/20 bg-white/20 text-white backdrop-blur-xl hover:bg-white/30 hover:-translate-y-0.5 transition-all duration-300",
         destructive:
           "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
         outline:
           "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
-        secondary:
-          "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
-        default: "h-9 px-4 py-2",
-        sm: "h-8 rounded-md px-3 text-xs",
-        lg: "h-10 rounded-md px-8",
-        icon: "h-9 w-9",
+        default: "min-h-11 px-8 py-4 text-lg",
+        sm: "min-h-9 rounded-lg px-4 text-sm",
+        lg: "min-h-12 rounded-xl px-10 py-4 text-lg",
+        icon: "h-11 w-11",
       },
     },
     defaultVariants: {

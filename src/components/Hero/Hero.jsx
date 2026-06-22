@@ -1,39 +1,51 @@
+"use client";
+
 import { SECTIONS } from "@/constants/sections";
+import { useScrollToSection } from "@/hooks/useScrollToSection";
 
 /**
- * Компонент hero секции
- * Главный экран с призывом к действию
+ * Cinematic hero — premium industrial first screen
  */
-export const Hero = ({ onScrollToSection }) => {
+export const Hero = () => {
+  const scrollToSection = useScrollToSection();
+
   return (
     <section id={SECTIONS.HERO} className="hero">
-      <div className="hero-content">
-        <p className="eyebrow">Большегрузная резина</p>
-        <h1>Уверенное сцепление на любых дорогах</h1>
-        <p className="hero-text">
-          Bizon Tires — шины для магистралей, карьеров и бездорожья.
-          Минималистичный и тестируемый скелет для дальнейшего развития.
-        </p>
-        <div className="hero-actions">
-          <button
-            type="button"
-            className="cta-button"
-            onClick={() => onScrollToSection(SECTIONS.PRODUCTS)}
-          >
-            Каталог
-          </button>
-          <button
-            type="button"
-            className="ghost-button"
-            onClick={() => onScrollToSection(SECTIONS.FEATURES)}
-          >
-            Подробнее
-          </button>
+      <div className="hero-media" aria-hidden="true">
+        <div className="hero-media-bg image-placeholder">
+          Hero media
+        </div>
+        <div className="hero-overlay" />
+      </div>
+
+      <div className="hero-container">
+        <div className="hero-content">
+          <p className="eyebrow">BIZON · большегрузная резина</p>
+          <h1>Уверенное сцепление на любых дорогах</h1>
+          <p className="hero-text">
+            Шины для магистралей, карьеров и бездорожья. Поставки для автопарков,
+            подбор под тяжёлую технику и индивидуальное изготовление.
+          </p>
+          <div className="hero-actions">
+            <button
+              type="button"
+              className="btn-accent"
+              onClick={() => scrollToSection(SECTIONS.PRODUCTS)}
+            >
+              Каталог
+            </button>
+            <button
+              type="button"
+              className="btn-glass"
+              onClick={() => scrollToSection(SECTIONS.FEATURES)}
+            >
+              Подробнее
+            </button>
+          </div>
         </div>
       </div>
-      <div className="hero-media" aria-hidden="true">
-        <div className="image-placeholder">IMAGE PLACEHOLDER</div>
-      </div>
+
+      <div className="hero-scroll-hint" aria-hidden="true" />
     </section>
   );
 };
