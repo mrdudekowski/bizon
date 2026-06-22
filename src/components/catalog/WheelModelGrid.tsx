@@ -187,6 +187,8 @@ export function WheelModelGrid({ models, variants, typeBasePath }: WheelModelGri
               title={model.name}
               description={model.descriptionShort}
               meta={[model.series, model.designStyle].filter(Boolean).join(" · ") || null}
+              imageUrl={model.imageUrl}
+              imageAlt={model.name}
             />
           ))}
         </div>

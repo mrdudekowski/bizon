@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getAllPeopleStorySlugs, getPeopleStoryBySlug } from "@/lib/cms";
 import { createPageMetadata } from "@/lib/seo/metadata";
+import { CatalogImage } from "@/components/catalog/CatalogImage";
 import { PageHeader } from "@/components/catalog/PageHeader";
 
 type PageProps = {
@@ -43,11 +44,17 @@ export default async function PeopleStoryPage({ params }: PageProps) {
           { href: `/people-stories/${story.slug}`, label: story.title },
         ]}
       />
+      <div className="catalog-detail-media mb-6 max-w-3xl">
+        <CatalogImage src={story.imageUrl} alt={story.title} />
+      </div>
       <article className="card-base info-card max-w-3xl">
         <p className="text-sm text-muted mb-4">{story.publishedAt}</p>
-        <p className="info-card-text">
-          Полный текст истории будет загружен из Payload CMS (People Stories collection).
-        </p>
+        {story.clientName || story.industry ? (
+          <p className="text-sm text-muted mb-4">
+            {[story.clientName, story.industry].filter(Boolean).join(" · ")}
+          </p>
+        ) : null}
+        <p className="info-card-text whitespace-pre-line">{story.content}</p>
       </article>
       <p className="mt-8">
         <Link href="/people-stories" className="btn-glass inline-flex">

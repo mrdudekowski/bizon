@@ -9,12 +9,14 @@ export type CmsProduct = {
   brand: string;
   descriptionShort: string;
   descriptionLong: string;
+  imageUrl?: string | null;
 };
 
 export type CmsShopCategory = {
   slug: string;
   name: string;
   description: string;
+  imageUrl?: string | null;
 };
 
 export type CmsTireType = {
@@ -24,6 +26,7 @@ export type CmsTireType = {
   shortDescription: string;
   sortOrder: number;
   showInMenu: boolean;
+  imageUrl?: string | null;
 };
 
 export type CmsTireModel = {
@@ -36,6 +39,7 @@ export type CmsTireModel = {
   brand: string;
   descriptionShort: string;
   descriptionLong: string;
+  imageUrl?: string | null;
   application?: string;
   axlePosition?: string;
   treadType?: string;
@@ -66,9 +70,14 @@ export type CmsArticle = {
   title: string;
   excerpt: string;
   publishedAt: string;
+  content: string;
+  imageUrl?: string | null;
 };
 
-export type CmsStory = CmsArticle;
+export type CmsStory = CmsArticle & {
+  clientName?: string;
+  industry?: string;
+};
 
 export type WheelModelRouteParam = {
   wheelTypeSlug: string;
@@ -81,6 +90,7 @@ export type CmsWheelType = {
   description: string;
   shortDescription: string;
   sortOrder: number;
+  imageUrl?: string | null;
 };
 
 export type CmsWheelModel = {
@@ -96,6 +106,7 @@ export type CmsWheelModel = {
   fitmentNotes?: string;
   descriptionShort: string;
   descriptionLong: string;
+  imageUrl?: string | null;
   documents?: { url: string; title: string }[];
 };
 

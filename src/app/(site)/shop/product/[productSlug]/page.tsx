@@ -4,6 +4,7 @@ import { getAllShopProductSlugs, getShopProductBySlug } from "@/lib/cms";
 import { createProductMetadata } from "@/lib/seo/metadata";
 import { createProductStructuredData } from "@/lib/seo/structuredData";
 import { PageHeader } from "@/components/catalog/PageHeader";
+import { AddToCartButton } from "@/components/cart/AddToCartButton";
 import { ProductQuickOrderForm } from "@/components/forms/ContactForm";
 
 type PageProps = {
@@ -57,6 +58,19 @@ export default async function ProductPage({ params }: PageProps) {
       <article className="card-base info-card max-w-3xl">
         <p className="info-card-text">{product.descriptionLong}</p>
       </article>
+      <div className="mt-8 flex flex-wrap items-center gap-4">
+        <AddToCartButton
+          item={{
+            itemType: "shopProduct",
+            itemId: product.id,
+            name: product.name,
+            slug: product.slug,
+            url: `/shop/product/${product.slug}`,
+            quantity: 1,
+            priceOnRequest: true,
+          }}
+        />
+      </div>
       <div className="mt-8">
         <ProductQuickOrderForm
           productSlug={product.slug}

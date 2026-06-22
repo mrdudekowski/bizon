@@ -48,6 +48,8 @@ export default async function ShopCategoryPage({ params }: PageProps) {
         title: product.name,
         description: product.descriptionShort,
         meta: product.brand,
+        imageUrl: product.imageUrl,
+        imageAlt: product.name,
       }))}
       emptyMessage="Товары в этой категории скоро появятся."
       footerLink={{ href: "/shop", label: "← Все категории" }}

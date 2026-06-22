@@ -14,12 +14,6 @@ export async function getWheelTypeBySlug(slug: string): Promise<CmsWheelType | n
   return doc ? mapWheelType(doc as WheelType) : null;
 }
 
-/** ponytail: first published type while catalog has one row (forged MVP) */
-export async function getDefaultWheelType(): Promise<CmsWheelType | null> {
-  const types = await getWheelTypes();
-  return types[0] ?? null;
-}
-
 export async function getAllWheelTypeSlugs(): Promise<string[]> {
   return (await findPublishedSlugs("wheel-types")) ?? [];
 }

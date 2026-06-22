@@ -1,6 +1,9 @@
 import type {
+  Media,
+  PeopleStory,
   Product,
   ShopCategory,
+  TireIqArticle,
   TireModel,
   TireType,
   TireVariant,
@@ -10,8 +13,10 @@ import type {
 } from "@/payload-types";
 
 import type {
+  CmsArticle,
   CmsProduct,
   CmsShopCategory,
+  CmsStory,
   CmsTireModel,
   CmsTireType,
   CmsTireVariant,
@@ -23,6 +28,10 @@ import { formatPublishedDate, lexicalToPlainText } from "./richText";
 import { resolveMedia } from "../media";
 
 const DEFAULT_BRAND = "DOUBLESTAR";
+
+function mapImageUrl(media: Media | number | null | undefined): string | null {
+  return resolveMedia(media, "card")?.url ?? null;
+}
 
 export function resolveRelationSlug(
   relation: number | { slug?: string | null } | null | undefined,
@@ -58,6 +67,7 @@ export function mapProduct(doc: Product): CmsProduct {
     brand: DEFAULT_BRAND,
     descriptionShort,
     descriptionLong,
+    imageUrl: mapImageUrl(doc.mainImage),
   };
 }
 
@@ -69,6 +79,7 @@ export function mapTireType(doc: TireType): CmsTireType {
     shortDescription: doc.shortDescription?.trim() || doc.description?.trim() || doc.name,
     sortOrder: doc.sortOrder ?? 0,
     showInMenu: doc.showInMenu ?? true,
+    imageUrl: mapImageUrl(doc.coverImage),
   };
 }
 
@@ -95,19 +106,7 @@ export function mapTireModelDetail(doc: TireModel): CmsTireModel {
     application: doc.application?.trim() || undefined,
     axlePosition: doc.axlePosition?.trim() || undefined,
     treadType: doc.treadType?.trim() || undefined,
-  };
-}
-
-export function mapTireModel(doc: TireModel): CmsProduct {
-  const detail = mapTireModelDetail(doc);
-  return {
-    slug: detail.slug,
-    name: detail.name,
-    categorySlug: detail.tireTypeSlug,
-    type: detail.tireTypeSlug,
-    brand: detail.brand,
-    descriptionShort: detail.descriptionShort,
-    descriptionLong: detail.descriptionLong,
+    imageUrl: mapImageUrl(doc.mainImage),
   };
 }
 
@@ -135,6 +134,7 @@ export function mapWheelType(doc: WheelType): CmsWheelType {
     description: doc.description?.trim() || doc.name,
     shortDescription: doc.shortDescription?.trim() || doc.description?.trim() || doc.name,
     sortOrder: doc.sortOrder ?? 0,
+    imageUrl: mapImageUrl(doc.coverImage),
   };
 }
 
@@ -169,6 +169,7 @@ export function mapWheelModelDetail(doc: WheelModel): CmsWheelModel {
     descriptionShort,
     descriptionLong,
     documents,
+    imageUrl: mapImageUrl(doc.mainImage),
   };
 }
 
@@ -206,19 +207,37 @@ export function mapShopCategory(doc: ShopCategory): CmsShopCategory {
     slug: doc.slug,
     name: doc.name,
     description: doc.description?.trim() || doc.name,
+    imageUrl: mapImageUrl(doc.coverImage),
   };
 }
 
-export function mapArticleLike(doc: {
+function mapArticleBase(doc: {
   slug: string;
   title: string;
   excerpt?: string | null;
   publishedAt?: string | null;
-}) {
+  content?: unknown;
+  featuredImage?: Media | number | null;
+}): CmsArticle {
+  const excerpt = doc.excerpt?.trim() || doc.title;
   return {
     slug: doc.slug,
     title: doc.title,
-    excerpt: doc.excerpt?.trim() || doc.title,
+    excerpt,
     publishedAt: formatPublishedDate(doc.publishedAt),
+    content: lexicalToPlainText(doc.content) || excerpt,
+    imageUrl: mapImageUrl(doc.featuredImage),
+  };
+}
+
+export function mapTireIQArticle(doc: TireIqArticle): CmsArticle {
+  return mapArticleBase(doc);
+}
+
+export function mapPeopleStory(doc: PeopleStory): CmsStory {
+  return {
+    ...mapArticleBase(doc),
+    clientName: doc.clientName?.trim() || undefined,
+    industry: doc.industry?.trim() || undefined,
   };
 }

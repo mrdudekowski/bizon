@@ -8,4 +8,6 @@ export { WheelModels } from "./WheelModels";
 export { WheelVariants } from "./WheelVariants";
 export { ShopCategories } from "./ShopCategories";
 export { Requests } from "./Requests";
+export { TireIQArticles } from "./TireIQArticles";
+export { PeopleStories } from "./PeopleStories";
 export { Users } from "./Users";

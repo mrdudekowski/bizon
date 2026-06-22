@@ -2,6 +2,8 @@ import type { CollectionSlug, Payload, Where } from "payload";
 
 import { getPayload } from "@/lib/payload/getPayload";
 
+type PayloadFindOptions = Parameters<Payload["find"]>[0];
+
 export const PUBLISHED_STATUS_WHERE: Where = {
   status: { equals: "published" },
 };
@@ -19,7 +21,7 @@ export async function withPayload<T>(query: (payload: Payload) => Promise<T>): P
 
 export async function findPublished<T extends CollectionSlug>(
   collection: T,
-  options: Omit<Parameters<Payload["find"]>[0], "collection"> = {},
+  options: Omit<PayloadFindOptions, "collection"> = {},
 ) {
   return withPayload(async (payload) => {
     const { where: extraWhere, ...rest } = options;
@@ -28,6 +30,7 @@ export async function findPublished<T extends CollectionSlug>(
         ? { and: [PUBLISHED_STATUS_WHERE, extraWhere] }
         : PUBLISHED_STATUS_WHERE;
 
+    // ponytail: CollectionSlug union exceeds TS inference limit — cast at query boundary
     const result = await payload.find({
       collection,
       where,
@@ -35,7 +38,7 @@ export async function findPublished<T extends CollectionSlug>(
       depth: 1,
       sort: "-updatedAt",
       ...rest,
-    });
+    } as PayloadFindOptions);
 
     return result.docs;
   });
@@ -56,7 +59,7 @@ export async function findPublishedBySlug<T extends CollectionSlug>(
       },
       limit: 1,
       depth: 1,
-    });
+    } as PayloadFindOptions);
 
     return result.docs[0] ?? null;
   });
@@ -70,7 +73,7 @@ export async function findPublishedSlugs(collection: CollectionSlug): Promise<st
       limit: 500,
       depth: 0,
       select: { slug: true },
-    });
+    } as PayloadFindOptions);
 
     return result.docs
       .map((doc) => ("slug" in doc && typeof doc.slug === "string" ? doc.slug : null))

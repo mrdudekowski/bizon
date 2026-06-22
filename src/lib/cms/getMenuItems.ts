@@ -45,7 +45,8 @@ export async function getMenuItems() {
       name: type.name,
       description: type.shortDescription,
       link: `${ROUTES.models}/${type.slug}`,
-      image: "placeholder.jpg",
+      image: true,
+      imageUrl: type.imageUrl,
     }));
 
   return [

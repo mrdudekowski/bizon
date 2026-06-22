@@ -27,9 +27,6 @@ export async function getShopProducts(options: ShopProductsOptions = {}): Promis
   return docs.map((doc) => mapProduct(doc as Product));
 }
 
-/** @deprecated Use getShopProducts */
-export const getProducts = getShopProducts;
-
 export async function getShopProductsByCategorySlug(categorySlug: string): Promise<CmsProduct[]> {
   return getShopProducts({ categorySlug });
 }
@@ -45,6 +42,3 @@ export async function getAllShopProductSlugs(): Promise<string[]> {
     .map((doc) => ("slug" in doc && typeof doc.slug === "string" ? doc.slug : null))
     .filter((slug): slug is string => Boolean(slug));
 }
-
-/** @deprecated Use getAllShopProductSlugs */
-export const getAllProductSlugs = getAllShopProductSlugs;

@@ -1,14 +1,19 @@
+import { mapTireIQArticle, mapPeopleStory } from "./payload/mappers";
+import { findPublished, findPublishedBySlug, findPublishedSlugs } from "./payload/query";
+import type { TireIqArticle } from "@/payload-types";
 import type { CmsArticle } from "./types";
 
-/** ponytail: Tire IQ collection not in Payload yet — returns empty until phase 7 */
 export async function getTireIQArticles(): Promise<CmsArticle[]> {
-  return [];
+  const docs = await findPublished("tire-iq-articles", { sort: "-publishedAt" });
+  if (!docs?.length) return [];
+  return docs.map((doc) => mapTireIQArticle(doc as TireIqArticle));
 }
 
-export async function getTireIQArticleBySlug(_slug: string): Promise<CmsArticle | null> {
-  return null;
+export async function getTireIQArticleBySlug(slug: string): Promise<CmsArticle | null> {
+  const doc = await findPublishedBySlug("tire-iq-articles", slug);
+  return doc ? mapTireIQArticle(doc as TireIqArticle) : null;
 }
 
 export async function getAllTireIQSlugs(): Promise<string[]> {
-  return [];
+  return (await findPublishedSlugs("tire-iq-articles")) ?? [];
 }

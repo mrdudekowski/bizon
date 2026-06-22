@@ -4,40 +4,10 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 import { HONEYPOT_FIELD } from "@/lib/requests/validateRequest";
+import { submitRequest } from "@/lib/requests/submitRequest";
 import type { RequestItemInput } from "@/types/requestItem";
 
 type SubmitStatus = "idle" | "loading" | "success" | "error";
-
-type SubmitRequestOptions = {
-  sourceForm: string;
-  sourcePage?: string;
-  body: Record<string, unknown>;
-};
-
-async function submitRequest({ sourceForm, sourcePage, body }: SubmitRequestOptions) {
-  const response = await fetch("/api/requests", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      ...body,
-      sourceForm,
-      sourcePage,
-      [HONEYPOT_FIELD]: "",
-    }),
-  });
-
-  const data = (await response.json()) as {
-    ok?: boolean;
-    message?: string;
-    error?: string;
-  };
-
-  if (!response.ok || !data.ok) {
-    throw new Error(data.message ?? "Request failed");
-  }
-
-  return data;
-}
 
 export function ContactForm() {
   const pathname = usePathname();

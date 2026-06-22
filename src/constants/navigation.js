@@ -19,14 +19,18 @@ export const HEADER_NAV = [
   { label: "Контакты", href: ROUTES.contact },
 ];
 
-/** Static routes included in sitemap */
+/** Static routes always in sitemap (listing hubs with Payload-backed children). */
 export const SITEMAP_STATIC_ROUTES = [
   ROUTES.home,
   ROUTES.models,
   ROUTES.shop,
-  ROUTES.tireIq,
-  ROUTES.peopleStories,
   ROUTES.contact,
   ROUTES.warranty,
   ROUTES.about,
 ];
+
+/** Content list routes — add to sitemap only when published items exist. */
+export const SITEMAP_CONTENT_LIST_ROUTES = {
+  tireIq: ROUTES.tireIq,
+  peopleStories: ROUTES.peopleStories,
+};

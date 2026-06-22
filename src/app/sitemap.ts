@@ -9,8 +9,17 @@ import {
   getAllWheelModelRouteParams,
   getAllWheelTypeSlugs,
 } from "@/lib/cms";
-import { SITEMAP_STATIC_ROUTES } from "@/constants/navigation";
+import { SITEMAP_CONTENT_LIST_ROUTES, SITEMAP_STATIC_ROUTES } from "@/constants/navigation";
 import { getSiteUrl } from "@/lib/seo/metadata";
+
+function listRouteEntry(path: string): MetadataRoute.Sitemap[number] {
+  return {
+    url: `${getSiteUrl()}${path}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.6,
+  };
+}
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = getSiteUrl();
@@ -88,22 +97,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     });
   }
 
-  for (const slug of articleSlugs) {
-    entries.push({
-      url: `${siteUrl}/tire-iq/${slug}`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.6,
-    });
+  if (articleSlugs.length > 0) {
+    entries.push(listRouteEntry(SITEMAP_CONTENT_LIST_ROUTES.tireIq));
+    for (const slug of articleSlugs) {
+      entries.push({
+        url: `${siteUrl}/tire-iq/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.6,
+      });
+    }
   }
 
-  for (const slug of storySlugs) {
-    entries.push({
-      url: `${siteUrl}/people-stories/${slug}`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.6,
-    });
+  if (storySlugs.length > 0) {
+    entries.push(listRouteEntry(SITEMAP_CONTENT_LIST_ROUTES.peopleStories));
+    for (const slug of storySlugs) {
+      entries.push({
+        url: `${siteUrl}/people-stories/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.6,
+      });
+    }
   }
 
   return entries;

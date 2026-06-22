@@ -72,6 +72,7 @@ export const ADMIN_GROUPS = {
   catalog: "Каталог",
   tireCatalog: "Каталог шин",
   wheelCatalog: "Каталог дисков",
+  content: "Контент",
   media: "Медиа",
   sales: "Продажи",
   settings: "Настройки",

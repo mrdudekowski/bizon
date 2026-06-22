@@ -12,6 +12,27 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: bizon
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d bizon"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DATABASE_URI: postgresql://postgres:postgres@localhost:5432/bizon
+      PAYLOAD_SECRET: ci-build-placeholder-secret-min-32-chars-long
+      NEXT_PUBLIC_SITE_URL: https://bizontires.example
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -25,9 +46,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Seed database
+        run: npm run seed:all
+
+      - name: Verify database
+        run: npm run verify:db
+
       - name: Build
         run: npm run build
-        env:
-          NEXT_PUBLIC_SITE_URL: https://bizontires.example
-          PAYLOAD_SECRET: ci-build-placeholder-secret-min-32-chars-long
-          DATABASE_URI: postgresql://postgres:postgres@127.0.0.1:5432/bizon

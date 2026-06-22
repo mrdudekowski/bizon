@@ -6,7 +6,7 @@ import {
   catalogWriteAccess,
 } from "@/access/content";
 import { ADMIN_GROUPS, priceFieldsRow, publishedAtField, statusField } from "@/collections/fields";
-import { setPublishedAt } from "@/hooks/setPublishedAt";
+import { setPublishedAt } from "@/payload/hooks/setPublishedAt";
 
 export const TireVariants: CollectionConfig = {
   slug: "tire-variants",

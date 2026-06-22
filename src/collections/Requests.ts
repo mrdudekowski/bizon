@@ -15,7 +15,7 @@ import {
   SOURCE_FORMS,
   priceFieldsRow,
 } from "@/collections/fields";
-import { hydrateRequestItems } from "@/hooks/hydrateRequestItems";
+import { hydrateRequestItems } from "@/payload/hooks/hydrateRequestItems";
 
 export const Requests: CollectionConfig = {
   slug: "requests",

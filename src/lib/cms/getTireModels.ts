@@ -1,13 +1,7 @@
-import { mapTireModel, mapTireModelDetail, resolveRelationSlug } from "./payload/mappers";
+import { mapTireModelDetail, resolveRelationSlug } from "./payload/mappers";
 import { findPublished, findPublishedBySlug } from "./payload/query";
 import type { TireModel } from "@/payload-types";
-import type { CmsProduct, CmsTireModel, TireModelRouteParam } from "./types";
-
-export async function getTireModels(): Promise<CmsProduct[]> {
-  const docs = await findPublished("tire-models");
-  if (!docs?.length) return [];
-  return docs.map((doc) => mapTireModel(doc as TireModel));
-}
+import type { CmsTireModel, TireModelRouteParam } from "./types";
 
 export async function getTireModelsByTypeSlug(tireTypeSlug: string): Promise<CmsTireModel[]> {
   const normalized = tireTypeSlug?.trim().toLowerCase();
@@ -24,11 +18,6 @@ export async function getTireModelsByTypeSlug(tireTypeSlug: string): Promise<Cms
   return docs.map((doc) => mapTireModelDetail(doc as TireModel));
 }
 
-export async function getTireModelBySlug(slug: string): Promise<CmsProduct | null> {
-  const doc = await findPublishedBySlug("tire-models", slug);
-  return doc ? mapTireModel(doc as TireModel) : null;
-}
-
 export async function getTireModelByTypeAndSlug(
   tireTypeSlug: string,
   modelSlug: string,
@@ -39,11 +28,6 @@ export async function getTireModelByTypeAndSlug(
 
   const model = mapTireModelDetail(doc as TireModel);
   return model.tireTypeSlug === normalizedType ? model : null;
-}
-
-export async function getAllTireModelSlugs(): Promise<string[]> {
-  const params = await getAllTireModelRouteParams();
-  return params.map((item) => item.modelSlug);
 }
 
 export async function getAllTireModelRouteParams(): Promise<TireModelRouteParam[]> {

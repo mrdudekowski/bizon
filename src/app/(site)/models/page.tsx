@@ -21,6 +21,8 @@ export default async function ModelsPage() {
         href: `/models/${type.slug}`,
         title: type.name,
         description: type.shortDescription,
+        imageUrl: type.imageUrl,
+        imageAlt: type.name,
       }))}
     />
   );

@@ -7,9 +7,11 @@ import sharp from "sharp";
 
 import {
   Media,
+  PeopleStories,
   Products,
   Requests,
   ShopCategories,
+  TireIQArticles,
   TireModels,
   TireTypes,
   TireVariants,
@@ -55,6 +57,8 @@ export default buildConfig({
     WheelVariants,
     Products,
     Requests,
+    TireIQArticles,
+    PeopleStories,
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",

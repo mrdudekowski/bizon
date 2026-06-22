@@ -146,16 +146,15 @@
   transform: var(--transform-hover-lift);
 }
 
-.imagePlaceholder {
+.submenuImage {
+  position: relative;
   width: 120px;
   height: 108px;
-  border: 1px dashed var(--color-border-dashed);
-  display: grid;
-  place-items: center;
-  font-size: 12px;
-  color: var(--color-text-subtle);
-  background: var(--color-surface-muted);
+  max-width: 100%;
+  min-width: 0;
   border-radius: 8px;
+  overflow: hidden;
+  background: var(--color-surface-muted);
 }
 
 .submenuText {

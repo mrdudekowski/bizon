@@ -54,6 +54,8 @@ export default async function TireTypeModelsPage({ params }: PageProps) {
         title: model.name,
         description: model.descriptionShort,
         meta: `${model.brand} · ${getApplicationCategoryLabel(model.applicationCategory)}`,
+        imageUrl: model.imageUrl,
+        imageAlt: model.name,
       }))}
       emptyMessage="Модели этого типа скоро появятся."
       footerLink={{ href: "/models", label: "← Все типы шин" }}

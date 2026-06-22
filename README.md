@@ -161,7 +161,23 @@ If `/admin` shows `[ Server ] undefined`, check the terminal — usually Postgre
 
 This app requires a **Node.js** host (Vercel recommended). GitHub Pages static hosting is not supported due to API routes and SSR.
 
-CI runs `npm run build` on push to `main` via GitHub Actions.
+### CI (GitHub Actions)
+
+Workflow: [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)
+
+1. PostgreSQL 16 service container
+2. `npm run seed:all` — schema push + catalog/content seeds
+3. `npm run verify:db` — fails if core seeds missing
+4. `npm run build` — full SSG path list from seeded DB
+
+Locally mirror CI: `npm run db:up` → set `DATABASE_URI` (port **5433**) → `npm run seed:all` → `npm run build`.
+
+### Production env
+
+- `DATABASE_URI`, `PAYLOAD_SECRET` — required
+- `NEXT_PUBLIC_SITE_URL` — canonical site URL for SEO/sitemap
+- `TELEGRAM_*` — request notifications (optional)
+- `SMTP_*`, `REQUESTS_EMAIL_TO` — optional; transport stub in `src/lib/notifications/email.ts` until nodemailer is wired
 
 ## License
 

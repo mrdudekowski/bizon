@@ -1,5 +1,4 @@
 @config "../../tailwind.config.js";
-@plugin "tailwindcss-animate";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -318,6 +317,55 @@ a {
   width: 18px;
   height: 18px;
   flex-shrink: 0;
+}
+
+.cart-button {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface-muted);
+  color: var(--color-foreground);
+  cursor: pointer;
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.cart-button:hover {
+  background: var(--color-secondary);
+  border-color: var(--color-border-strong);
+}
+
+.cart-button:active {
+  transform: var(--transform-active-press);
+}
+
+.cart-button:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-offset);
+}
+
+.cart-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--bizon-accent);
+  color: var(--bizon-black);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
 }
 
 /* Десктопная навигация - горизонтальное меню ссылок, скрывается на мобильных */
@@ -716,6 +764,50 @@ main {
   padding: 2rem;
 }
 
+.catalog-card {
+  padding: 0;
+  overflow: hidden;
+  gap: 0;
+}
+
+.catalog-card__media {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--color-surface-muted);
+}
+
+.catalog-card__body {
+  padding: 2rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.catalog-image {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.catalog-image--placeholder {
+  opacity: 0.9;
+}
+
+.catalog-detail-media {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: var(--color-surface-muted);
+}
+
 .info-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 40px rgba(5, 5, 5, 0.08);
@@ -849,12 +941,15 @@ html:not(.dark) .brand-logo {
 /* Category cards — cinematic horizontal scroll */
 .category-card {
   position: relative;
+  display: block;
   min-height: 420px;
   scroll-snap-align: center;
   scroll-snap-stop: always;
   overflow: hidden;
   border-radius: var(--radius-card);
   background: var(--bizon-dark);
+  color: inherit;
+  text-decoration: none;
   user-select: none;
 }
 
@@ -867,7 +962,8 @@ html:not(.dark) .brand-logo {
 .category-card-media {
   position: absolute;
   inset: 0;
-  background: linear-gradient(145deg, #2a3036 0%, #1c1f22 50%, #050505 100%);
+  overflow: hidden;
+  background: var(--bizon-dark);
   transition: transform var(--transition-media);
 }
 

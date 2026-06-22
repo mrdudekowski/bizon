@@ -49,8 +49,24 @@ export function validateRequest(body: IncomingRequestBody): ValidationResult {
   }
 
   const isQuickOrder = sourceForm === "product_quick_order";
+  const isCart = sourceForm === "cart";
 
-  if (isQuickOrder) {
+  if (isCart) {
+    if (!Array.isArray(body.items) || body.items.length === 0) {
+      return {
+        ok: false,
+        error: "missing_required_fields",
+        message: "Cart is empty",
+      };
+    }
+    if (!phone) {
+      return {
+        ok: false,
+        error: "missing_required_fields",
+        message: "Please provide a phone number",
+      };
+    }
+  } else if (isQuickOrder) {
     if (!phone) {
       return {
         ok: false,

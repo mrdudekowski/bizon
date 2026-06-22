@@ -17,12 +17,16 @@ export default async function ShopPage() {
       href: `/shop/wheels/${wheelType.slug}`,
       title: wheelType.name,
       description: wheelType.shortDescription,
+      imageUrl: wheelType.imageUrl,
+      imageAlt: wheelType.name,
     })),
     ...categories.map((category) => ({
       key: `category-${category.slug}`,
       href: `/shop/${category.slug}`,
       title: category.name,
       description: category.description,
+      imageUrl: category.imageUrl,
+      imageAlt: category.name,
     })),
   ];
 

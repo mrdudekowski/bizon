@@ -6,6 +6,8 @@ import {
 
 export type CatalogAxisId = "tires" | "wheels" | "shop";
 
+export type DashboardSectionId = CatalogAxisId | "content";
+
 export type CatalogRelationTo = "products" | "tire-models" | "wheel-models";
 
 export type CatalogDashboardAction = {
@@ -15,7 +17,7 @@ export type CatalogDashboardAction = {
 };
 
 export type CatalogDashboardSection = {
-  id: CatalogAxisId;
+  id: DashboardSectionId;
   title: string;
   description: string;
   items: CatalogDashboardAction[];
@@ -144,12 +146,25 @@ export const CATALOG_AXES: CatalogAxis[] = [
   },
 ];
 
-export const catalogDashboardSections: CatalogDashboardSection[] = CATALOG_AXES.map((axis) => ({
-  id: axis.id,
-  title: axis.label,
-  description: axis.description,
-  items: axis.dashboardItems,
-}));
+export const contentDashboardSection: CatalogDashboardSection = {
+  id: "content",
+  title: "Контент",
+  description: "Статьи Tire IQ и истории клиентов People Stories.",
+  items: [
+    { label: "Tire IQ", collection: "tire-iq-articles" },
+    { label: "People Stories", collection: "people-stories" },
+  ],
+};
+
+export const catalogDashboardSections: CatalogDashboardSection[] = [
+  ...CATALOG_AXES.map((axis) => ({
+    id: axis.id,
+    title: axis.label,
+    description: axis.description,
+    items: axis.dashboardItems,
+  })),
+  contentDashboardSection,
+];
 
 export function getAxisById(axisId: CatalogAxisId | null): CatalogAxis | undefined {
   return axisId ? CATALOG_AXES.find((axis) => axis.id === axisId) : undefined;
@@ -173,7 +188,7 @@ export function catalogNavSelfCheck(): void {
     if (CATALOG_RELATION_STORAGE[axis.relationTo] !== axis.storageSegment) {
       throw new Error(`catalogNav: storageSegment mismatch for ${axis.id}`);
     }
-    if (catalogDashboardSections.length !== CATALOG_AXES.length) {
+    if (catalogDashboardSections.length !== CATALOG_AXES.length + 1) {
       throw new Error("catalogNav: dashboard sections out of sync");
     }
   }

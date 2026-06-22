@@ -1,14 +1,19 @@
+import { mapPeopleStory } from "./payload/mappers";
+import { findPublished, findPublishedBySlug, findPublishedSlugs } from "./payload/query";
+import type { PeopleStory } from "@/payload-types";
 import type { CmsStory } from "./types";
 
-/** ponytail: People Stories collection not in Payload yet — returns empty until phase 7 */
 export async function getPeopleStories(): Promise<CmsStory[]> {
-  return [];
+  const docs = await findPublished("people-stories", { sort: "-publishedAt" });
+  if (!docs?.length) return [];
+  return docs.map((doc) => mapPeopleStory(doc as PeopleStory));
 }
 
-export async function getPeopleStoryBySlug(_slug: string): Promise<CmsStory | null> {
-  return null;
+export async function getPeopleStoryBySlug(slug: string): Promise<CmsStory | null> {
+  const doc = await findPublishedBySlug("people-stories", slug);
+  return doc ? mapPeopleStory(doc as PeopleStory) : null;
 }
 
 export async function getAllPeopleStorySlugs(): Promise<string[]> {
-  return [];
+  return (await findPublishedSlugs("people-stories")) ?? [];
 }

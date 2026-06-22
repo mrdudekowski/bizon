@@ -25,6 +25,8 @@ export default async function PeopleStoriesPage() {
         title: story.title,
         description: story.excerpt,
         meta: story.publishedAt,
+        imageUrl: story.imageUrl,
+        imageAlt: story.title,
       }))}
     />
   );

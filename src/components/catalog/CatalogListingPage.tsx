@@ -14,6 +14,8 @@ export type CatalogListingItem = {
   title: string;
   description?: string;
   meta?: string | null;
+  imageUrl?: string | null;
+  imageAlt?: string;
 };
 
 type CatalogListingPageProps = {
@@ -49,6 +51,8 @@ export function CatalogListingPage({
               title={item.title}
               description={item.description}
               meta={item.meta}
+              imageUrl={item.imageUrl}
+              imageAlt={item.imageAlt}
             />
           ))}
         </div>

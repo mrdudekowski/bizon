@@ -22,6 +22,8 @@ export default async function TireIQPage() {
         title: article.title,
         description: article.excerpt,
         meta: article.publishedAt,
+        imageUrl: article.imageUrl,
+        imageAlt: article.title,
       }))}
     />
   );

@@ -16,11 +16,8 @@ import {
   getAllPeopleStorySlugs,
 } from "./getPeopleStories";
 import {
-  getTireModels,
   getTireModelsByTypeSlug,
-  getTireModelBySlug,
   getTireModelByTypeAndSlug,
-  getAllTireModelSlugs,
   getAllTireModelRouteParams,
 } from "./getTireModels";
 import { getTireTypes, getTireTypeBySlug, getAllTireTypeSlugs } from "./getTireTypes";
@@ -33,7 +30,6 @@ import {
 import {
   getWheelTypes,
   getWheelTypeBySlug,
-  getDefaultWheelType,
   getAllWheelTypeSlugs,
 } from "./getWheelTypes";
 import { getWheelVariantsByModelId, getWheelVariantsByTypeSlug } from "./getWheelVariants";
@@ -56,16 +52,12 @@ export {
   getTireTypes,
   getTireTypeBySlug,
   getAllTireTypeSlugs,
-  getTireModels,
   getTireModelsByTypeSlug,
-  getTireModelBySlug,
   getTireModelByTypeAndSlug,
-  getAllTireModelSlugs,
   getAllTireModelRouteParams,
   getTireVariantsByModelId,
   getWheelTypes,
   getWheelTypeBySlug,
-  getDefaultWheelType,
   getAllWheelTypeSlugs,
   getWheelModelsByTypeSlug,
   getWheelModelByTypeAndSlug,
@@ -75,7 +67,6 @@ export {
   getMenuItems,
 };
 
-export { getPublishedMediaById, getPublishedMediaList } from "./getMedia";
 export { resolveMedia, resolveMediaUrl, type ResolvedMedia } from "./media";
 export type {
   CmsProduct,

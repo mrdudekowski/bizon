@@ -12,6 +12,7 @@ import { createPageMetadata } from "@/lib/seo/metadata";
 import { createProductStructuredData } from "@/lib/seo/structuredData";
 import { PageHeader } from "@/components/catalog/PageHeader";
 import { TireVariantsTable } from "@/components/catalog/TireVariantsTable";
+import { AddToCartSection } from "@/components/cart/AddToCartSection";
 import { QuickOrderSection } from "@/components/forms/QuickOrderSection";
 type PageProps = {
   params: Promise<{ tireTypeSlug: string; modelSlug: string }>;
@@ -92,6 +93,22 @@ export default async function TireModelPage({ params }: PageProps) {
       </article>
 
       <TireVariantsTable model={model} variants={variants} modelPath={modelPath} />
+
+      <Suspense fallback={null}>
+        <AddToCartSection
+          baseItem={{
+            itemType: "tire",
+            itemId: model.id,
+            name: model.name,
+            slug: model.slug,
+            parentSlug: model.tireTypeSlug,
+            url: modelPath,
+            quantity: 1,
+            priceOnRequest: true,
+          }}
+          variants={variants.map((variant) => ({ id: variant.id, label: variant.size }))}
+        />
+      </Suspense>
 
       <Suspense fallback={null}>
         <QuickOrderSection

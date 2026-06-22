@@ -78,6 +78,8 @@ export interface Config {
     'wheel-variants': WheelVariant;
     products: Product;
     requests: Request;
+    'tire-iq-articles': TireIqArticle;
+    'people-stories': PeopleStory;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -96,6 +98,8 @@ export interface Config {
     'wheel-variants': WheelVariantsSelect<false> | WheelVariantsSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
     requests: RequestsSelect<false> | RequestsSelect<true>;
+    'tire-iq-articles': TireIqArticlesSelect<false> | TireIqArticlesSelect<true>;
+    'people-stories': PeopleStoriesSelect<false> | PeopleStoriesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -770,6 +774,119 @@ export interface Request {
   createdAt: string;
 }
 /**
+ * Экспертные статьи для раздела /tire-iq.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tire-iq-articles".
+ */
+export interface TireIqArticle {
+  id: number;
+  title: string;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  /**
+   * Для карточек в списке статей
+   */
+  excerpt?: string | null;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  featuredImage?: (number | null) | Media;
+  author?: (number | null) | User;
+  /**
+   * Мета-теги для публичных страниц. Пустые поля заполняются автоматически на фронтенде.
+   */
+  seo?: {
+    seoTitle?: string | null;
+    seoDescription?: string | null;
+    /**
+     * Через запятую
+     */
+    seoKeywords?: string | null;
+    ogTitle?: string | null;
+    ogDescription?: string | null;
+    ogImage?: (number | null) | Media;
+    canonicalUrl?: string | null;
+    robotsIndex?: boolean | null;
+    robotsFollow?: boolean | null;
+  };
+  status: 'draft' | 'published' | 'archived';
+  publishedAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Кейсы клиентов для раздела /people-stories.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "people-stories".
+ */
+export interface PeopleStory {
+  id: number;
+  title: string;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  excerpt?: string | null;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  featuredImage?: (number | null) | Media;
+  gallery?: (number | Media)[] | null;
+  clientName?: string | null;
+  industry?: string | null;
+  /**
+   * Мета-теги для публичных страниц. Пустые поля заполняются автоматически на фронтенде.
+   */
+  seo?: {
+    seoTitle?: string | null;
+    seoDescription?: string | null;
+    /**
+     * Через запятую
+     */
+    seoKeywords?: string | null;
+    ogTitle?: string | null;
+    ogDescription?: string | null;
+    ogImage?: (number | null) | Media;
+    canonicalUrl?: string | null;
+    robotsIndex?: boolean | null;
+    robotsFollow?: boolean | null;
+  };
+  status: 'draft' | 'published' | 'archived';
+  publishedAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -836,6 +953,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'requests';
         value: number | Request;
+      } | null)
+    | ({
+        relationTo: 'tire-iq-articles';
+        value: number | TireIqArticle;
+      } | null)
+    | ({
+        relationTo: 'people-stories';
+        value: number | PeopleStory;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -1300,6 +1425,68 @@ export interface RequestsSelect<T extends boolean = true> {
   sourceIpHash?: T;
   userAgent?: T;
   assignedTo?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tire-iq-articles_select".
+ */
+export interface TireIqArticlesSelect<T extends boolean = true> {
+  title?: T;
+  generateSlug?: T;
+  slug?: T;
+  excerpt?: T;
+  content?: T;
+  featuredImage?: T;
+  author?: T;
+  seo?:
+    | T
+    | {
+        seoTitle?: T;
+        seoDescription?: T;
+        seoKeywords?: T;
+        ogTitle?: T;
+        ogDescription?: T;
+        ogImage?: T;
+        canonicalUrl?: T;
+        robotsIndex?: T;
+        robotsFollow?: T;
+      };
+  status?: T;
+  publishedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "people-stories_select".
+ */
+export interface PeopleStoriesSelect<T extends boolean = true> {
+  title?: T;
+  generateSlug?: T;
+  slug?: T;
+  excerpt?: T;
+  content?: T;
+  featuredImage?: T;
+  gallery?: T;
+  clientName?: T;
+  industry?: T;
+  seo?:
+    | T
+    | {
+        seoTitle?: T;
+        seoDescription?: T;
+        seoKeywords?: T;
+        ogTitle?: T;
+        ogDescription?: T;
+        ogImage?: T;
+        canonicalUrl?: T;
+        robotsIndex?: T;
+        robotsFollow?: T;
+      };
+  status?: T;
+  publishedAt?: T;
   updatedAt?: T;
   createdAt?: T;
 }

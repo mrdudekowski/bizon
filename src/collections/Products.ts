@@ -17,7 +17,7 @@ import {
   slugField,
   statusField,
 } from "@/collections/fields";
-import { setPublishedAt } from "@/hooks/setPublishedAt";
+import { setPublishedAt } from "@/payload/hooks/setPublishedAt";
 
 export const Products: CollectionConfig = {
   slug: "products",

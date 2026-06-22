@@ -19,7 +19,8 @@
     "seed:tbr-models": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/seed-tbr-models.ts",
     "seed:shop": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/seed-shop.ts",
     "seed:wheel-axis": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/seed-wheel-axis.ts",
-    "seed:all": "npm run seed:tire-axis && npm run seed:tbr-models && npm run seed:shop && npm run seed:wheel-axis",
+    "seed:content": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/seed-content.ts",
+    "seed:all": "npm run seed:tire-axis && npm run seed:tbr-models && npm run seed:shop && npm run seed:wheel-axis && npm run seed:content",
     "verify:db": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/verify-db.ts",
     "verify:request-items": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/verify-request-items.ts",
     "db:up": "docker compose up -d postgres",
@@ -44,9 +45,6 @@
     "@payloadcms/richtext-lexical": "3.82.1",
     "@payloadcms/storage-s3": "3.82.1",
     "@payloadcms/ui": "3.82.1",
-    "@radix-ui/react-slot": "^1.2.4",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
     "cross-env": "^10.1.0",
     "graphql": "^16.12.0",
     "lucide-react": "^0.562.0",
@@ -54,9 +52,7 @@
     "payload": "3.82.1",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
-    "sharp": "^0.34.2",
-    "tailwind-merge": "^3.4.0",
-    "tailwindcss-animate": "^1.0.7"
+    "sharp": "^0.34.2"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.18",
@@ -66,7 +62,6 @@
     "eslint": "^9.39.1",
     "eslint-config-next": "15.4.11",
     "postcss": "^8.5.6",
-    "shadcn": "^3.7.0",
     "tailwindcss": "^4.1.18",
     "typescript": "5.8.2"
   }

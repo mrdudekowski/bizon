@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import styles from "./BurgerMenu.module.css";
+import { CatalogImage } from "@/components/catalog/CatalogImage";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { parseBulletPoints } from "@/utils/textUtils";
@@ -141,8 +142,13 @@ const BurgerMenu = ({ isOpen, onClose, menuItems = [] }) => {
                       onClick={onClose}
                     >
                       {"image" in submenuItem && (
-                        <div className={styles.imagePlaceholder}>
-                          IMAGE PLACEHOLDER
+                        <div className={styles.submenuImage}>
+                          <CatalogImage
+                            src={submenuItem.imageUrl}
+                            alt={submenuItem.name}
+                            fill
+                            sizes="120px"
+                          />
                         </div>
                       )}
                       <div className={styles.submenuText}>

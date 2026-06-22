@@ -1,5 +1,6 @@
 import Link from "next/link";
 import BurgerToggle from "../BurgerToggle/BurgerToggle.jsx";
+import { CartHeaderButton } from "@/components/cart/CartHeaderButton";
 import { ThemeToggle } from "../ThemeToggle/ThemeToggle.jsx";
 import { HEADER_NAV, ROUTES } from "@/constants/navigation";
 
@@ -7,7 +8,7 @@ import { HEADER_NAV, ROUTES } from "@/constants/navigation";
  * Компонент хедера сайта
  * Содержит навигацию, логотип и кнопку контакта
  */
-export const Header = ({ menuOpen, onMenuToggle }) => {
+export const Header = ({ menuOpen, onMenuToggle, cartCount = 0, onCartOpen }) => {
   return (
     <header className="site-header">
       <div className="navbar">
@@ -30,6 +31,7 @@ export const Header = ({ menuOpen, onMenuToggle }) => {
         </Link>
 
         <div className="nav-actions">
+          {onCartOpen && <CartHeaderButton count={cartCount} onOpen={onCartOpen} />}
           <ThemeToggle />
           <nav className="desktop-nav" aria-label="Основная навигация">
             {HEADER_NAV.map((item) => (

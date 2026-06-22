@@ -12,6 +12,7 @@ import { createPageMetadata } from "@/lib/seo/metadata";
 import { createProductStructuredData } from "@/lib/seo/structuredData";
 import { PageHeader } from "@/components/catalog/PageHeader";
 import { WheelVariantsTable } from "@/components/catalog/WheelVariantsTable";
+import { AddToCartSection } from "@/components/cart/AddToCartSection";
 import { QuickOrderSection } from "@/components/forms/QuickOrderSection";
 
 type PageProps = {
@@ -108,6 +109,22 @@ export default async function WheelModelPage({ params }: PageProps) {
       )}
 
       <WheelVariantsTable model={model} variants={variants} modelPath={modelPath} />
+
+      <Suspense fallback={null}>
+        <AddToCartSection
+          baseItem={{
+            itemType: "wheel",
+            itemId: model.id,
+            name: model.name,
+            slug: model.slug,
+            parentSlug: model.wheelTypeSlug,
+            url: modelPath,
+            quantity: 1,
+            priceOnRequest: true,
+          }}
+          variants={variants.map((variant) => ({ id: variant.id, label: variant.sizeLabel }))}
+        />
+      </Suspense>
 
       <Suspense fallback={null}>
         <QuickOrderSection

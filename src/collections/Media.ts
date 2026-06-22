@@ -19,8 +19,8 @@ import {
   sanitizeMediaFilename,
   setMediaStoragePrefix,
   validateMediaUpload,
-} from "@/hooks/mediaStorage";
-import { setPublishedAt } from "@/hooks/setPublishedAt";
+} from "@/payload/hooks/mediaStorage";
+import { setPublishedAt } from "@/payload/hooks/setPublishedAt";
 import {
   ALLOWED_MEDIA_MIME_TYPES,
   isS3StorageEnabled,

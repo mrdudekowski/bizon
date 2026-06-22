@@ -7,6 +7,3 @@ export async function getShopProductBySlug(slug: string): Promise<CmsProduct | n
   const doc = await findPublishedBySlug("products", slug);
   return doc ? mapProduct(doc as Product) : null;
 }
-
-/** @deprecated Use getShopProductBySlug */
-export const getProductBySlug = getShopProductBySlug;
