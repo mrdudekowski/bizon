@@ -126,16 +126,31 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
       WHERE (variant."sku" IS NULL OR trim(variant."sku") = '')
         AND variant."size_normalized" IS NOT NULL
         AND trim(variant."size_normalized") <> ''
+    ),
+    candidate_skus AS (
+      SELECT
+        proposed."id",
+        CASE
+          WHEN proposed.duplicate_number = 1 THEN proposed.base_sku
+          WHEN proposed."ply_rating_pr" IS NOT NULL
+            THEN proposed.base_sku || '-' || proposed."ply_rating_pr"::text || 'PR'
+          ELSE proposed.base_sku || '-' || proposed.duplicate_number::text
+        END AS candidate_sku
+      FROM proposed_skus proposed
     )
     UPDATE "tire_variants" variant
-    SET "sku" = CASE
-      WHEN proposed.duplicate_number = 1 THEN proposed.base_sku
-      WHEN proposed."ply_rating_pr" IS NOT NULL
-        THEN proposed.base_sku || '-' || proposed."ply_rating_pr"::text || 'PR'
-      ELSE proposed.base_sku || '-' || proposed.duplicate_number::text
-    END
-    FROM proposed_skus proposed
-    WHERE variant."id" = proposed."id";
+    SET "sku" = proposed.candidate_sku
+    FROM candidate_skus proposed
+    WHERE variant."id" = proposed."id"
+      -- Mixed-state databases may already contain a candidate SKU on another row.
+      AND NOT EXISTS (
+        SELECT 1
+        FROM "tire_variants" occupied
+        WHERE occupied."id" <> proposed."id"
+          AND occupied."sku" IS NOT NULL
+          AND trim(occupied."sku") <> ''
+          AND trim(occupied."sku") = proposed.candidate_sku
+      );
 
     DROP TABLE IF EXISTS "tire_models_validation_warnings" CASCADE;
     DROP TABLE IF EXISTS "tire_variants_validation_warnings" CASCADE;

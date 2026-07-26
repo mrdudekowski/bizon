@@ -1,3 +1,6 @@
+// PRODUCTION WARNING: Stamping or reconciling this baseline outside staging
+// requires an audited procedure. Never rerun it blindly when
+// tire_models_features already contains data.
 import { type MigrateDownArgs, type MigrateUpArgs, sql } from "@payloadcms/db-postgres";
 
 export async function up({ db }: MigrateUpArgs): Promise<void> {
