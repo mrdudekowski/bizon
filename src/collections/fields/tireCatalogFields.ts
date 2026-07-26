@@ -224,23 +224,23 @@ export function tireVariantTechnicalFields(): Field[] {
         {
           name: "pressureSingleKpa",
           type: "number",
-          label: "Давление single, кПа",
+          label: "Давление (одиночное), кПа",
         },
         {
           name: "pressureDualKpa",
           type: "number",
-          label: "Давление dual, кПа",
+          label: "Давление (сдвоенное), кПа",
         },
         {
           name: "maxLoadSingleKg",
           type: "number",
-          label: "Макс. нагрузка single, кг",
+          label: "Макс. нагрузка (одиночная), кг",
           index: true,
         },
         {
           name: "maxLoadDualKg",
           type: "number",
-          label: "Макс. нагрузка dual, кг",
+          label: "Макс. нагрузка (сдвоенная), кг",
         },
       ],
     },
@@ -250,13 +250,13 @@ export function tireVariantTechnicalFields(): Field[] {
         {
           name: "loadIndexSingle",
           type: "number",
-          label: "Индекс нагрузки single",
+          label: "Индекс нагрузки (одиночный)",
           index: true,
         },
         {
           name: "loadIndexDual",
           type: "number",
-          label: "Индекс нагрузки dual",
+          label: "Индекс нагрузки (сдвоенный)",
         },
         {
           name: "speedSymbol",
