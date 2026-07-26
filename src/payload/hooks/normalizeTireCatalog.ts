@@ -1,5 +1,9 @@
 import { normalizeCatalogIdentity } from "@/lib/catalog/domain/tireCatalog";
 import { parseTireSize } from "@/lib/catalog/domain/parseTireSize";
+import {
+  buildModelCodeFromSlug,
+  buildTireVariantSku,
+} from "@/lib/catalog/identity";
 import type { CollectionBeforeValidateHook } from "payload";
 
 export type TireCatalogData = Record<string, unknown>;
@@ -7,25 +11,12 @@ export type TireCatalogData = Record<string, unknown>;
 export function normalizeTireModelData(
   data: TireCatalogData,
 ): TireCatalogData {
-  return normalizeIdentities(data, ["catalogId", "modelCode"]);
+  const normalized = normalizeIdentities(data, ["modelCode"]);
+  if (isBlank(normalized.modelCode) && !isBlank(normalized.slug)) {
+    normalized.modelCode = buildModelCodeFromSlug(String(normalized.slug));
+  }
+  return normalized;
 }
-
-type StoredWarning = {
-  code: string;
-  severity: "warning" | "critical";
-  field?: string;
-  message: string;
-};
-
-const NORMALIZED_SIZE_FIELDS = [
-  "sizeNormalized",
-  "sizeFormat",
-  "nominalWidthMm",
-  "imperialWidthIn",
-  "aspectRatioPct",
-  "constructionCode",
-  "rimDiameterIn",
-] as const;
 
 function normalizeIdentities(
   data: TireCatalogData,
@@ -42,27 +33,8 @@ function normalizeIdentities(
   return normalized;
 }
 
-function storedWarnings(value: unknown): StoredWarning[] {
-  if (!Array.isArray(value)) return [];
-  return value.filter(
-    (warning): warning is StoredWarning =>
-      typeof warning === "object" &&
-      warning !== null &&
-      typeof (warning as StoredWarning).code === "string" &&
-      typeof (warning as StoredWarning).message === "string",
-  );
-}
-
-function withoutSizeParserWarnings(warnings: StoredWarning[]): StoredWarning[] {
-  return warnings.filter(
-    (warning) =>
-      warning.code !== "size_parse_failed" &&
-      warning.code !== "size_parser_conflict",
-  );
-}
-
-function hasSizeParserConflict(warnings: StoredWarning[]): boolean {
-  return warnings.some((warning) => warning.code === "size_parser_conflict");
+function isBlank(value: unknown): boolean {
+  return typeof value !== "string" || value.trim().length === 0;
 }
 
 function parsedSizeFields(
@@ -81,13 +53,17 @@ function parsedSizeFields(
   };
 }
 
-function preserveNormalizedSize(
-  target: TireCatalogData,
-  original: TireCatalogData,
-): void {
-  for (const field of NORMALIZED_SIZE_FIELDS) {
-    target[field] = original[field] ?? null;
+function relatedModelCode(value: unknown): string | null {
+  if (
+    value &&
+    typeof value === "object" &&
+    "modelCode" in value &&
+    typeof value.modelCode === "string" &&
+    value.modelCode.trim()
+  ) {
+    return value.modelCode;
   }
+  return null;
 }
 
 export function normalizeTireVariantData(input: {
@@ -97,82 +73,72 @@ export function normalizeTireVariantData(input: {
   const original = input.original ?? {};
   const merged = normalizeIdentities(
     { ...original, ...input.data },
-    ["catalogId", "sku", "supplierSku"],
+    ["sku", "supplierSku"],
   );
   const raw = typeof merged.sizeRaw === "string" ? merged.sizeRaw : "";
-  if (!raw.trim()) return merged;
-
-  const originalWarnings = storedWarnings(original.validationWarnings);
-  const currentWarnings = storedWarnings(merged.validationWarnings);
-  const parseResult = parseTireSize(raw);
-  if (parseResult.ok === false) {
-    return {
-      ...merged,
-      verificationStatus: "needsReview",
-      validationWarnings: [
-        ...withoutSizeParserWarnings(currentWarnings),
-        {
-          code: "size_parse_failed",
-          severity: "critical",
-          field: "sizeRaw",
-          message: `Tire size could not be parsed: ${parseResult.code}`,
-        },
-      ],
-    };
+  if (raw.trim()) {
+    const parseResult = parseTireSize(raw);
+    if (parseResult.ok) {
+      Object.assign(merged, parsedSizeFields(parseResult.value));
+    }
   }
 
-  const originalRaw =
-    typeof original.sizeRaw === "string" ? original.sizeRaw.trim() : "";
-  const rawChanged = Boolean(originalRaw) && originalRaw !== raw.trim();
-  const originalVerified = original.verificationStatus === "verified";
-
-  if (originalVerified && !rawChanged) {
-    return merged;
+  if (isBlank(merged.sku) && !isBlank(merged.sizeNormalized)) {
+    const modelCode =
+      relatedModelCode(merged.tireModel) ??
+      relatedModelCode(original.tireModel) ??
+      "MODEL";
+    merged.sku = buildTireVariantSku(
+      modelCode,
+      String(merged.sizeNormalized),
+    );
   }
-
-  if (originalVerified && rawChanged) {
-    const conflicted = {
-      ...merged,
-      verificationStatus: "needsReview",
-      validationWarnings: [
-        ...withoutSizeParserWarnings(currentWarnings),
-        {
-          code: "size_parser_conflict",
-          severity: "critical",
-          field: "sizeRaw",
-          message: `Parser candidate: ${parseResult.value.sizeNormalized}`,
-        },
-      ],
-    };
-    preserveNormalizedSize(conflicted, original);
-    return conflicted;
-  }
-
-  const pendingConflict =
-    hasSizeParserConflict(originalWarnings) &&
-    merged.verificationStatus !== "verified";
-  if (pendingConflict) {
-    const preserved = { ...merged };
-    preserveNormalizedSize(preserved, original);
-    return preserved;
-  }
-
-  return {
-    ...merged,
-    ...parsedSizeFields(parseResult.value),
-    validationWarnings: withoutSizeParserWarnings(currentWarnings),
-  };
+  return merged;
 }
 
 export const normalizeTireModel: CollectionBeforeValidateHook = ({
   data,
 }) => normalizeTireModelData(data ?? {});
 
-export const normalizeTireVariant: CollectionBeforeValidateHook = ({
+function relationId(value: unknown): string | number | null {
+  if (typeof value === "string" || typeof value === "number") return value;
+  if (
+    value &&
+    typeof value === "object" &&
+    "id" in value &&
+    (typeof value.id === "string" || typeof value.id === "number")
+  ) {
+    return value.id;
+  }
+  return null;
+}
+
+export const normalizeTireVariant: CollectionBeforeValidateHook = async ({
   data,
   originalDoc,
-}) =>
-  normalizeTireVariantData({
-    data: data ?? {},
-    original: (originalDoc as TireCatalogData | null | undefined) ?? null,
+  req,
+}) => {
+  const original =
+    (originalDoc as TireCatalogData | null | undefined) ?? null;
+  const incoming = data ?? {};
+  const modelRelation = incoming.tireModel ?? original?.tireModel;
+  const modelId = relationId(modelRelation);
+  const needsModelCode =
+    isBlank(incoming.sku ?? original?.sku) &&
+    relatedModelCode(modelRelation) == null &&
+    modelId != null;
+  const tireModel = needsModelCode
+    ? await req.payload.findByID({
+        collection: "tire-models",
+        id: modelId,
+        depth: 0,
+        overrideAccess: true,
+        req,
+      })
+    : modelRelation;
+
+  return normalizeTireVariantData({
+    data: { ...incoming, tireModel },
+    original,
   });
+};
