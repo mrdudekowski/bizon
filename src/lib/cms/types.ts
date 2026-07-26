@@ -140,6 +140,12 @@ export type CmsWheelType = {
   imageUrl?: string | null;
 };
 
+export type CmsWheelGalleryImage = {
+  url: string;
+  alt: string;
+  label: string;
+};
+
 export type CmsWheelModel = {
   id: string;
   slug: string;
@@ -154,6 +160,7 @@ export type CmsWheelModel = {
   descriptionShort: string;
   descriptionLong: string;
   imageUrl?: string | null;
+  gallery: CmsWheelGalleryImage[];
   documents?: { url: string; title: string }[];
 };
 

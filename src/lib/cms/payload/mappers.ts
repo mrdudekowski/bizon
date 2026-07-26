@@ -212,6 +212,18 @@ export function mapWheelModelDetail(doc: WheelModel): CmsWheelModel {
           .filter((item): item is { url: string; title: string } => Boolean(item))
       : undefined;
 
+  const gallery = (doc.gallery ?? [])
+    .map((item) => {
+      const media = resolveMedia(item, "hero");
+      if (!media) return null;
+      return {
+        url: media.url,
+        alt: media.alt || doc.name,
+        label: (media.title || "").trim() || "View",
+      };
+    })
+    .filter((item): item is { url: string; alt: string; label: string } => Boolean(item));
+
   return {
     id: String(doc.id),
     slug: doc.slug,
@@ -226,6 +238,7 @@ export function mapWheelModelDetail(doc: WheelModel): CmsWheelModel {
     descriptionShort,
     descriptionLong,
     documents,
+    gallery,
     imageUrl: mapImageUrl(doc.mainImage),
   };
 }

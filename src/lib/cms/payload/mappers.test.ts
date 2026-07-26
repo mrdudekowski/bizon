@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { mapTireModelDetail, mapTireVariant } from "./mappers";
+import { mapTireModelDetail, mapTireVariant, mapWheelModelDetail } from "./mappers";
 
 describe("mapTireModelDetail", () => {
   it("maps CMS features to site advantages", () => {
@@ -23,6 +23,58 @@ describe("mapTireModelDetail", () => {
     expect(mapped.advantages).toEqual([
       { title: "Сцепление", description: "На мокром покрытии" },
     ]);
+  });
+});
+
+describe("mapWheelModelDetail", () => {
+  it("maps mainImage and gallery media with alt/label", () => {
+    const mapped = mapWheelModelDetail({
+      id: 42,
+      slug: "atlas",
+      name: "BIZON Atlas",
+      wheelType: { slug: "forged", name: "Кованые диски" },
+      designStyle: "Off-road",
+      series: "Satin Black / Machined Silver",
+      shortDescription: "Выразительная геометрия",
+      mainImage: {
+        id: 1,
+        url: "/media/bizon-atlas-hero-3q.png",
+        alt: "BIZON Atlas",
+        title: "Hero",
+      },
+      gallery: [
+        {
+          id: 2,
+          url: "/media/bizon-atlas-front.png",
+          alt: "BIZON Atlas, фронтальный вид",
+          title: "Front",
+        },
+        {
+          id: 3,
+          url: "/media/bizon-atlas-depth-3q.png",
+          alt: "BIZON Atlas, объём",
+          title: "Depth",
+        },
+      ],
+      documents: [],
+    } as never);
+
+    expect(mapped.id).toBe("42");
+    expect(mapped.imageUrl).toBeTruthy();
+    expect(mapped.gallery).toEqual([
+      {
+        url: expect.stringContaining("bizon-atlas-front"),
+        alt: "BIZON Atlas, фронтальный вид",
+        label: "Front",
+      },
+      {
+        url: expect.stringContaining("bizon-atlas-depth-3q"),
+        alt: "BIZON Atlas, объём",
+        label: "Depth",
+      },
+    ]);
+    expect(mapped.series).toBe("Satin Black / Machined Silver");
+    expect(mapped.designStyle).toBe("Off-road");
   });
 });
 
