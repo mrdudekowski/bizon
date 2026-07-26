@@ -19,6 +19,7 @@
     "seed:tbr-models": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/seed-tbr-models.ts",
     "seed:shop": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/seed-shop.ts",
     "seed:wheel-axis": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/seed-wheel-axis.ts",
+    "seed:wheel-media": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/seed-wheel-media.ts",
     "seed:content": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/seed-content.ts",
     "import:catalog": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/import-catalog.ts",
     "import:catalog:dry": "cross-env NODE_OPTIONS=--no-deprecation DRY_RUN=1 payload run scripts/import-catalog.ts",
