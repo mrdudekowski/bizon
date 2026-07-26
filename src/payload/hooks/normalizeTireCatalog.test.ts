@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import {
   buildModelCodeFromSlug,
@@ -6,6 +6,7 @@ import {
 } from "@/lib/catalog/identity";
 import {
   normalizeTireModelData,
+  normalizeTireVariant,
   normalizeTireVariantData,
 } from "./normalizeTireCatalog";
 
@@ -65,6 +66,31 @@ describe("normalizeTireVariantData", () => {
       }),
     ).toMatchObject({
       sku: buildTireVariantSku("S201", "385/65R22.5"),
+    });
+  });
+});
+
+describe("normalizeTireVariant", () => {
+  it("keeps a relationship id while resolving modelCode for a blank sku", async () => {
+    const findByID = vi.fn().mockResolvedValue({
+      id: 7,
+      modelCode: "DSR188",
+      slug: "bizon-dsr-188",
+    });
+
+    const result = await normalizeTireVariant({
+      data: {
+        sku: "",
+        sizeNormalized: "315/80R22.5",
+        tireModel: 7,
+      },
+      originalDoc: null,
+      req: { payload: { findByID } },
+    } as never);
+
+    expect(result).toMatchObject({
+      sku: buildTireVariantSku("DSR188", "315/80R22.5"),
+      tireModel: 7,
     });
   });
 });

@@ -69,6 +69,7 @@ function relatedModelCode(value: unknown): string | null {
 export function normalizeTireVariantData(input: {
   data: TireCatalogData;
   original?: TireCatalogData | null;
+  resolvedModelCode?: string | null;
 }): TireCatalogData {
   const original = input.original ?? {};
   const merged = normalizeIdentities(
@@ -85,6 +86,7 @@ export function normalizeTireVariantData(input: {
 
   if (isBlank(merged.sku) && !isBlank(merged.sizeNormalized)) {
     const modelCode =
+      input.resolvedModelCode ??
       relatedModelCode(merged.tireModel) ??
       relatedModelCode(original.tireModel) ??
       "MODEL";
@@ -127,7 +129,7 @@ export const normalizeTireVariant: CollectionBeforeValidateHook = async ({
     isBlank(incoming.sku ?? original?.sku) &&
     relatedModelCode(modelRelation) == null &&
     modelId != null;
-  const tireModel = needsModelCode
+  const resolvedModel = needsModelCode
     ? await req.payload.findByID({
         collection: "tire-models",
         id: modelId,
@@ -135,10 +137,20 @@ export const normalizeTireVariant: CollectionBeforeValidateHook = async ({
         overrideAccess: true,
         req,
       })
-    : modelRelation;
+    : null;
+  const resolvedModelCode =
+    relatedModelCode(resolvedModel) ??
+    (resolvedModel &&
+    typeof resolvedModel === "object" &&
+    "slug" in resolvedModel &&
+    typeof resolvedModel.slug === "string" &&
+    resolvedModel.slug.trim()
+      ? buildModelCodeFromSlug(resolvedModel.slug)
+      : null);
 
   return normalizeTireVariantData({
-    data: { ...incoming, tireModel },
+    data: { ...incoming, tireModel: modelRelation },
     original,
+    resolvedModelCode,
   });
 };
