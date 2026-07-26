@@ -27,6 +27,7 @@
     "seed:all": "npm run import:catalog && npm run seed:content",
     "verify:db": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/verify-db.ts",
     "verify:request-items": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/verify-request-items.ts",
+    "verify:shop": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/verify-shop-readiness.ts",
     "db:up": "docker compose up -d postgres",
     "db:down": "docker compose down",
     "db:logs": "docker compose logs -f postgres"

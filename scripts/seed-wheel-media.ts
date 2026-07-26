@@ -88,13 +88,13 @@ for (const design of SHOP_WHEEL_DESIGNS) {
     alt: design.name,
   });
 
-  const gallery: (string | number)[] = [];
+  const gallery: number[] = [];
   for (const item of GALLERY_VIEWS) {
     const id = await ensureMedia(payload, wheelFile(design.slug, item.view), {
       title: item.title,
       alt: `${design.name}, ${item.altSuffix}`,
     });
-    gallery.push(id);
+    gallery.push(id as number);
   }
 
   await payload.update({
