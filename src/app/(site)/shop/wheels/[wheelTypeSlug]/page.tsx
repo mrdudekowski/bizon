@@ -41,7 +41,11 @@ export async function generateMetadata({ params }: PageProps) {
 export default async function WheelTypePage({ params }: PageProps) {
   const { wheelTypeSlug } = await params;
   if (wheelTypeSlug.toLowerCase() === "forged") {
-    const models = await getWheelModelsByTypeSlug("forged");
+    const wheelType = await getWheelTypeBySlug(wheelTypeSlug);
+    if (!wheelType) {
+      notFound();
+    }
+    const models = await getWheelModelsByTypeSlug(wheelType.slug);
     return <ForgedCatalog models={models} />;
   }
 

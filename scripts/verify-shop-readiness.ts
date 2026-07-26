@@ -211,12 +211,22 @@ if (!forgedType) {
         item: design.slug,
         message: "Утверждённый дизайн пока существует только в статическом слое и не перенесён в CMS.",
       });
-    } else if (!hasUpload(model.mainImage)) {
+      continue;
+    }
+    if (!hasUpload(model.mainImage)) {
       findings.push({
         severity: "blocker",
         code: "FORGED_MODEL_IMAGE_MISSING",
         item: design.slug,
         message: "Для опубликованной CMS-модели требуется mainImage в Media.",
+      });
+    }
+    if ((model.gallery ?? []).filter(hasUpload).length < 3) {
+      findings.push({
+        severity: "blocker",
+        code: "FORGED_MODEL_GALLERY_MISSING",
+        item: design.slug,
+        message: "Для опубликованной CMS-модели требуется галерея минимум из 3 изображений в Media.",
       });
     }
   }
