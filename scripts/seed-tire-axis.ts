@@ -5,6 +5,7 @@
  * Requires DATABASE_URI and running Postgres.
  */
 import { getPayload } from "../src/lib/payload/getPayload";
+import type { TireType } from "../src/payload-types";
 
 const TIRE_TYPE_SEEDS = [
   {
@@ -14,6 +15,16 @@ const TIRE_TYPE_SEEDS = [
     shortDescription: "Магистральные и региональные грузовые шины",
     sortOrder: 0,
     showInMenu: true,
+    selectionVehicleTypes: [
+      "long-haul-tractor",
+      "regional-truck",
+      "construction-dumper",
+    ] as TireType["selectionVehicleTypes"],
+    selectionConditions: [
+      "long-haul",
+      "regional",
+      "mixed",
+    ] as TireType["selectionConditions"],
     status: "published" as const,
   },
   {
@@ -23,6 +34,14 @@ const TIRE_TYPE_SEEDS = [
     shortDescription: "Карьерные и внедорожные шины",
     sortOrder: 1,
     showInMenu: true,
+    selectionVehicleTypes: [
+      "construction-dumper",
+      "quarry-special",
+    ] as TireType["selectionVehicleTypes"],
+    selectionConditions: [
+      "mixed",
+      "off-road",
+    ] as TireType["selectionConditions"],
     status: "published" as const,
   },
 ];
@@ -86,7 +105,6 @@ for (const model of models.docs) {
     id: model.id,
     data: {
       tireType: tbrId,
-      applicationCategory: model.applicationCategory ?? "regional",
     },
   });
   linked += 1;

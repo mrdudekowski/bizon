@@ -5,36 +5,28 @@
  * Prerequisite: npm run seed:tire-axis (TBR type must exist)
  */
 import { getPayload } from "../src/lib/payload/getPayload";
+import type { TireModel } from "../src/payload-types";
 
 const TBR_MODEL_SEEDS = [
   {
     slug: "dsr158",
     name: "DSR158",
-    series: "DOUBLESTAR",
-    applicationCategory: "long_haul" as const,
-    application: "Магистральные перевозки, рулевая ось",
-    axlePosition: "Steer",
-    treadType: "Rib",
+    positions: ["steer"] as NonNullable<TireModel["positions"]>,
+    applicationTypes: ["long-haul"] as NonNullable<TireModel["applicationTypes"]>,
     shortDescription: "Radial TBR для магистральных маршрутов и рулевой оси.",
   },
   {
     slug: "dsr177",
     name: "DSR177",
-    series: "DOUBLESTAR",
-    applicationCategory: "regional" as const,
-    application: "Региональные маршруты, смешанный асфальт",
-    axlePosition: "Drive",
-    treadType: "Mixed",
+    positions: ["drive"] as NonNullable<TireModel["positions"]>,
+    applicationTypes: ["regional"] as NonNullable<TireModel["applicationTypes"]>,
     shortDescription: "Универсальная regional TBR для автопарков смешанного профиля.",
   },
   {
     slug: "dsr188",
     name: "DSR188",
-    series: "DOUBLESTAR",
-    applicationCategory: "regional" as const,
-    application: "Региональная и пригородная эксплуатация",
-    axlePosition: "Trailer",
-    treadType: "Rib",
+    positions: ["trailer"] as NonNullable<TireModel["positions"]>,
+    applicationTypes: ["regional"] as NonNullable<TireModel["applicationTypes"]>,
     shortDescription: "Regional TBR для прицепных осей и смешанных маршрутов.",
   },
 ];
@@ -103,8 +95,8 @@ const dsr158 = await payload.find({
 const modelId = dsr158.docs[0]?.id;
 if (modelId) {
   const variantSeeds = [
-    { size: "12.00R20", rimDiameter: 20, loadIndex: "154/150", speedIndex: "K", plyRating: "18PR", sortOrder: 0 },
-    { size: "315/80R22.5", rimDiameter: 22.5, loadIndex: "154/150", speedIndex: "L", plyRating: "16PR", sortOrder: 1 },
+    { sizeRaw: "12.00R20", rimDiameterIn: 20, loadIndexSingle: 154, loadIndexDual: 150, speedSymbol: "K" as const, plyRatingPr: 18, sortOrder: 0 },
+    { sizeRaw: "315/80R22.5", rimDiameterIn: 22.5, loadIndexSingle: 154, loadIndexDual: 150, speedSymbol: "L" as const, plyRatingPr: 16, sortOrder: 1 },
   ];
 
   for (const variant of variantSeeds) {
@@ -113,7 +105,7 @@ if (modelId) {
       where: {
         and: [
           { tireModel: { equals: modelId } },
-          { size: { equals: variant.size } },
+          { sizeRaw: { equals: variant.sizeRaw } },
         ],
       },
       limit: 1,
@@ -123,17 +115,16 @@ if (modelId) {
     const data = {
       ...variant,
       tireModel: modelId,
-      available: true,
-      priceOnRequest: true,
+      availabilityStatus: "on_request" as const,
       status: "published" as const,
     };
 
     if (existing.docs[0]) {
       await payload.update({ collection: "tire-variants", id: existing.docs[0].id, data });
-      console.log(`Updated variant: ${variant.size}`);
+      console.log(`Updated variant: ${variant.sizeRaw}`);
     } else {
       await payload.create({ collection: "tire-variants", data });
-      console.log(`Created variant: ${variant.size}`);
+      console.log(`Created variant: ${variant.sizeRaw}`);
     }
   }
 }
