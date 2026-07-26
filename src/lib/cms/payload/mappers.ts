@@ -57,6 +57,23 @@ export function mapProduct(doc: Product): CmsProduct {
   const descriptionShort = doc.shortDescription?.trim() || doc.name;
   const descriptionLong =
     lexicalToPlainText(doc.fullDescription) || doc.shortDescription?.trim() || doc.name;
+  const gallery = (doc.gallery ?? [])
+    .map((media) => resolveMedia(media, "hero")?.url ?? null)
+    .filter((url): url is string => Boolean(url));
+  const variants = (doc.variants ?? []).map((variant, index) => ({
+    id: variant.id ?? `${doc.id}-${index + 1}`,
+    sku: variant.sku?.trim() || undefined,
+    color: variant.color?.trim() || undefined,
+    size: variant.size?.trim() || undefined,
+    configuration: variant.configuration?.trim() || undefined,
+    price: variant.price ?? undefined,
+    oldPrice: variant.oldPrice ?? undefined,
+    priceOnRequest: variant.priceOnRequest ?? true,
+    available: variant.available ?? true,
+    images: (variant.images ?? [])
+      .map((media) => resolveMedia(media, "hero")?.url ?? null)
+      .filter((url): url is string => Boolean(url)),
+  }));
 
   return {
     id: String(doc.id),
@@ -68,6 +85,15 @@ export function mapProduct(doc: Product): CmsProduct {
     descriptionShort,
     descriptionLong,
     imageUrl: mapImageUrl(doc.mainImage),
+    gallery,
+    price: doc.price ?? undefined,
+    oldPrice: doc.oldPrice ?? undefined,
+    priceOnRequest: doc.priceOnRequest ?? true,
+    available: doc.available ?? true,
+    color: doc.color?.trim() || undefined,
+    size: doc.size?.trim() || undefined,
+    material: doc.material?.trim() || undefined,
+    variants,
   };
 }
 
@@ -80,18 +106,38 @@ export function mapTireType(doc: TireType): CmsTireType {
     sortOrder: doc.sortOrder ?? 0,
     showInMenu: doc.showInMenu ?? true,
     imageUrl: mapImageUrl(doc.coverImage),
+    selectionVehicleTypes: doc.selectionVehicleTypes ?? [],
+    selectionConditions: doc.selectionConditions ?? [],
   };
 }
 
 export function mapTireModelDetail(doc: TireModel): CmsTireModel {
   const tireTypeSlug = resolveRelationSlug(doc.tireType) ?? "";
+  const applicationTypes = doc.applicationTypes ?? [];
+  const positions = doc.positions ?? [];
   const descriptionShort =
     doc.shortDescription?.trim() ||
-    doc.application?.trim() ||
-    doc.treadType?.trim() ||
+    applicationTypes.join(", ") ||
     doc.name;
   const descriptionLong =
     lexicalToPlainText(doc.fullDescription) || doc.shortDescription?.trim() || descriptionShort;
+  const gallery = (doc.gallery ?? [])
+    .map((media) => resolveMedia(media, "hero")?.url ?? null)
+    .filter((url): url is string => Boolean(url));
+  const advantages = (doc.features ?? []).map((feature) => ({
+    title: feature.title,
+    description: feature.description?.trim() || undefined,
+  }));
+  const documents = (doc.documents ?? [])
+    .map((item) => {
+      const media = resolveMedia(item);
+      if (!media) return null;
+      return {
+        url: media.url,
+        title: media.title || media.filename || "Документ",
+      };
+    })
+    .filter((item): item is { url: string; title: string } => Boolean(item));
 
   return {
     id: String(doc.id),
@@ -99,31 +145,42 @@ export function mapTireModelDetail(doc: TireModel): CmsTireModel {
     name: doc.name,
     tireTypeSlug,
     tireTypeName: resolveRelationName(doc.tireType) || tireTypeSlug,
-    applicationCategory: doc.applicationCategory,
-    brand: doc.series?.trim() || DEFAULT_BRAND,
+    applicationCategory: applicationTypes[0]?.replaceAll("-", "_") || tireTypeSlug,
+    brand: DEFAULT_BRAND,
     descriptionShort,
     descriptionLong,
-    application: doc.application?.trim() || undefined,
-    axlePosition: doc.axlePosition?.trim() || undefined,
-    treadType: doc.treadType?.trim() || undefined,
+    application: applicationTypes.join(", ") || undefined,
+    axlePosition: positions.join(", ") || undefined,
     imageUrl: mapImageUrl(doc.mainImage),
+    gallery,
+    advantages,
+    documents,
+    selectionVehicleTypes: [],
+    selectionConditions: applicationTypes.filter(
+      (application): application is "long-haul" | "regional" | "off-road" =>
+        application === "long-haul" ||
+        application === "regional" ||
+        application === "off-road",
+    ),
+    selectionAxles: positions,
   };
 }
 
 export function mapTireVariant(doc: TireVariant): CmsTireVariant {
+  const price = doc.price ?? undefined;
+
   return {
     id: String(doc.id),
-    size: doc.size,
-    rimDiameter: doc.rimDiameter ?? undefined,
-    loadIndex: doc.loadIndex?.trim() || undefined,
-    speedIndex: doc.speedIndex?.trim() || undefined,
-    plyRating: doc.plyRating?.trim() || undefined,
-    overallDiameter: doc.overallDiameter ?? undefined,
-    weight: doc.weight ?? undefined,
-    recommendedRim: doc.recommendedRim?.trim() || undefined,
-    available: doc.available ?? true,
-    price: doc.price ?? undefined,
-    priceOnRequest: doc.priceOnRequest ?? true,
+    size: doc.sizeNormalized?.trim() || doc.sizeRaw?.trim() || "",
+    rimDiameter: doc.rimDiameterIn ?? undefined,
+    loadIndex: doc.loadIndexSingle != null ? String(doc.loadIndexSingle) : undefined,
+    speedIndex: doc.speedSymbol ?? undefined,
+    plyRating: doc.plyRatingPr != null ? String(doc.plyRatingPr) : undefined,
+    overallDiameter: doc.overallDiameterMm ?? undefined,
+    recommendedRim: doc.standardRimIn != null ? String(doc.standardRimIn) : undefined,
+    available: doc.availabilityStatus !== "unavailable",
+    price,
+    priceOnRequest: price == null || doc.availabilityStatus !== "available",
   };
 }
 
