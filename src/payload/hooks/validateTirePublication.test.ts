@@ -47,10 +47,16 @@ describe("enforceTireModelWorkflowData", () => {
         data: { price: 1000 },
         original: { ...publishableModel, status: "draft" },
       }),
-    ).toMatchObject({
-      price: 1000,
-      status: "draft",
-    });
+    ).toEqual({ price: 1000 });
+  });
+
+  it("returns only incoming data on successful publish", () => {
+    expect(
+      enforceTireModelWorkflowData({
+        data: publishableModel,
+        original: { ...publishableModel, status: "draft" },
+      }),
+    ).toEqual(publishableModel);
   });
 });
 
@@ -91,10 +97,9 @@ describe("enforceTireVariantWorkflowData", () => {
         data: { price: 1000, availabilityStatus: "available" },
         original: { ...publishableVariant, status: "draft" },
       }),
-    ).toMatchObject({
+    ).toEqual({
       price: 1000,
       availabilityStatus: "available",
-      status: "draft",
     });
   });
 });

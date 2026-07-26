@@ -3,6 +3,7 @@ import {
   validateVariantPublication,
   type ValidationWarning,
 } from "@/lib/catalog/domain/tireValidation";
+import { APIError } from "payload";
 import type { CollectionBeforeChangeHook } from "payload";
 
 type CatalogData = Record<string, unknown>;
@@ -24,12 +25,24 @@ function criticalMessages(warnings: ValidationWarning[]): string {
     .join("; ");
 }
 
+function publicationStatus(
+  data: CatalogData,
+  original?: CatalogData | null,
+): unknown {
+  return data.status !== undefined ? data.status : original?.status;
+}
+
+/**
+ * Publish gates run only when the resulting status is `published`.
+ * Returns `data` (not a full merge) so beforeChange does not rewrite unrelated fields.
+ */
 export function enforceTireModelWorkflowData(
   input: ModelWorkflowInput,
 ): CatalogData {
-  const merged = { ...(input.original ?? {}), ...input.data };
-  if (merged.status !== "published") return merged;
+  const data = input.data ?? {};
+  if (publicationStatus(data, input.original) !== "published") return data;
 
+  const merged = { ...(input.original ?? {}), ...data };
   const validation = validateModelPublication({
     name: merged.name as string | null | undefined,
     slug: merged.slug as string | null | undefined,
@@ -37,17 +50,18 @@ export function enforceTireModelWorkflowData(
     mainImage: relationId(merged.mainImage),
   });
   if (!validation.canPublish) {
-    throw new Error(criticalMessages(validation.warnings));
+    throw new APIError(criticalMessages(validation.warnings), 400);
   }
-  return merged;
+  return data;
 }
 
 export function enforceTireVariantWorkflowData(
   input: VariantWorkflowInput,
 ): CatalogData {
-  const merged = { ...(input.original ?? {}), ...input.data };
-  if (merged.status !== "published") return merged;
+  const data = input.data ?? {};
+  if (publicationStatus(data, input.original) !== "published") return data;
 
+  const merged = { ...(input.original ?? {}), ...data };
   const validation = validateVariantPublication({
     sku: merged.sku as string | null | undefined,
     tireModel: relationId(merged.tireModel),
@@ -68,9 +82,9 @@ export function enforceTireVariantWorkflowData(
     hasDuplicateSku: input.hasDuplicateSku,
   });
   if (!validation.canPublish) {
-    throw new Error(criticalMessages(validation.warnings));
+    throw new APIError(criticalMessages(validation.warnings), 400);
   }
-  return merged;
+  return data;
 }
 
 type PayloadHookRequest = Parameters<CollectionBeforeChangeHook>[0]["req"];
@@ -131,11 +145,11 @@ export const validateTireVariantPublication: CollectionBeforeChangeHook = async 
   originalDoc,
   req,
 }) => {
-  const original =
-    (originalDoc as CatalogData | null | undefined) ?? {};
-  const merged = { ...original, ...(data ?? {}) };
-  if (merged.status !== "published") return merged;
+  const original = (originalDoc as CatalogData | null | undefined) ?? {};
+  const incoming = data ?? {};
+  if (publicationStatus(incoming, original) !== "published") return incoming;
 
+  const merged = { ...original, ...incoming };
   const modelRelation = merged.tireModel;
   const modelId = relationId(modelRelation);
   const model =
@@ -151,7 +165,7 @@ export const validateTireVariantPublication: CollectionBeforeChangeHook = async 
         })) as unknown as CatalogData));
 
   return enforceTireVariantWorkflowData({
-    data: data ?? {},
+    data: incoming,
     original,
     model,
     hasDuplicateSku: await skuExists(req, merged.sku, original.id),
