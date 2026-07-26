@@ -2,7 +2,7 @@
  * Bootstraps WheelTypes (forged) and approved forged designs from SHOP_WHEEL_DESIGNS.
  *
  * Run: npm run seed:wheel-axis
- * ponytail: mainImage stays empty until S3/local media upload is available; verify:shop accepts static hero assets.
+ * ponytail: mainImage stays empty until npm run seed:wheel-media uploads PNGs.
  */
 import { SHOP_WHEEL_DESIGNS } from "../src/constants/shopWheels";
 import { getPayload } from "../src/lib/payload/getPayload";
@@ -29,7 +29,12 @@ const existingType = await payload.find({
 
 let forgedTypeId = existingType.docs[0]?.id;
 if (forgedTypeId) {
-  console.log(`Kept existing wheel-type unchanged: ${FORGED_TYPE.slug}`);
+  await payload.update({
+    collection: "wheel-types",
+    id: forgedTypeId,
+    data: FORGED_TYPE,
+  });
+  console.log(`Updated wheel-type: ${FORGED_TYPE.slug}`);
 } else {
   const created = await payload.create({
     collection: "wheel-types",
