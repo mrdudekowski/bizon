@@ -9,6 +9,7 @@ import {
 import { createPageMetadata } from "@/lib/seo/metadata";
 import { PageHeader } from "@/components/catalog/PageHeader";
 import { WheelModelGrid } from "@/components/catalog/WheelModelGrid";
+import { ForgedCatalog } from "@/components/shop/ForgedCatalog";
 
 type PageProps = {
   params: Promise<{ wheelTypeSlug: string }>;
@@ -16,11 +17,18 @@ type PageProps = {
 
 export async function generateStaticParams() {
   const slugs = await getAllWheelTypeSlugs();
-  return slugs.map((wheelTypeSlug) => ({ wheelTypeSlug }));
+  return [...new Set(["forged", ...slugs])].map((wheelTypeSlug) => ({ wheelTypeSlug }));
 }
 
 export async function generateMetadata({ params }: PageProps) {
   const { wheelTypeSlug } = await params;
+  if (wheelTypeSlug.toLowerCase() === "forged") {
+    return createPageMetadata({
+      title: "BIZON Forged",
+      description: "Пять дизайнов кованых дисков BIZON, изготавливаемых под заказ.",
+      path: "/shop/wheels/forged",
+    });
+  }
   const wheelType = await getWheelTypeBySlug(wheelTypeSlug);
   if (!wheelType) return {};
   return createPageMetadata({
@@ -32,6 +40,11 @@ export async function generateMetadata({ params }: PageProps) {
 
 export default async function WheelTypePage({ params }: PageProps) {
   const { wheelTypeSlug } = await params;
+  if (wheelTypeSlug.toLowerCase() === "forged") {
+    const models = await getWheelModelsByTypeSlug("forged");
+    return <ForgedCatalog models={models} />;
+  }
+
   const wheelType = await getWheelTypeBySlug(wheelTypeSlug);
 
   if (!wheelType) {
@@ -62,7 +75,7 @@ export default async function WheelTypePage({ params }: PageProps) {
         <p className="section-description">Модели этого типа скоро появятся.</p>
       )}
       <p className="mt-8">
-        <Link href="/shop" className="btn-glass inline-flex">
+        <Link href="/shop" className="btn-secondary inline-flex">
           ← Магазин
         </Link>
       </p>
