@@ -8,7 +8,6 @@ import {
 } from "@/access/content";
 import {
   ADMIN_GROUPS,
-  TIRE_APPLICATION_CATEGORIES,
   documentsField,
   galleryField,
   mainImageField,
@@ -16,9 +15,16 @@ import {
   seoFields,
   slugField,
   statusField,
+  tireModelFeaturesField,
+  tireModelTaxonomyFields,
 } from "@/collections/fields";
-import { catalogContentHooks } from "@/payload/hooks/catalogContentHooks";
-
+import { normalizeTireModel } from "@/payload/hooks/normalizeTireCatalog";
+import { validateTireModelPublication } from "@/payload/hooks/validateTirePublication";
+import { setPublishedAt } from "@/payload/hooks/setPublishedAt";
+import {
+  revalidateSiteCache,
+  revalidateSiteCacheAfterDelete,
+} from "@/payload/hooks/revalidateSiteCache";
 export const TireModels: CollectionConfig = {
   slug: "tire-models",
   labels: {
@@ -28,9 +34,9 @@ export const TireModels: CollectionConfig = {
   admin: {
     group: ADMIN_GROUPS.tireCatalog,
     useAsTitle: "name",
-    defaultColumns: ["name", "tireType", "applicationCategory", "status", "updatedAt"],
+    defaultColumns: ["name", "modelCode", "tireType", "status", "updatedAt"],
     description:
-      "Конкретная модель шины. Тип (TBR/OTR) — через «Тип шин». Сегмент применения — через «Сегмент применения».",
+      "Модель шины: карточка для сайта, характеристики и размеры.",
   },
   access: {
     read: catalogReadAccess,
@@ -38,88 +44,100 @@ export const TireModels: CollectionConfig = {
     update: catalogWriteAccess,
     delete: catalogDeleteAccess,
   },
-  hooks: catalogContentHooks,
+  hooks: {
+    beforeValidate: [normalizeTireModel],
+    beforeChange: [validateTireModelPublication, setPublishedAt],
+    afterChange: [revalidateSiteCache],
+    afterDelete: [revalidateSiteCacheAfterDelete],
+  },
   fields: [
     {
-      name: "name",
-      type: "text",
-      label: "Название модели",
-      required: true,
-    },
-    slugField(),
-    {
-      name: "tireType",
-      type: "relationship",
-      relationTo: "tire-types",
-      label: "Тип шин",
-      required: true,
-      admin: {
-        description: "TBR, OTR, Agriculture и т.д. — техническая группа каталога",
-      },
-    },
-    {
-      name: "applicationCategory",
-      type: "select",
-      label: "Сегмент применения",
-      required: true,
-      options: [...TIRE_APPLICATION_CATEGORIES],
-      admin: {
-        description: "Long Haul, Regional и т.д. — не путать с типом шин (TBR/OTR)",
-      },
-    },
-    {
-      name: "series",
-      type: "text",
-      label: "Серия",
-    },
-    {
-      name: "application",
-      type: "text",
-      label: "Применение",
-    },
-    {
-      name: "axlePosition",
-      type: "text",
-      label: "Положение оси",
-    },
-    {
-      name: "treadType",
-      type: "text",
-      label: "Тип протектора",
-    },
-    {
-      name: "shortDescription",
-      type: "textarea",
-      label: "Краткое описание",
-    },
-    {
-      name: "fullDescription",
-      type: "richText",
-      label: "Полное описание",
-      editor: lexicalEditor(),
-    },
-    {
-      name: "advantages",
-      type: "array",
-      label: "Преимущества",
-      fields: [
+      type: "tabs",
+      tabs: [
         {
-          name: "title",
-          type: "text",
-          label: "Заголовок",
-          required: true,
+          label: "Основное",
+          fields: [
+            {
+              name: "name",
+              type: "text",
+              label: "Название модели",
+              required: true,
+            },
+            slugField(),
+            {
+              name: "modelCode",
+              type: "text",
+              label: "Код модели",
+              unique: true,
+              index: true,
+              admin: {
+                description:
+                  "Опционально. Если пусто — заполнится из slug при сохранении.",
+              },
+            },
+            {
+              name: "tireType",
+              type: "relationship",
+              relationTo: "tire-types",
+              label: "Тип шин",
+              required: true,
+              admin: {
+                description:
+                  "TBR, OTR, Agriculture и т.д. — техническая группа каталога",
+              },
+            },
+            ...tireModelTaxonomyFields(),
+          ],
         },
         {
-          name: "description",
-          type: "textarea",
-          label: "Описание",
+          label: "Преимущества",
+          fields: [tireModelFeaturesField()],
+        },
+        {
+          label: "Размеры",
+          fields: [
+            {
+              name: "variants",
+              type: "join",
+              label: "Размеры и характеристики",
+              collection: "tire-variants",
+              on: "tireModel",
+              admin: {
+                description:
+                  "Добавляйте размеры здесь. SKU создаётся автоматически.",
+                defaultColumns: [
+                  "sku",
+                  "sizeNormalized",
+                  "availabilityStatus",
+                  "price",
+                  "status",
+                ],
+              },
+            },
+          ],
+        },
+        {
+          label: "Контент и медиа",
+          fields: [
+            {
+              name: "shortDescription",
+              type: "textarea",
+              label: "Краткое описание",
+            },
+            {
+              name: "fullDescription",
+              type: "richText",
+              label: "Полное описание",
+              editor: lexicalEditor(),
+            },
+            mainImageField(),
+            galleryField(),
+            documentsField(),
+            seoFields,
+          ],
         },
       ],
     },
-    mainImageField(),
-    galleryField(),
-    documentsField(),
-    seoFields,
     statusField(),
     publishedAtField(),
   ],
