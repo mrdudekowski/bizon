@@ -11,7 +11,6 @@ import { getWheelConstructionMethodLabel } from "@/lib/cms/wheelConstructionMeth
 import { createPageMetadata } from "@/lib/seo/metadata";
 import { createProductStructuredData } from "@/lib/seo/structuredData";
 import { PageHeader } from "@/components/catalog/PageHeader";
-import { CatalogImage } from "@/components/catalog/CatalogImage";
 import { WheelVariantsTable } from "@/components/catalog/WheelVariantsTable";
 import { AddToCartSection } from "@/components/cart/AddToCartSection";
 import { QuickOrderSection } from "@/components/forms/QuickOrderSection";
@@ -104,16 +103,6 @@ export default async function WheelModelPage({ params }: PageProps) {
       {metaParts.length > 0 && (
         <p className="text-sm text-muted mb-4">{metaParts.join(" · ")}</p>
       )}
-      <div className="catalog-detail-media catalog-detail-media--editorial">
-        <CatalogImage
-          src={model.imageUrl}
-          fallbackKey={model.slug}
-          alt={`${model.name} — коммерческий диск`}
-          fill
-          priority
-          sizes="(max-width: 768px) 100vw, 70vw"
-        />
-      </div>
       <article className="card-base info-card max-w-3xl">
         <p className="info-card-text">{model.descriptionLong}</p>
         {model.fitmentNotes && (
@@ -177,7 +166,7 @@ export default async function WheelModelPage({ params }: PageProps) {
         <Link href="/contact" className="btn-accent inline-flex">
           Запросить цену
         </Link>
-        <Link href={typeBasePath} className="btn-secondary inline-flex">
+        <Link href={typeBasePath} className="btn-glass inline-flex">
           ← Все модели {wheelType.name}
         </Link>
       </div>

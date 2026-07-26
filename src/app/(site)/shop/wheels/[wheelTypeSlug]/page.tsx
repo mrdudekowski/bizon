@@ -75,7 +75,7 @@ export default async function WheelTypePage({ params }: PageProps) {
         <p className="section-description">Модели этого типа скоро появятся.</p>
       )}
       <p className="mt-8">
-        <Link href="/shop" className="btn-secondary inline-flex">
+        <Link href="/shop" className="btn-glass inline-flex">
           ← Магазин
         </Link>
       </p>
