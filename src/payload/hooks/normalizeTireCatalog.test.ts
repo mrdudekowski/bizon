@@ -9,6 +9,7 @@ import {
   normalizeTireVariant,
   normalizeTireVariantData,
 } from "./normalizeTireCatalog";
+import { enforceTireVariantWorkflowData } from "./validateTirePublication";
 
 describe("normalizeTireModelData", () => {
   it("builds modelCode from slug when modelCode is blank", () => {
@@ -68,6 +69,44 @@ describe("normalizeTireVariantData", () => {
       sku: buildTireVariantSku("S201", "385/65R22.5"),
     });
   });
+
+  it.each(["not-a-tire-size", ""])(
+    "clears stale parsed fields when sizeRaw is %j",
+    (sizeRaw) => {
+      const normalized = normalizeTireVariantData({
+        original: {
+          status: "published",
+          sku: "DSR188-315-80R22.5",
+          tireModel: 1,
+          sizeRaw: "315/80R22.5",
+          sizeNormalized: "315/80R22.5",
+          sizeFormat: "metric",
+          nominalWidthMm: 315,
+          aspectRatioPct: 80,
+          constructionCode: "R",
+          rimDiameterIn: 22.5,
+          imperialWidthIn: null,
+        },
+        data: { sizeRaw },
+      });
+
+      expect(normalized).toMatchObject({
+        sizeNormalized: null,
+        sizeFormat: null,
+        nominalWidthMm: null,
+        aspectRatioPct: null,
+        constructionCode: null,
+        rimDiameterIn: null,
+        imperialWidthIn: null,
+      });
+      expect(() =>
+        enforceTireVariantWorkflowData({
+          data: normalized,
+          model: { status: "published" },
+        }),
+      ).toThrow("Укажите размер, который система может разобрать");
+    },
+  );
 });
 
 describe("normalizeTireVariant", () => {

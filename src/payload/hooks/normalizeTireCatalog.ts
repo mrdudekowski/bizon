@@ -53,6 +53,16 @@ function parsedSizeFields(
   };
 }
 
+const clearedParsedSizeFields = {
+  sizeNormalized: null,
+  sizeFormat: null,
+  nominalWidthMm: null,
+  aspectRatioPct: null,
+  imperialWidthIn: null,
+  constructionCode: null,
+  rimDiameterIn: null,
+};
+
 function relatedModelCode(value: unknown): string | null {
   if (
     value &&
@@ -76,12 +86,15 @@ export function normalizeTireVariantData(input: {
     { ...original, ...input.data },
     ["sku", "supplierSku"],
   );
-  const raw = typeof merged.sizeRaw === "string" ? merged.sizeRaw : "";
-  if (raw.trim()) {
+  if (Object.prototype.hasOwnProperty.call(input.data, "sizeRaw")) {
+    const raw = typeof input.data.sizeRaw === "string" ? input.data.sizeRaw : "";
     const parseResult = parseTireSize(raw);
-    if (parseResult.ok) {
-      Object.assign(merged, parsedSizeFields(parseResult.value));
-    }
+    Object.assign(
+      merged,
+      parseResult.ok
+        ? parsedSizeFields(parseResult.value)
+        : clearedParsedSizeFields,
+    );
   }
 
   if (isBlank(merged.sku) && !isBlank(merged.sizeNormalized)) {
