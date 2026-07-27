@@ -14,8 +14,16 @@ export function ModelAdvantagesCarousel({ advantages }: ModelAdvantagesCarouselP
   const slides = advantages;
   const [activeIndex, setActiveIndex] = useState(0);
   const [autoplay, setAutoplay] = useState(true);
+  const [pageVisible, setPageVisible] = useState(true);
   const touchStartX = useRef<number | null>(null);
   const hasMultipleSlides = slides.length >= 2;
+
+  useEffect(() => {
+    const sync = () => setPageVisible(!document.hidden);
+    sync();
+    document.addEventListener("visibilitychange", sync);
+    return () => document.removeEventListener("visibilitychange", sync);
+  }, []);
 
   useEffect(() => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -37,7 +45,7 @@ export function ModelAdvantagesCarousel({ advantages }: ModelAdvantagesCarouselP
       else start();
     };
 
-    start();
+    if (!document.hidden) start();
     document.addEventListener("visibilitychange", onVisibilityChange);
     return () => {
       window.clearInterval(timer);
@@ -120,7 +128,11 @@ export function ModelAdvantagesCarousel({ advantages }: ModelAdvantagesCarouselP
                 aria-current={index === activeIndex ? "true" : undefined}
               >
                 <span
-                  className={autoplay && index === activeIndex ? styles.progressFill : ""}
+                  className={
+                    autoplay && index === activeIndex && pageVisible
+                      ? styles.progressFill
+                      : ""
+                  }
                 />
               </button>
             ))}
