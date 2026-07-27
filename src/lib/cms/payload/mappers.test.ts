@@ -21,7 +21,7 @@ describe("mapTireModelDetail", () => {
     } as never);
 
     expect(mapped.advantages).toEqual([
-      { title: "Сцепление", description: "На мокром покрытии" },
+      { key: "wet-grip", title: "Сцепление", description: "На мокром покрытии" },
     ]);
   });
 });

@@ -60,6 +60,7 @@ export type CmsTireType = {
 };
 
 export type CmsTireAdvantage = {
+  key: string;
   title: string;
   description?: string;
 };

@@ -125,6 +125,7 @@ export function mapTireModelDetail(doc: TireModel): CmsTireModel {
     .map((media) => resolveMedia(media, "hero")?.url ?? null)
     .filter((url): url is string => Boolean(url));
   const advantages = (doc.features ?? []).map((feature) => ({
+    key: feature.key,
     title: feature.title,
     description: feature.description?.trim() || undefined,
   }));
