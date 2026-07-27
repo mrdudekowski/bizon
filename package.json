@@ -11,6 +11,7 @@
     "admin:fix": "node -e \"require('fs').rmSync('.next',{recursive:true,force:true})\" && cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
     "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
+    "test": "vitest run",
     "lint": "eslint src scripts payload.config.ts next.config.mjs",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
@@ -21,6 +22,7 @@
     "seed:wheel-axis": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/seed-wheel-axis.ts",
     "seed:wheel-media": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/seed-wheel-media.ts",
     "seed:content": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/seed-content.ts",
+    "seed:pages": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/seed-pages.ts",
     "import:catalog": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/import-catalog.ts",
     "import:catalog:dry": "cross-env NODE_OPTIONS=--no-deprecation DRY_RUN=1 payload run scripts/import-catalog.ts",
     "import:all": "npm run import:catalog",
@@ -68,6 +70,7 @@
     "eslint-config-next": "15.4.11",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.18",
-    "typescript": "5.8.2"
+    "typescript": "5.8.2",
+    "vitest": "^4.1.10"
   }
 }

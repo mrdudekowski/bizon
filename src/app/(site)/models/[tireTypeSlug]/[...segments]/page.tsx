@@ -20,10 +20,19 @@ type PageProps = {
 };
 
 export async function generateStaticParams() {
-  const routes = await getAllTireModelRouteParams();
+  const [routes, catalog] = await Promise.all([
+    getAllTireModelRouteParams(),
+    getPublishedTireCatalog(),
+  ]);
   return routes.map((route) => ({
     tireTypeSlug: route.tireTypeSlug,
-    segments: [route.modelSlug],
+    segments:
+      catalog.directions
+        .find((direction) => direction.slug === route.tireTypeSlug)
+        ?.models.find((model) => model.slug === route.modelSlug)
+        ?.href.split("/")
+        .filter(Boolean)
+        .slice(2) ?? [route.modelSlug],
   }));
 }
 
@@ -94,28 +103,37 @@ async function TireModelRoute({
   const catalogModel = catalog.directions
     .find((direction) => direction.slug === tireTypeSlug)
     ?.models.find((item) => item.slug === modelSlug);
-  if (!model || !catalogModel) notFound();
+  if (!model) notFound();
 
-  if (requestedPath !== catalogModel.href) redirect(catalogModel.href);
+  if (catalogModel && requestedPath !== catalogModel.href) redirect(catalogModel.href);
 
   const variants = await getTireVariantsByModelId(model.id);
-  const category = getTireCategoryBySlug(catalogModel.href.split("/").at(-2) ?? "");
+  const modelPath =
+    catalogModel?.href || requestedPath || `/models/${tireTypeSlug}/${modelSlug}`;
+  const hydratedModel = catalogModel ?? {
+    ...model,
+    href: modelPath,
+    sizes: variants.map((variant) => variant.size),
+  };
+  const category = catalogModel
+    ? getTireCategoryBySlug(catalogModel.href.split("/").at(-2) ?? "")
+    : undefined;
   const typePath = `/models/${tireTypeSlug}`;
   const breadcrumbs = [
     { href: "/", label: "Главная" },
     { href: "/models", label: "Каталог" },
-    { href: typePath, label: catalogModel.tireTypeName },
+    { href: typePath, label: hydratedModel.tireTypeName },
     ...(category
       ? [{ href: `${typePath}/${category.slug}`, label: category.name }]
       : []),
-    { href: catalogModel.href, label: catalogModel.name },
+    { href: modelPath, label: hydratedModel.name },
   ];
   const structuredData = createProductStructuredData({
-    name: catalogModel.name,
-    description: catalogModel.descriptionShort,
-    path: catalogModel.href,
-    brand: catalogModel.brand,
-    category: catalogModel.tireTypeName,
+    name: hydratedModel.name,
+    description: hydratedModel.descriptionShort,
+    path: modelPath,
+    brand: hydratedModel.brand,
+    category: hydratedModel.tireTypeName,
   });
 
   return (
@@ -125,9 +143,9 @@ async function TireModelRoute({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       <TireModelStage
-        model={catalogModel}
+        model={hydratedModel}
         variants={variants}
-        modelPath={catalogModel.href}
+        modelPath={modelPath}
         breadcrumbs={breadcrumbs}
       />
     </>

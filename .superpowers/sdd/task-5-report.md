@@ -1,98 +1,62 @@
-# Task 5 report: database migration (staging first)
+# Task 5 Report: Regression suite + optional e2e
 
 ## Status
 
-COMPLETED on staging only.
+COMPLETE — unit regression and typecheck pass; e2e skipped by design.
 
-- Required URI used for every database command:
-  `postgresql://postgres:postgres@127.0.0.1:55433/bizon_payload_stage`
-- Database identity check returned `bizon_payload_stage`. PostgreSQL reported its
-  container-side server port as `5432`; the connection used the required host
-  mapping on `55433`.
-- Production `127.0.0.1:5432/bizon` was not accessed.
-- `postgresAdapter.push` remains `false`.
+**Branch:** `feat/model-advantages-carousel`
 
-## Schema inspection
+## Verification
 
-Before migration:
+### Unit regression
 
-- `model_features`: 70 rows
-- `tire_models_features`: absent
-- `tire_models_advantages`: 0 rows
-- `tire_models_validation_warnings`: 0 rows
-- `tire_variants_validation_warnings`: 2 rows
-- Tire models: 24
-- Tire variants: 48
-- Empty model codes: 0
-- Empty SKUs eligible for backfill: 48
-
-The schema already matched
-`20260726_105520_bizon_refactor_baseline`, but Payload history contained only a
-`dev` marker for that state. Running the pending baseline would have attempted
-to recreate the populated `model_features` table. After asserting the exact
-staging database name, the presence of `model_features`, absence of
-`tire_models_features`, and presence of the `dev` marker, the baseline was
-recorded as batch 5. No baseline SQL was rerun and no source rows were changed.
-
-## Migration
-
-Created `20260727_015500_tire_catalog_manager_ux`.
-
-The migration:
-
-- creates the canonical `tire_models_features` array table;
-- copies all 70 `model_features` rows;
-- uses legacy advantages only for models with no copied features;
-- backfills model codes and SKUs;
-- resolves the one duplicate base SKU (`DSR188-12.00R20`) with a deterministic
-  PR suffix for the second variant;
-- removes catalog IDs, verification fields, publish blocking, source snapshots,
-  validation-warning tables, legacy advantages, the collection table, and
-  obsolete enums;
-- adds the array foreign key and indexes.
-
-`npx.cmd payload migrate` succeeded:
-
-```text
-Migrated: 20260727_015500_tire_catalog_manager_ux (191ms)
+```bash
+npx vitest run src/lib/catalog/featureImages.test.ts src/lib/cms/payload/mappers.test.ts
 ```
 
-Post-migration checks:
+```
+Test Files  2 passed (2)
+     Tests  8 passed (8)
+```
 
-- Tire models: 24
-- Tire model features: 70
-- Variants with non-empty SKU: 48
-- Remaining obsolete tire model/variant columns: 0
-- Payload migration status: all six migrations applied; Task 5 is batch 6
+- `featureImages.test.ts` — 4 tests: CMS key coverage, PNG assets on disk, unknown/prototype keys return null.
+- `mappers.test.ts` — 4 tests: CMS `features` → site `advantages` with trimmed descriptions; wheel media mapping; tire variant price/size fallbacks.
 
-## Generated files and verification
+### Typecheck
 
-- Regenerated `src/payload-types.ts` successfully.
-- Deleted the obsolete untracked `src/collections/ModelFeatures.ts`.
-- Confirmed generated types and registered source contain no
-  `model-features` collection reference.
-- Targeted tests: 3 files, 17 tests passed.
-- Migration ESLint: 0 errors, 0 warnings.
-- `git diff --check`: passed.
-- Full `tsc --noEmit` remains red because pre-existing seed scripts and CMS
-  mappers still reference fields removed by earlier schema tasks; Task 5 did not
-  modify those out-of-scope consumers.
+```bash
+npx tsc --noEmit
+```
+
+Exit 0.
+
+## E2e decision
+
+**Skipped** — no file changes to `e2e/catalog.spec.ts`.
+
+`e2e/catalog.spec.ts` already opens a model PDP (`/models/tbr/regional/dsr177` via filter + card click), but the Playwright fixture env is not guaranteed to expose advantages:
+
+- `scripts/seed-tbr-models.ts` seeds DSR177 with metadata only — no `features` array.
+- Section renders only when `model.advantages.length > 0` (`TireModelStage.tsx`); empty advantages hide the carousel entirely.
+- No other seed or e2e helper populates tire model features for the catalog fixture.
+
+Adding the brief’s heading/region assertions would flake or fail on a fresh `seed:tbr-models` database. Manual smoke on models with CMS features (e.g. `/models/tbr/long-haul/dla968` per Task 4) remains the integration check until seed data includes features for the e2e target model.
 
 ## Commit
 
-`96af312 feat(tires): migrate features onto models and drop import verification schema`
+NONE — no e2e changes; per task instructions, commit only when e2e is modified.
 
-The commit contains only `src/migrations/**` and generated
-`src/payload-types.ts`. The report is intentionally not included in that commit.
+## Concerns
 
-## Important review fixes
+None within Task 5 scope. Future hardening: extend `seed-tbr-models.ts` (or a dedicated e2e seed) with at least one feature on DSR177, then add the soft Playwright visibility checks from the brief.
 
-- Hardened the future-environment SKU backfill against mixed-state collisions
-  with non-empty SKUs on other rows; deterministic duplicate suffixing remains.
-- Retired `import-tbr-catalog.ts` with an immediate non-zero error before
-  Payload can load or target the removed `model-features` collection.
-- Added a production warning to the baseline migration. Staging had already
-  applied the manager UX migration, so its SQL was not rerun; this edit protects
-  dev/production environments that have not applied it.
-- Focused verification: 5 files, 13 tests passed; changed-file ESLint passed;
-  `npm run import:tbr` exited non-zero with the expected retirement message.
+## Whole-branch review fixes
+
+- Tire model PDPs now render from the CMS model when the published catalog read model has no matching entry.
+- Canonical catalog paths are emitted by `generateStaticParams`; models absent from the catalog retain their direct model path.
+- Vitest is declared in `devDependencies`, exposed through `npm test`, and configured by the committed `vitest.config.ts`.
+
+Verification on 2026-07-27:
+
+- `npx vitest run src/lib/catalog/featureImages.test.ts src/lib/cms/payload/mappers.test.ts` — 2 files, 8 tests passed.
+- `npx tsc --noEmit` — exit 0.
