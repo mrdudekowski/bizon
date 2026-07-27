@@ -1,5 +1,11 @@
 /** Public CMS shapes consumed by pages and SEO helpers — keep stable when swapping data sources. */
 
+import type {
+  CatalogAxle,
+  OperatingCondition,
+  VehicleType,
+} from "@/lib/selection/options";
+
 export type CmsProduct = {
   id?: string;
   slug: string;
@@ -10,6 +16,28 @@ export type CmsProduct = {
   descriptionShort: string;
   descriptionLong: string;
   imageUrl?: string | null;
+  gallery: string[];
+  price?: number;
+  oldPrice?: number;
+  priceOnRequest: boolean;
+  available: boolean;
+  color?: string;
+  size?: string;
+  material?: string;
+  variants: CmsProductVariant[];
+};
+
+export type CmsProductVariant = {
+  id: string;
+  sku?: string;
+  color?: string;
+  size?: string;
+  configuration?: string;
+  price?: number;
+  oldPrice?: number;
+  priceOnRequest: boolean;
+  available: boolean;
+  images: string[];
 };
 
 export type CmsShopCategory = {
@@ -27,6 +55,18 @@ export type CmsTireType = {
   sortOrder: number;
   showInMenu: boolean;
   imageUrl?: string | null;
+  selectionVehicleTypes: VehicleType[];
+  selectionConditions: OperatingCondition[];
+};
+
+export type CmsTireAdvantage = {
+  title: string;
+  description?: string;
+};
+
+export type CmsTireDocument = {
+  url: string;
+  title: string;
 };
 
 export type CmsTireModel = {
@@ -43,6 +83,12 @@ export type CmsTireModel = {
   application?: string;
   axlePosition?: string;
   treadType?: string;
+  gallery: string[];
+  advantages: CmsTireAdvantage[];
+  documents: CmsTireDocument[];
+  selectionVehicleTypes: VehicleType[];
+  selectionConditions: OperatingCondition[];
+  selectionAxles: CatalogAxle[];
 };
 
 export type CmsTireVariant = {
@@ -94,6 +140,12 @@ export type CmsWheelType = {
   imageUrl?: string | null;
 };
 
+export type CmsWheelGalleryImage = {
+  url: string;
+  alt: string;
+  label: string;
+};
+
 export type CmsWheelModel = {
   id: string;
   slug: string;
@@ -108,6 +160,7 @@ export type CmsWheelModel = {
   descriptionShort: string;
   descriptionLong: string;
   imageUrl?: string | null;
+  gallery: CmsWheelGalleryImage[];
   documents?: { url: string; title: string }[];
 };
 

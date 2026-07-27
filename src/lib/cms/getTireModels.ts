@@ -15,7 +15,20 @@ export async function getTireModelsByTypeSlug(tireTypeSlug: string): Promise<Cms
     depth: 1,
   });
   if (!docs?.length) return [];
-  return docs.map((doc) => mapTireModelDetail(doc as TireModel));
+
+  const models = docs.map((doc) => mapTireModelDetail(doc as TireModel));
+  const modelsWithPublishedVariants: CmsTireModel[] = [];
+
+  // ponytail: N+1 is acceptable for the small catalog; replace with aggregation if it grows.
+  for (const model of models) {
+    const variants = await findPublished("tire-variants", {
+      where: { tireModel: { equals: model.id } },
+      limit: 1,
+    });
+    if (variants?.length) modelsWithPublishedVariants.push(model);
+  }
+
+  return modelsWithPublishedVariants;
 }
 
 export async function getTireModelByTypeAndSlug(

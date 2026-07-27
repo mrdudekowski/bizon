@@ -5,8 +5,25 @@ import {
   catalogReadAccess,
   catalogWriteAccess,
 } from "@/access/content";
-import { ADMIN_GROUPS, priceFieldsRow, publishedAtField, statusField } from "@/collections/fields";
-import { catalogContentHooks } from "@/payload/hooks/catalogContentHooks";
+import {
+  ADMIN_GROUPS,
+  publishedAtField,
+  statusField,
+  tireCommercialFields,
+  tireVariantIdentityFields,
+  tireVariantTechnicalFields,
+} from "@/collections/fields";
+import { normalizeTireVariant } from "@/payload/hooks/normalizeTireCatalog";
+import { validateTireVariantPublication } from "@/payload/hooks/validateTirePublication";
+import { setPublishedAt } from "@/payload/hooks/setPublishedAt";
+import {
+  revalidateSiteCache,
+  revalidateSiteCacheAfterDelete,
+} from "@/payload/hooks/revalidateSiteCache";
+
+const variantTechnicalFields = tireVariantTechnicalFields();
+const variantSizeFields = variantTechnicalFields.slice(0, 5);
+const variantSpecificationFields = variantTechnicalFields.slice(5);
 
 export const TireVariants: CollectionConfig = {
   slug: "tire-variants",
@@ -16,8 +33,15 @@ export const TireVariants: CollectionConfig = {
   },
   admin: {
     group: ADMIN_GROUPS.tireCatalog,
-    useAsTitle: "size",
-    defaultColumns: ["size", "tireModel", "available", "sortOrder", "status"],
+    useAsTitle: "sizeNormalized",
+    defaultColumns: [
+      "sku",
+      "sizeNormalized",
+      "tireModel",
+      "availabilityStatus",
+      "price",
+      "status",
+    ],
     description: "Размеры и технические параметры конкретной модели шины.",
   },
   access: {
@@ -26,91 +50,40 @@ export const TireVariants: CollectionConfig = {
     update: catalogWriteAccess,
     delete: catalogDeleteAccess,
   },
-  hooks: catalogContentHooks,
+  hooks: {
+    beforeValidate: [normalizeTireVariant],
+    beforeChange: [validateTireVariantPublication, setPublishedAt],
+    afterChange: [revalidateSiteCache],
+    afterDelete: [revalidateSiteCacheAfterDelete],
+  },
   fields: [
     {
-      name: "tireModel",
-      type: "relationship",
-      relationTo: "tire-models",
-      label: "Модель шины",
-      required: true,
-    },
-    {
-      name: "size",
-      type: "text",
-      label: "Размер",
-      required: true,
-      admin: {
-        description: "Например: 12.00R20",
-      },
-    },
-    {
-      type: "row",
-      fields: [
+      type: "tabs",
+      tabs: [
         {
-          name: "sectionWidth",
-          type: "number",
-          label: "Ширина профиля",
+          label: "Размер",
+          fields: [
+            {
+              name: "tireModel",
+              type: "relationship",
+              relationTo: "tire-models",
+              label: "Модель шины",
+              required: true,
+            },
+            ...tireVariantIdentityFields(),
+            ...variantSizeFields,
+          ],
         },
         {
-          name: "aspectRatio",
-          type: "number",
-          label: "Высота профиля",
+          label: "Технические",
+          fields: [...variantSpecificationFields],
         },
         {
-          name: "rimDiameter",
-          type: "number",
-          label: "Диаметр обода",
+          label: "Коммерческие",
+          fields: [...tireCommercialFields()],
         },
       ],
     },
-    {
-      type: "row",
-      fields: [
-        {
-          name: "loadIndex",
-          type: "text",
-          label: "Индекс нагрузки",
-        },
-        {
-          name: "speedIndex",
-          type: "text",
-          label: "Индекс скорости",
-        },
-        {
-          name: "plyRating",
-          type: "text",
-          label: "PR (слойность)",
-        },
-      ],
-    },
-    {
-      type: "row",
-      fields: [
-        {
-          name: "overallDiameter",
-          type: "number",
-          label: "Наружный диаметр (мм)",
-        },
-        {
-          name: "weight",
-          type: "number",
-          label: "Масса (кг)",
-        },
-        {
-          name: "recommendedRim",
-          type: "text",
-          label: "Рекомендуемый обод",
-        },
-      ],
-    },
-    {
-      name: "available",
-      type: "checkbox",
-      label: "Доступен",
-      defaultValue: true,
-    },
-    priceFieldsRow(),
     {
       name: "sortOrder",
       type: "number",

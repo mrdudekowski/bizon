@@ -68,6 +68,7 @@ export interface Config {
   blocks: {};
   collections: {
     users: User;
+    'cart-sessions': CartSession;
     media: Media;
     'shop-categories': ShopCategory;
     'tire-types': TireType;
@@ -85,9 +86,14 @@ export interface Config {
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  collectionsJoins: {};
+  collectionsJoins: {
+    'tire-models': {
+      variants: 'tire-variants';
+    };
+  };
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
+    'cart-sessions': CartSessionsSelect<false> | CartSessionsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     'shop-categories': ShopCategoriesSelect<false> | ShopCategoriesSelect<true>;
     'tire-types': TireTypesSelect<false> | TireTypesSelect<true>;
@@ -166,6 +172,26 @@ export interface User {
     | null;
   password?: string | null;
   collection: 'users';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cart-sessions".
+ */
+export interface CartSession {
+  id: number;
+  tokenHash: string;
+  items:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  expiresAt: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * Max file size: 50 MB. Allowed: JPEG, PNG, WebP, MP4, PDF.
@@ -294,9 +320,34 @@ export interface Product {
   } | null;
   price?: number | null;
   priceOnRequest?: boolean | null;
+  /**
+   * Показывается только когда больше текущей цены.
+   */
+  oldPrice?: number | null;
+  available?: boolean | null;
   color?: string | null;
   size?: string | null;
   material?: string | null;
+  /**
+   * Комбинации цвета, размера и комплектации. Пустые группы не показываются на сайте.
+   */
+  variants?:
+    | {
+        sku?: string | null;
+        color?: string | null;
+        size?: string | null;
+        configuration?: string | null;
+        price?: number | null;
+        priceOnRequest?: boolean | null;
+        /**
+         * Используется только при реальной скидке.
+         */
+        oldPrice?: number | null;
+        available?: boolean | null;
+        images?: (number | Media)[] | null;
+        id?: string | null;
+      }[]
+    | null;
   mainImage?: (number | null) | Media;
   gallery?: (number | Media)[] | null;
   instructions?: (number | Media)[] | null;
@@ -363,7 +414,7 @@ export interface ShopCategory {
   createdAt: string;
 }
 /**
- * Конкретная модель шины. Тип (TBR/OTR) — через «Тип шин». Сегмент применения — через «Сегмент применения».
+ * Модель шины: карточка для сайта, характеристики и размеры.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "tire-models".
@@ -377,17 +428,57 @@ export interface TireModel {
   generateSlug?: boolean | null;
   slug: string;
   /**
+   * Опционально. Если пусто — заполнится из slug при сохранении.
+   */
+  modelCode?: string | null;
+  /**
    * TBR, OTR, Agriculture и т.д. — техническая группа каталога
    */
   tireType: number | TireType;
   /**
-   * Long Haul, Regional и т.д. — не путать с типом шин (TBR/OTR)
+   * Контролируемые model-level значения для фильтрации.
    */
-  applicationCategory: 'long_haul' | 'regional' | 'off_road' | 'construction';
-  series?: string | null;
-  application?: string | null;
-  axlePosition?: string | null;
-  treadType?: string | null;
+  positions?: ('steer' | 'drive' | 'trailer')[] | null;
+  /**
+   * Канонический справочник из workbook.
+   */
+  applicationTypes?: ('long-haul' | 'regional' | 'urban' | 'off-road' | 'winter' | 'snow-mud')[] | null;
+  /**
+   * Публикуются на карточке модели на сайте. Порядок = порядок на сайте.
+   */
+  features?:
+    | {
+        key:
+          | 'handling'
+          | 'safety'
+          | 'high-mileage'
+          | 'economy'
+          | 'wet-grip'
+          | 'anti-wear'
+          | 'anti-tear'
+          | 'short-braking-distance'
+          | 'low-noise'
+          | 'heavy-load'
+          | 'self-cleaning'
+          | 'retreadability'
+          | 'stone-ejection'
+          | 'low-rolling-resistance'
+          | 'heat-dissipation'
+          | 'cut-resistance'
+          | 'puncture-resistance';
+        title: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Добавляйте размеры здесь. SKU создаётся автоматически.
+   */
+  variants?: {
+    docs?: (number | TireVariant)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
   shortDescription?: string | null;
   fullDescription?: {
     root: {
@@ -404,13 +495,6 @@ export interface TireModel {
     };
     [k: string]: unknown;
   } | null;
-  advantages?:
-    | {
-        title: string;
-        description?: string | null;
-        id?: string | null;
-      }[]
-    | null;
   mainImage?: (number | null) | Media;
   gallery?: (number | Media)[] | null;
   documents?: (number | Media)[] | null;
@@ -462,6 +546,14 @@ export interface TireType {
    */
   shortDescription?: string | null;
   coverImage?: (number | null) | Media;
+  /**
+   * Используется детерминированным подбором на сайте
+   */
+  selectionVehicleTypes: ('long-haul-tractor' | 'regional-truck' | 'construction-dumper' | 'quarry-special')[];
+  /**
+   * Опубликованные условия, для которых предназначено направление
+   */
+  selectionConditions: ('long-haul' | 'regional' | 'mixed' | 'off-road')[];
   showInMenu?: boolean | null;
   sortOrder?: number | null;
   /**
@@ -481,6 +573,54 @@ export interface TireType {
     robotsIndex?: boolean | null;
     robotsFollow?: boolean | null;
   };
+  status: 'draft' | 'published' | 'archived';
+  publishedAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Размеры и технические параметры конкретной модели шины.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tire-variants".
+ */
+export interface TireVariant {
+  id: number;
+  tireModel: number | TireModel;
+  sku?: string | null;
+  /**
+   * Заполняется только из подтверждённого коммерческого источника.
+   */
+  supplierSku?: string | null;
+  /**
+   * Например, 315/80R22.5 или 12.00R20.
+   */
+  sizeRaw?: string | null;
+  sizeNormalized?: string | null;
+  sizeFormat?: ('metric' | 'imperial') | null;
+  nominalWidthMm?: number | null;
+  imperialWidthIn?: number | null;
+  aspectRatioPct?: number | null;
+  constructionCode?: 'R' | null;
+  rimDiameterIn?: number | null;
+  plyRatingPr?: number | null;
+  treadDepthMm?: number | null;
+  standardRimIn?: number | null;
+  pressureSingleKpa?: number | null;
+  pressureDualKpa?: number | null;
+  maxLoadSingleKg?: number | null;
+  maxLoadDualKg?: number | null;
+  loadIndexSingle?: number | null;
+  loadIndexDual?: number | null;
+  speedSymbol?: ('B' | 'F' | 'G' | 'J' | 'K' | 'L' | 'M') | null;
+  overallDiameterMm?: number | null;
+  sectionWidthMm?: number | null;
+  /**
+   * Если не заполнено, используется существующий CTA заявки.
+   */
+  price?: number | null;
+  availabilityStatus?: ('available' | 'on_request' | 'unavailable') | null;
+  sortOrder?: number | null;
   status: 'draft' | 'published' | 'archived';
   publishedAt?: string | null;
   updatedAt: string;
@@ -609,37 +749,6 @@ export interface WheelType {
   createdAt: string;
 }
 /**
- * Размеры и технические параметры конкретной модели шины.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "tire-variants".
- */
-export interface TireVariant {
-  id: number;
-  tireModel: number | TireModel;
-  /**
-   * Например: 12.00R20
-   */
-  size: string;
-  sectionWidth?: number | null;
-  aspectRatio?: number | null;
-  rimDiameter?: number | null;
-  loadIndex?: string | null;
-  speedIndex?: string | null;
-  plyRating?: string | null;
-  overallDiameter?: number | null;
-  weight?: number | null;
-  recommendedRim?: string | null;
-  available?: boolean | null;
-  price?: number | null;
-  priceOnRequest?: boolean | null;
-  sortOrder?: number | null;
-  status: 'draft' | 'published' | 'archived';
-  publishedAt?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
  * Посадочные параметры и SKU конкретного размера диска.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -711,6 +820,15 @@ export interface Request {
   purchaseVolume?: string | null;
   preferredContact?: ('phone' | 'email' | 'telegram' | 'whatsapp') | null;
   message?: string | null;
+  selectionContext?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   items?:
     | {
         catalogItem?:
@@ -752,7 +870,21 @@ export interface Request {
       }[]
     | null;
   sourcePage?: string | null;
-  sourceForm?: ('contact' | 'product_quick_order' | 'cart' | 'hero_cta' | 'footer_cta' | 'custom') | null;
+  sourceForm?:
+    | (
+        | 'contact'
+        | 'tire_selection'
+        | 'branding'
+        | 'supplier'
+        | 'warranty'
+        | 'wheel_selection'
+        | 'product_quick_order'
+        | 'cart'
+        | 'hero_cta'
+        | 'footer_cta'
+        | 'custom'
+      )
+    | null;
   utmSource?: string | null;
   utmMedium?: string | null;
   utmCampaign?: string | null;
@@ -915,6 +1047,10 @@ export interface PayloadLockedDocument {
         value: number | User;
       } | null)
     | ({
+        relationTo: 'cart-sessions';
+        value: number | CartSession;
+      } | null)
+    | ({
         relationTo: 'media';
         value: number | Media;
       } | null)
@@ -1028,6 +1164,17 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cart-sessions_select".
+ */
+export interface CartSessionsSelect<T extends boolean = true> {
+  tokenHash?: T;
+  items?: T;
+  expiresAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1154,6 +1301,8 @@ export interface TireTypesSelect<T extends boolean = true> {
   description?: T;
   shortDescription?: T;
   coverImage?: T;
+  selectionVehicleTypes?: T;
+  selectionConditions?: T;
   showInMenu?: T;
   sortOrder?: T;
   seo?:
@@ -1182,21 +1331,21 @@ export interface TireModelsSelect<T extends boolean = true> {
   name?: T;
   generateSlug?: T;
   slug?: T;
+  modelCode?: T;
   tireType?: T;
-  applicationCategory?: T;
-  series?: T;
-  application?: T;
-  axlePosition?: T;
-  treadType?: T;
-  shortDescription?: T;
-  fullDescription?: T;
-  advantages?:
+  positions?: T;
+  applicationTypes?: T;
+  features?:
     | T
     | {
+        key?: T;
         title?: T;
         description?: T;
         id?: T;
       };
+  variants?: T;
+  shortDescription?: T;
+  fullDescription?: T;
   mainImage?: T;
   gallery?: T;
   documents?: T;
@@ -1224,19 +1373,30 @@ export interface TireModelsSelect<T extends boolean = true> {
  */
 export interface TireVariantsSelect<T extends boolean = true> {
   tireModel?: T;
-  size?: T;
-  sectionWidth?: T;
-  aspectRatio?: T;
-  rimDiameter?: T;
-  loadIndex?: T;
-  speedIndex?: T;
-  plyRating?: T;
-  overallDiameter?: T;
-  weight?: T;
-  recommendedRim?: T;
-  available?: T;
+  sku?: T;
+  supplierSku?: T;
+  sizeRaw?: T;
+  sizeNormalized?: T;
+  sizeFormat?: T;
+  nominalWidthMm?: T;
+  imperialWidthIn?: T;
+  aspectRatioPct?: T;
+  constructionCode?: T;
+  rimDiameterIn?: T;
+  plyRatingPr?: T;
+  treadDepthMm?: T;
+  standardRimIn?: T;
+  pressureSingleKpa?: T;
+  pressureDualKpa?: T;
+  maxLoadSingleKg?: T;
+  maxLoadDualKg?: T;
+  loadIndexSingle?: T;
+  loadIndexDual?: T;
+  speedSymbol?: T;
+  overallDiameterMm?: T;
+  sectionWidthMm?: T;
   price?: T;
-  priceOnRequest?: T;
+  availabilityStatus?: T;
   sortOrder?: T;
   status?: T;
   publishedAt?: T;
@@ -1351,9 +1511,25 @@ export interface ProductsSelect<T extends boolean = true> {
   fullDescription?: T;
   price?: T;
   priceOnRequest?: T;
+  oldPrice?: T;
+  available?: T;
   color?: T;
   size?: T;
   material?: T;
+  variants?:
+    | T
+    | {
+        sku?: T;
+        color?: T;
+        size?: T;
+        configuration?: T;
+        price?: T;
+        priceOnRequest?: T;
+        oldPrice?: T;
+        available?: T;
+        images?: T;
+        id?: T;
+      };
   mainImage?: T;
   gallery?: T;
   instructions?: T;
@@ -1391,6 +1567,7 @@ export interface RequestsSelect<T extends boolean = true> {
   purchaseVolume?: T;
   preferredContact?: T;
   message?: T;
+  selectionContext?: T;
   items?:
     | T
     | {

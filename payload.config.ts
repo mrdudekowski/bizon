@@ -66,8 +66,9 @@ export default buildConfig({
     outputFile: path.resolve(dirname, "src/payload-types.ts"),
   },
   db: postgresAdapter({
+    push: false,
     pool: {
-      connectionString: process.env.DATABASE_URI || "",
+      connectionString: process.env.TBR_DATABASE_URI || process.env.DATABASE_URI || "",
     },
   }),
   sharp,

@@ -14,6 +14,8 @@ import { PageHeader } from "@/components/catalog/PageHeader";
 import { WheelVariantsTable } from "@/components/catalog/WheelVariantsTable";
 import { AddToCartSection } from "@/components/cart/AddToCartSection";
 import { QuickOrderSection } from "@/components/forms/QuickOrderSection";
+import { ForgedModel } from "@/components/shop/ForgedModel";
+import { toForgedWheelView } from "@/components/shop/forgedView";
 
 type PageProps = {
   params: Promise<{ wheelTypeSlug: string; modelSlug: string }>;
@@ -25,8 +27,12 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps) {
   const { wheelTypeSlug, modelSlug } = await params;
-  const model = await getWheelModelByTypeAndSlug(wheelTypeSlug, modelSlug);
-  if (!model) return {};
+  const [wheelType, model] = await Promise.all([
+    getWheelTypeBySlug(wheelTypeSlug),
+    getWheelModelByTypeAndSlug(wheelTypeSlug, modelSlug),
+  ]);
+  if (!wheelType || !model) notFound();
+
   return createPageMetadata({
     title: model.name,
     description: model.descriptionShort,
@@ -45,10 +51,8 @@ export default async function WheelModelPage({ params }: PageProps) {
     notFound();
   }
 
-  const variants = await getWheelVariantsByModelId(model.id);
   const typeBasePath = `/shop/wheels/${wheelType.slug}`;
   const modelPath = `${typeBasePath}/${model.slug}`;
-
   const structuredData = createProductStructuredData({
     name: model.name,
     description: model.descriptionShort,
@@ -57,6 +61,22 @@ export default async function WheelModelPage({ params }: PageProps) {
     category: wheelType.name,
   });
 
+  if (wheelType.slug === "forged") {
+    const view = toForgedWheelView(model);
+    if (!view) notFound();
+
+    return (
+      <>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+        <ForgedModel model={view} />
+      </>
+    );
+  }
+
+  const variants = await getWheelVariantsByModelId(model.id);
   const metaParts = [
     model.series,
     getWheelConstructionMethodLabel(model.constructionMethod),
