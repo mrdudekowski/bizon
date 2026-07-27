@@ -70,6 +70,7 @@ export interface Config {
     users: User;
     'cart-sessions': CartSession;
     media: Media;
+    pages: Page;
     'shop-categories': ShopCategory;
     'tire-types': TireType;
     'tire-models': TireModel;
@@ -95,6 +96,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     'cart-sessions': CartSessionsSelect<false> | CartSessionsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    pages: PagesSelect<false> | PagesSelect<true>;
     'shop-categories': ShopCategoriesSelect<false> | ShopCategoriesSelect<true>;
     'tire-types': TireTypesSelect<false> | TireTypesSelect<true>;
     'tire-models': TireModelsSelect<false> | TireModelsSelect<true>;
@@ -749,6 +751,195 @@ export interface WheelType {
   createdAt: string;
 }
 /**
+ * Маркетинговые оболочки страниц. Состав секций фиксирован в коде; здесь правятся тексты, медиа и CTA.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages".
+ */
+export interface Page {
+  id: number;
+  /**
+   * Технический ключ. Задаётся при создании, дальше не меняется.
+   */
+  key:
+    | 'home'
+    | 'shop-home'
+    | 'about'
+    | 'contact'
+    | 'warranty'
+    | 'branding'
+    | 'become-a-supplier'
+    | 'privacy-policy'
+    | 'shop-delivery-returns';
+  title: string;
+  /**
+   * Подставляется автоматически по ключу.
+   */
+  path?: string | null;
+  homeHero?: {
+    eyebrow?: string | null;
+    title?: string | null;
+    lead?: string | null;
+    image?: (number | null) | Media;
+    imageAlt?: string | null;
+    primaryCta?: {
+      label?: string | null;
+      /**
+       * Внутренний путь (/shop) или https://…
+       */
+      href?: string | null;
+    };
+    secondaryCta?: {
+      label?: string | null;
+      /**
+       * Внутренний путь (/shop) или https://…
+       */
+      href?: string | null;
+    };
+    metricLabel?: string | null;
+    metricText?: string | null;
+  };
+  homeSelectionEntry?: {
+    eyebrow?: string | null;
+    title?: string | null;
+    lead?: string | null;
+  };
+  homeDirections?: {
+    eyebrow?: string | null;
+    title?: string | null;
+    lead?: string | null;
+  };
+  homeExpertise?: {
+    eyebrow?: string | null;
+    title?: string | null;
+    lead?: string | null;
+  };
+  homeShopCampaign?: {
+    eyebrow?: string | null;
+    title?: string | null;
+    lead?: string | null;
+    image?: (number | null) | Media;
+    imageAlt?: string | null;
+    cta?: {
+      label?: string | null;
+      /**
+       * Внутренний путь (/shop) или https://…
+       */
+      href?: string | null;
+    };
+  };
+  homeResume?: {
+    eyebrow?: string | null;
+    title?: string | null;
+    lead?: string | null;
+    primaryCta?: {
+      label?: string | null;
+      /**
+       * Внутренний путь (/shop) или https://…
+       */
+      href?: string | null;
+    };
+    secondaryCta?: {
+      label?: string | null;
+      /**
+       * Внутренний путь (/shop) или https://…
+       */
+      href?: string | null;
+    };
+  };
+  shopHero?: {
+    eyebrow?: string | null;
+    title?: string | null;
+    lead?: string | null;
+    image?: (number | null) | Media;
+    imageAlt?: string | null;
+    cta?: {
+      label?: string | null;
+      /**
+       * Внутренний путь (/shop) или https://…
+       */
+      href?: string | null;
+    };
+  };
+  shopWheelsIntro?: {
+    kicker?: string | null;
+    eyebrow?: string | null;
+    title?: string | null;
+    lead?: string | null;
+  };
+  shopOrderSteps?:
+    | {
+        title: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  shopCategoryCarousel?:
+    | {
+        /**
+         * Например: accessories
+         */
+        slideId?: string | null;
+        kicker?: string | null;
+        title?: string | null;
+        action?: string | null;
+        href?: string | null;
+        desktopImage?: (number | null) | Media;
+        mobileImage?: (number | null) | Media;
+        alt?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  shopVehicles?: {
+    eyebrow?: string | null;
+    title?: string | null;
+    lead?: string | null;
+    cta?: {
+      label?: string | null;
+      /**
+       * Внутренний путь (/shop) или https://…
+       */
+      href?: string | null;
+    };
+    slides?:
+      | {
+          title?: string | null;
+          image?: (number | null) | Media;
+          alt?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  stubHero?: {
+    eyebrow?: string | null;
+    title?: string | null;
+    lead?: string | null;
+    image?: (number | null) | Media;
+    imageAlt?: string | null;
+  };
+  /**
+   * Мета-теги для публичных страниц. Пустые поля заполняются автоматически на фронтенде.
+   */
+  seo?: {
+    seoTitle?: string | null;
+    seoDescription?: string | null;
+    /**
+     * Через запятую
+     */
+    seoKeywords?: string | null;
+    ogTitle?: string | null;
+    ogDescription?: string | null;
+    ogImage?: (number | null) | Media;
+    canonicalUrl?: string | null;
+    robotsIndex?: boolean | null;
+    robotsFollow?: boolean | null;
+  };
+  status: 'draft' | 'published' | 'archived';
+  publishedAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Посадочные параметры и SKU конкретного размера диска.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1055,6 +1246,10 @@ export interface PayloadLockedDocument {
         value: number | Media;
       } | null)
     | ({
+        relationTo: 'pages';
+        value: number | Page;
+      } | null)
+    | ({
         relationTo: 'shop-categories';
         value: number | ShopCategory;
       } | null)
@@ -1257,6 +1452,183 @@ export interface MediaSelect<T extends boolean = true> {
               filename?: T;
             };
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages_select".
+ */
+export interface PagesSelect<T extends boolean = true> {
+  key?: T;
+  title?: T;
+  path?: T;
+  homeHero?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        lead?: T;
+        image?: T;
+        imageAlt?: T;
+        primaryCta?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+        secondaryCta?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+        metricLabel?: T;
+        metricText?: T;
+      };
+  homeSelectionEntry?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        lead?: T;
+      };
+  homeDirections?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        lead?: T;
+      };
+  homeExpertise?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        lead?: T;
+      };
+  homeShopCampaign?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        lead?: T;
+        image?: T;
+        imageAlt?: T;
+        cta?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+      };
+  homeResume?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        lead?: T;
+        primaryCta?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+        secondaryCta?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+      };
+  shopHero?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        lead?: T;
+        image?: T;
+        imageAlt?: T;
+        cta?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+      };
+  shopWheelsIntro?:
+    | T
+    | {
+        kicker?: T;
+        eyebrow?: T;
+        title?: T;
+        lead?: T;
+      };
+  shopOrderSteps?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  shopCategoryCarousel?:
+    | T
+    | {
+        slideId?: T;
+        kicker?: T;
+        title?: T;
+        action?: T;
+        href?: T;
+        desktopImage?: T;
+        mobileImage?: T;
+        alt?: T;
+        id?: T;
+      };
+  shopVehicles?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        lead?: T;
+        cta?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+        slides?:
+          | T
+          | {
+              title?: T;
+              image?: T;
+              alt?: T;
+              id?: T;
+            };
+      };
+  stubHero?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        lead?: T;
+        image?: T;
+        imageAlt?: T;
+      };
+  seo?:
+    | T
+    | {
+        seoTitle?: T;
+        seoDescription?: T;
+        seoKeywords?: T;
+        ogTitle?: T;
+        ogDescription?: T;
+        ogImage?: T;
+        canonicalUrl?: T;
+        robotsIndex?: T;
+        robotsFollow?: T;
+      };
+  status?: T;
+  publishedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

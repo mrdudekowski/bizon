@@ -6,9 +6,8 @@ alwaysApply: false
 
 # BIZON Design System (для UI/вёрстки/дизайна)
 
-Перед изменением визуала прочитай **канон**: `docs/design-principles.md`.  
-Промпт для роли дизайнера: `docs/designer-prompt.md`.  
-Цвета SSOT: `src/index.css` (`--bizon-*`), таблица: `docs/theme-palette.md`.
+Перед изменением визуала прочитай **канон**: `docs/premium-style-audit-and-refactor.md`.
+Токены SSOT: `src/app/globals.css`. Tailwind только ссылается на CSS variables.
 
 ## Brand
 
@@ -17,15 +16,22 @@ Premium **industrial** B2B (большегрузные шины, fleet). Не к
 
 ## Tokens (не дублировать hex в компонентах)
 
-- Black `#050505`, accent `#f2a900`, light `#f2f3f4`, gray `#6c7075`, dark `#1c1f22`
-- Жёлтый accent — **только CTA / focus / highlights**, не большие фоны
+- SSOT: `src/app/globals.css` — шкалы **Coral**, **Mint**, **Neutral** (`public/brand/bizon-color-palette-expanded.html`)
+- **Coral** `#E45433` — primary CTA, действие, промо
+- **Mint** `#06E3BE` — focus ring, kickers (ядро), ссылки, цифровые акценты
+- **Neutral** — белая основа, типографика и спокойные светлые поверхности; чёрный используется намеренно, а не как runtime-тема
+- Legacy `--bizon-accent` → alias на Coral; hex в компонентах запрещён
+- **Магазин** (`/shop/**`): `data-brand-context="shop"` — усиленные Mint + Coral, kickers в Coral
+- **Тема:** только светлая, единая для основного сайта и `/shop/**`; переключателя тем нет
+- На главной ровно два чёрных акцента: ассортимент шин и кампания BIZON Shop; остальные секции светлые
+- Геометрия floating chrome общая для bizon.ru и Shop, а навигация и действия задаются отдельно для каждой поверхности
 - Контейнер max **1600px**, шрифт **Inter**
 
 ## Паттерны
 
-- **Hero:** fullscreen cinematic, overlay, контент снизу, accent + glass CTA
-- **Products:** `.section--dark` + `.category-card` (gradient overlay, hover scale)
-- **Features:** `.section--muted` + `.info-card`
+- **Hero:** светлый monumental editorial layout с отдельным панорамным media frame
+- **Catalog:** только опубликованные Payload-направления и модели; пустоты не подменяются mock-карточками
+- **Selection:** детерминированная URL-backed логика без AI; финальную совместимость подтверждает специалист
 - **Кнопки:** `cta-button` | `btn-accent` | `ghost-button` | `btn-glass` — min-height 44px
 
 ## Защита

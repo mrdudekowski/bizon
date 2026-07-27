@@ -14,7 +14,7 @@ type AddToCartButtonProps = {
 export function AddToCartButton({
   item,
   label = "В корзину",
-  className = "btn-glass",
+  className = "btn-secondary",
   openCartOnAdd = true,
 }: AddToCartButtonProps) {
   const { addItem } = useCart();

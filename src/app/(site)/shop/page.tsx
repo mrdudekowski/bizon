@@ -1,26 +1,29 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ShopCategoryCarousel } from "@/components/shop/ShopCategoryCarousel";
-import {
-  SHOP_CATEGORY_SLIDES,
-  SHOP_HOME_WHEEL_SLUGS,
-  SHOP_ORDER_STEPS,
-  SHOP_VEHICLE_STORIES,
-} from "@/constants/shopHome";
-import { getWheelModelsByTypeSlug } from "@/lib/cms";
+import { getPageContent, getWheelModelsByTypeSlug } from "@/lib/cms";
 import { createPageMetadata } from "@/lib/seo/metadata";
 import styles from "./ShopHome.module.css";
 
-export const metadata = createPageMetadata({
-  title: "BIZON Shop",
-  description: "Кованые диски BIZON под заказ, аксессуары и outdoor-товары.",
-  path: "/shop",
-});
+export async function generateMetadata() {
+  const page = await getPageContent("shop-home");
+  return createPageMetadata({
+    title: page.seoTitle || "BIZON Shop",
+    description:
+      page.seoDescription ||
+      "Кованые диски BIZON под заказ, аксессуары и outdoor-товары.",
+    path: "/shop",
+  });
+}
 
 export default async function ShopPage() {
-  const forgedModels = await getWheelModelsByTypeSlug("forged");
+  const [page, forgedModels] = await Promise.all([
+    getPageContent("shop-home"),
+    getWheelModelsByTypeSlug("forged"),
+  ]);
+
   const forgedModelsBySlug = new Map(forgedModels.map((model) => [model.slug, model]));
-  const homeModels = SHOP_HOME_WHEEL_SLUGS
+  const homeModels = page.preferredWheelSlugs
     .map((slug) => forgedModelsBySlug.get(slug))
     .filter((model): model is NonNullable<typeof model> => Boolean(model?.imageUrl));
 
@@ -29,8 +32,8 @@ export default async function ShopPage() {
       <section className={styles.hero} data-shop-chrome-tone="dark">
         <div className={styles.heroMedia}>
           <Image
-            src="/images/premium/shop-hero-forged-wheel-model.png"
-            alt="Кованый диск BIZON и модель в красном образе"
+            src={page.hero.imageUrl}
+            alt={page.hero.imageAlt}
             fill
             priority
             sizes="100vw"
@@ -38,40 +41,63 @@ export default async function ShopPage() {
         </div>
         <div className={styles.heroOverlay} />
         <div className={styles.heroContent}>
-          <p className={styles.eyebrow}>BIZON Forged</p>
-          <h1>Кованые диски для вашего автомобиля</h1>
-          <p className={styles.heroLead}>Выберите дизайн — параметры и совместимость проверит специалист BIZON.</p>
-          <Link className={styles.heroAction} href="#wheels">Выбрать диски</Link>
+          <p className={styles.eyebrow}>{page.hero.eyebrow}</p>
+          <h1>{page.hero.title}</h1>
+          <p className={styles.heroLead}>{page.hero.lead}</p>
+          <Link className={styles.heroAction} href={page.hero.cta.href}>
+            {page.hero.cta.label}
+          </Link>
         </div>
       </section>
 
-      <section className={styles.modelsSection} id="wheels" data-shop-chrome-tone="dark" aria-labelledby="shop-title">
+      <section
+        className={styles.modelsSection}
+        id="wheels"
+        data-shop-chrome-tone="dark"
+        aria-labelledby="shop-title"
+      >
         <div className={styles.content}>
           <div className={styles.modelsIntro}>
-            <p className={styles.collectionKicker}>BIZON Forged</p>
-            <h2 id="shop-title">Выберите свой дизайн</h2>
-            <p>Кованые диски BIZON изготавливаются под заказ. Выберите модель — специалист проверит совместимость с вашим автомобилем.</p>
+            <p className={styles.collectionKicker}>{page.wheelsIntro.kicker}</p>
+            <h2 id="shop-title">{page.wheelsIntro.title}</h2>
+            <p>{page.wheelsIntro.lead}</p>
           </div>
 
           <div className={styles.modelGrid}>
             {homeModels.map((model) => (
-              <Link className={styles.modelCard} href={`/shop/wheels/forged/${model.slug}`} key={model.slug}>
+              <Link
+                className={styles.modelCard}
+                href={`/shop/wheels/forged/${model.slug}`}
+                key={model.slug}
+              >
                 <span className={styles.modelMedia}>
-                  <Image src={model.imageUrl!} alt={model.name} fill sizes="(max-width: 767px) 92vw, 33vw" />
+                  <Image
+                    src={model.imageUrl!}
+                    alt={model.name}
+                    fill
+                    sizes="(max-width: 767px) 92vw, 33vw"
+                  />
                 </span>
                 <span className={styles.modelContent}>
                   <span className={styles.modelStatus}>Изготавливается под заказ</span>
                   <strong>{model.name}</strong>
-                  <span>{[model.designStyle, model.series].filter(Boolean).join(" · ")}</span>
+                  <span>
+                    {[model.designStyle, model.series].filter(Boolean).join(" · ")}
+                  </span>
                 </span>
-                <span className={styles.modelArrow} aria-hidden="true">↗</span>
+                <span className={styles.modelArrow} aria-hidden="true">
+                  ↗
+                </span>
               </Link>
             ))}
           </div>
 
-          <div className={styles.orderSteps} aria-label="Как заказать кованые диски BIZON">
-            {SHOP_ORDER_STEPS.map((step, index) => (
-              <article key={step.title}>
+          <div
+            className={styles.orderSteps}
+            aria-label="Как заказать кованые диски BIZON"
+          >
+            {page.orderSteps.map((step, index) => (
+              <article key={`${step.title}-${index}`}>
                 <span>{String(index + 1).padStart(2, "0")}</span>
                 <h2>{step.title}</h2>
                 <p>{step.description}</p>
@@ -82,24 +108,43 @@ export default async function ShopPage() {
       </section>
 
       <div id="categories" data-shop-chrome-tone="dark">
-        <ShopCategoryCarousel slides={SHOP_CATEGORY_SLIDES} />
+        <ShopCategoryCarousel slides={page.categoryCarousel} />
       </div>
 
-      <section className={styles.vehiclesSection} data-shop-section="vehicles" data-shop-chrome-tone="light" aria-labelledby="vehicles-title">
+      <section
+        className={styles.vehiclesSection}
+        data-shop-section="vehicles"
+        data-shop-chrome-tone="light"
+        aria-labelledby="vehicles-title"
+      >
         <div className={styles.vehiclesInner}>
           <div className={styles.vehiclesHead}>
             <div>
-              <p className={styles.darkKicker}>BIZON Forged</p>
-              <h2 id="vehicles-title">Созданы менять характер</h2>
-              <p>Один автомобиль — разные ощущения. Дизайн BIZON подчёркивает стиль от городского premium до экспедиционного off-road.</p>
+              <p className={styles.darkKicker}>{page.vehicles.eyebrow}</p>
+              <h2 id="vehicles-title">{page.vehicles.title}</h2>
+              <p>{page.vehicles.lead}</p>
             </div>
-            <Link className={styles.selectionAction} href="#wheels">Выбрать диски</Link>
+            <Link className={styles.selectionAction} href={page.vehicles.cta.href}>
+              {page.vehicles.cta.label}
+            </Link>
           </div>
 
           <div className={styles.vehicleGrid}>
-            {SHOP_VEHICLE_STORIES.map((story, index) => (
-              <figure className={index < 2 ? styles.vehicleFeature : styles.vehicleCard} key={story.image}>
-                <Image src={story.image} alt={story.alt} fill sizes={index < 2 ? "(max-width: 767px) 100vw, 50vw" : "(max-width: 767px) 100vw, 33vw"} />
+            {page.vehicles.slides.map((story, index) => (
+              <figure
+                className={index < 2 ? styles.vehicleFeature : styles.vehicleCard}
+                key={`${story.image}-${index}`}
+              >
+                <Image
+                  src={story.image}
+                  alt={story.alt}
+                  fill
+                  sizes={
+                    index < 2
+                      ? "(max-width: 767px) 100vw, 50vw"
+                      : "(max-width: 767px) 100vw, 33vw"
+                  }
+                />
                 <figcaption>{story.title}</figcaption>
               </figure>
             ))}

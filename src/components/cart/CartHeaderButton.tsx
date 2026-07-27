@@ -6,7 +6,16 @@ type CartHeaderButtonProps = {
 };
 
 export function CartHeaderButton({ count, onOpen }: CartHeaderButtonProps) {
-  const label = count > 0 ? `Корзина, ${count} позиций` : "Корзина";
+  const lastTwo = count % 100;
+  const last = count % 10;
+  const positionWord = lastTwo >= 11 && lastTwo <= 14
+    ? "позиций"
+    : last === 1
+      ? "позиция"
+      : last >= 2 && last <= 4
+        ? "позиции"
+        : "позиций";
+  const label = count > 0 ? `Корзина, ${count} ${positionWord}` : "Корзина";
 
   return (
     <button

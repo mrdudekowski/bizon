@@ -1,5 +1,8 @@
 import type { Media } from "@/payload-types";
 
+import { shouldServeMediaFromPublicDir, toLocalPublicMediaUrl } from "./localMediaUrl";
+import { isS3StorageEnabled } from "@/lib/payload/s3StorageConfig";
+
 export type MediaSizeName = "thumbnail" | "card" | "hero" | "og";
 
 export type ResolvedMedia = {
@@ -23,6 +26,7 @@ export function isPopulatedMedia(
 /**
  * Resolve a public URL for a Payload Media document.
  * Prefers generated image sizes when available.
+ * Local storage: use /media/{filename} (Next public), not prefixed /api/media/file URLs.
  */
 export function resolveMediaUrl(
   media: Media | number | string | null | undefined,
@@ -31,8 +35,23 @@ export function resolveMediaUrl(
   if (!isPopulatedMedia(media)) return null;
 
   if (size) {
+    const sizedName = media.sizes?.[size]?.filename;
+    if (
+      sizedName &&
+      (!isS3StorageEnabled() || shouldServeMediaFromPublicDir(sizedName))
+    ) {
+      const localSized = toLocalPublicMediaUrl(sizedName);
+      if (localSized) return localSized;
+    }
     const sizedUrl = media.sizes?.[size]?.url;
     if (sizedUrl) return sizedUrl;
+  }
+
+  if (
+    media.filename &&
+    (!isS3StorageEnabled() || shouldServeMediaFromPublicDir(media.filename))
+  ) {
+    return toLocalPublicMediaUrl(media.filename) ?? media.url ?? null;
   }
 
   return media.url ?? null;

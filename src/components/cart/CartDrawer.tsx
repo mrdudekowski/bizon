@@ -1,15 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { cartItemKey } from "@/lib/cart/cartStorage";
-import { HONEYPOT_FIELD } from "@/lib/requests/validateRequest";
-import { submitRequest } from "@/lib/requests/submitRequest";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 import type { RequestItemInput } from "@/types/requestItem";
 import styles from "./CartDrawer.module.css";
+
+const currencyFormatter = new Intl.NumberFormat("ru-RU", {
+  style: "currency",
+  currency: "RUB",
+  maximumFractionDigits: 0,
+});
+
+function displayPrice(item: RequestItemInput, quantity: number): string | null {
+  if (item.priceOnRequest || item.price == null) return null;
+  const unitPrice = currencyFormatter.format(item.price);
+  return quantity > 1
+    ? `${unitPrice} за шт. · ${currencyFormatter.format(item.price * quantity)}`
+    : unitPrice;
+}
 
 type CartDrawerProps = {
   open: boolean;
@@ -19,8 +30,6 @@ type CartDrawerProps = {
   onQuantityChange: (key: string, quantity: number) => void;
   onClear: () => void;
 };
-
-type SubmitStatus = "idle" | "loading" | "success" | "error";
 
 function displayName(item: RequestItemInput): string {
   const name = item.name ?? item.title ?? "Товар";
@@ -33,12 +42,8 @@ export function CartDrawer({
   onClose,
   onRemove,
   onQuantityChange,
-  onClear,
 }: CartDrawerProps) {
-  const pathname = usePathname();
   const drawerRef = useFocusTrap(open);
-  const [status, setStatus] = useState<SubmitStatus>("idle");
-  const [message, setMessage] = useState("");
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -48,55 +53,11 @@ export function CartDrawer({
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [open, onClose]);
 
-  useEffect(() => {
-    if (!open) {
-      setStatus("idle");
-      setMessage("");
-    }
-  }, [open]);
-
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (items.length === 0) return;
-
-    setStatus("loading");
-    const form = event.currentTarget;
-    const formData = new FormData(form);
-
-    if (formData.get(HONEYPOT_FIELD)) {
-      setStatus("success");
-      setMessage("Заявка отправлена.");
-      onClear();
-      return;
-    }
-
-    try {
-      await submitRequest({
-        sourceForm: "cart",
-        sourcePage: pathname || "/",
-        body: {
-          name: formData.get("name"),
-          phone: formData.get("phone"),
-          email: formData.get("email"),
-          message: formData.get("message"),
-          items,
-        },
-      });
-
-      setStatus("success");
-      setMessage("Заявка отправлена. Менеджер свяжется с вами по телефону.");
-      form.reset();
-      onClear();
-    } catch {
-      setStatus("error");
-      setMessage("Не удалось отправить заявку. Попробуйте позже.");
-    }
-  }
-
   return (
     <div
       className={`${styles.overlay} ${open ? styles.open : ""}`}
       aria-hidden={!open}
+      inert={open ? undefined : true}
     >
       <div className={styles.backdrop} onClick={onClose} role="presentation" />
 
@@ -117,8 +78,9 @@ export function CartDrawer({
         </header>
 
         <div className={styles.body}>
+          <p className={styles.context}>Единая заявка BIZON</p>
           {items.length === 0 ? (
-            <p className={styles.empty}>Корзина пуста. Добавьте товары из каталога.</p>
+            <p className={styles.empty}>Корзина пуста. Добавьте подбор шин, конфигурацию дисков или товар.</p>
           ) : (
             <ul className={styles.list}>
               {items.map((item) => {
@@ -144,10 +106,19 @@ export function CartDrawer({
                         Удалить
                       </button>
                     </div>
+                    {item.notes ? <p className={styles.lineNotes}>{item.notes}</p> : null}
+                    {item.priceOnRequest || item.price != null ? (
+                      <p className={styles.linePrice}>
+                        {item.priceOnRequest
+                          ? "Расчёт после проверки"
+                          : displayPrice(item, quantity)}
+                      </p>
+                    ) : null}
                     <label className={styles.quantityLabel}>
                       Кол-во
                       <input
                         type="number"
+                        name={`quantity-${key}`}
                         min={1}
                         max={99999}
                         value={quantity}
@@ -165,69 +136,11 @@ export function CartDrawer({
           )}
 
           {items.length > 0 && (
-            <form className={styles.form} onSubmit={handleSubmit}>
-              <p className={styles.formHint}>Оставьте контакты — менеджер подготовит предложение.</p>
-              <input
-                type="text"
-                name={HONEYPOT_FIELD}
-                tabIndex={-1}
-                autoComplete="off"
-                aria-hidden="true"
-                className={styles.honeypot}
-              />
-              <div>
-                <label htmlFor="cart-name" className={styles.fieldLabel}>
-                  Имя
-                </label>
-                <input
-                  id="cart-name"
-                  name="name"
-                  type="text"
-                  required
-                  className={styles.fieldInput}
-                />
-              </div>
-              <div>
-                <label htmlFor="cart-phone" className={styles.fieldLabel}>
-                  Телефон
-                </label>
-                <input
-                  id="cart-phone"
-                  name="phone"
-                  type="tel"
-                  required
-                  className={styles.fieldInput}
-                />
-              </div>
-              <div>
-                <label htmlFor="cart-email" className={styles.fieldLabel}>
-                  Email
-                </label>
-                <input id="cart-email" name="email" type="email" className={styles.fieldInput} />
-              </div>
-              <div>
-                <label htmlFor="cart-message" className={styles.fieldLabel}>
-                  Комментарий
-                </label>
-                <textarea
-                  id="cart-message"
-                  name="message"
-                  rows={3}
-                  className={styles.fieldInput}
-                />
-              </div>
-              <button type="submit" className="btn-accent" disabled={status === "loading"}>
-                {status === "loading" ? "Отправка…" : "Отправить заявку"}
-              </button>
-              {message && (
-                <p
-                  className={`${styles.status} ${status === "error" ? styles.statusError : ""}`}
-                  role="status"
-                >
-                  {message}
-                </p>
-              )}
-            </form>
+            <p className="mt-6">
+              <Link href="/cart" className="btn-secondary inline-flex" onClick={onClose}>
+                Перейти к заявке
+              </Link>
+            </p>
           )}
         </div>
       </aside>

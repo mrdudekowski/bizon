@@ -1,8 +1,12 @@
 import type { RequestItemInput } from "@/types/requestItem";
+import { syncCartToServer } from "./serverCartClient";
 
 export const CART_STORAGE_KEY = "bizon-cart";
+export const CART_COOKIE_NAME = "bizon-cart-v1";
 export const CART_UPDATED_EVENT = "bizon-cart-updated";
 export const CART_OPEN_EVENT = "bizon-cart-open";
+
+const MAX_CART_LINES = 24;
 
 export function cartItemKey(item: RequestItemInput): string {
   const type = String(item.itemType ?? "shopProduct");
@@ -43,17 +47,69 @@ function parseStoredCart(raw: string | null): RequestItemInput[] {
   }
 }
 
+function readCookie(name: string): string | null {
+  if (typeof document === "undefined") return null;
+  const prefix = `${name}=`;
+  const cookie = document.cookie
+    .split("; ")
+    .find((entry) => entry.startsWith(prefix));
+
+  if (!cookie) return null;
+  try {
+    return decodeURIComponent(cookie.slice(prefix.length));
+  } catch {
+    return null;
+  }
+}
+
+function compactCartForCookie(items: RequestItemInput[]): RequestItemInput[] {
+  return items.slice(0, MAX_CART_LINES).map((item) => ({
+    itemType: item.itemType,
+    itemId: item.itemId,
+    variantId: item.variantId,
+    name: item.name,
+    slug: item.slug,
+    parentSlug: item.parentSlug,
+    quantity: item.quantity,
+    priceOnRequest: item.priceOnRequest,
+    url: item.url,
+    variantLabel: item.variantLabel,
+    notes: item.notes,
+  }));
+}
+
 export function readCart(): RequestItemInput[] {
   if (typeof window === "undefined") return [];
+  const cookieCart = parseStoredCart(readCookie(CART_COOKIE_NAME));
+  if (cookieCart.length > 0) return cookieCart;
   return parseStoredCart(window.localStorage.getItem(CART_STORAGE_KEY));
 }
 
 export function writeCart(items: RequestItemInput[]): void {
   if (typeof window === "undefined") return;
+  const compactItems = compactCartForCookie(items);
+  writeLocalCart(compactItems);
+  void syncCartToServer(compactItems);
+}
+
+export function replaceCartFromServer(items: RequestItemInput[]): void {
+  if (typeof window === "undefined") return;
+  writeLocalCart(compactCartForCookie(items));
+}
+
+function writeLocalCart(compactItems: RequestItemInput[]): void {
   try {
-    window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
+    window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(compactItems));
   } catch {
     // ponytail: quota exceeded — silently skip; user can still submit from current session state
+  }
+
+  try {
+    const secure = window.location.protocol === "https:" ? "; Secure" : "";
+    document.cookie = `${CART_COOKIE_NAME}=; Path=/; Max-Age=0; SameSite=Lax${secure}`;
+    document.cookie = `${CART_COOKIE_NAME}=; Path=/; Domain=.bizon.ru; Max-Age=0; SameSite=Lax${secure}`;
+  } catch {
+    // Legacy client-readable cookie can remain blocked; the server cookie is opaque and HttpOnly.
   }
 }
 

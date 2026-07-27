@@ -19,9 +19,10 @@ export function CatalogImage({
   fill = false,
   sizes,
   priority = false,
+  fallbackKey,
 }: CatalogImageProps) {
-  const resolved = resolveCatalogImageSrc(src);
-  const isPlaceholder = !hasCatalogImage(src);
+  const resolved = resolveCatalogImageSrc(src, fallbackKey);
+  const isPlaceholder = !hasCatalogImage(src, fallbackKey);
   const classes = ["catalog-image", isPlaceholder && "catalog-image--placeholder", className]
     .filter(Boolean)
     .join(" ");

@@ -1,81 +1,133 @@
 import Link from "next/link";
 import type { CmsTireModel, CmsTireVariant } from "@/lib/cms/types";
 
+import styles from "./CatalogSpecsTable.module.css";
+
 type TireVariantsTableProps = {
   model: CmsTireModel;
   variants: CmsTireVariant[];
   modelPath: string;
 };
 
-function formatPrice(variant: CmsTireVariant): string {
-  if (variant.priceOnRequest || variant.price == null) {
-    return "По запросу";
-  }
-  return `${variant.price.toLocaleString("ru-RU")} ₽`;
+function cell(value: string | number | null | undefined): string {
+  if (value == null || value === "") return "—";
+  return String(value);
 }
 
-function formatAvailability(available: boolean): string {
-  return available ? "В наличии" : "Под заказ";
-}
-
-export function TireVariantsTable({ variants, modelPath }: TireVariantsTableProps) {
+export function TireVariantsTable({ model, variants }: TireVariantsTableProps) {
   if (variants.length === 0) {
     return (
-      <p className="section-description mt-6">
-        Размеры для этой модели скоро появятся.{" "}
-        <Link href="/contact" className="underline">
-          Запросить подбор
-        </Link>
-      </p>
+      <section className={styles.section}>
+        <h2 className={styles.title}>Технические параметры размеров</h2>
+        <p className={styles.empty}>
+          Типоразмеры для этой модели уточняются.{" "}
+          <Link
+            href={`/contact?model=${encodeURIComponent(model.slug)}&type=${encodeURIComponent(model.tireTypeSlug)}`}
+            className="underline"
+          >
+            Связаться со специалистом
+          </Link>
+        </p>
+      </section>
     );
   }
 
   return (
-    <div className="mt-8 w-full max-w-full min-w-0">
-      <h2 className="section-title text-xl mb-4">Доступные размеры</h2>
-      <div className="card-base info-card w-full max-w-full min-w-0 overflow-x-auto">
-        <table className="w-full max-w-full min-w-0 text-sm">
+    <section className={styles.section} aria-labelledby="tire-specs-title">
+      <h2 className={styles.title} id="tire-specs-title">
+        Технические параметры размеров
+      </h2>
+
+      <div className={styles.cards}>
+        {variants.map((variant) => (
+          <article className={styles.card} key={variant.id}>
+            <h3 className={styles.cardSize}>{variant.size}</h3>
+            <dl className={styles.cardFacts}>
+              <div>
+                <dt>Обод</dt>
+                <dd>{cell(variant.rimDiameter)}</dd>
+              </div>
+              <div>
+                <dt>LI</dt>
+                <dd>{cell(variant.loadIndex)}</dd>
+              </div>
+              <div>
+                <dt>SI</dt>
+                <dd>{cell(variant.speedIndex)}</dd>
+              </div>
+              <div>
+                <dt>PR</dt>
+                <dd>{cell(variant.plyRating)}</dd>
+              </div>
+              <div>
+                <dt>OD, мм</dt>
+                <dd>{cell(variant.overallDiameter)}</dd>
+              </div>
+              <div>
+                <dt>Масса, кг</dt>
+                <dd>{cell(variant.weight)}</dd>
+              </div>
+              <div>
+                <dt>Рек. обод</dt>
+                <dd>{cell(variant.recommendedRim)}</dd>
+              </div>
+            </dl>
+          </article>
+        ))}
+      </div>
+
+      <div className={styles.scroll}>
+        <table className={styles.table}>
           <thead>
-            <tr className="text-left border-b border-border">
-              <th className="py-2 pr-4 font-medium">Размер</th>
-              <th className="py-2 pr-4 font-medium">Обод</th>
-              <th className="py-2 pr-4 font-medium">LI</th>
-              <th className="py-2 pr-4 font-medium">SI</th>
-              <th className="py-2 pr-4 font-medium">PR</th>
-              <th className="py-2 pr-4 font-medium">OD, мм</th>
-              <th className="py-2 pr-4 font-medium">Масса, кг</th>
-              <th className="py-2 pr-4 font-medium">Рек. обод</th>
-              <th className="py-2 pr-4 font-medium">Наличие</th>
-              <th className="py-2 pr-4 font-medium">Цена</th>
-              <th className="py-2 font-medium" />
+            <tr>
+              <th className={`${styles.stickyCol} ${styles.colSize}`} scope="col">
+                Размер
+              </th>
+              <th className={styles.colNarrow} scope="col">
+                Обод
+              </th>
+              <th className={styles.colNarrow} scope="col">
+                LI
+              </th>
+              <th className={styles.colNarrow} scope="col">
+                SI
+              </th>
+              <th className={styles.colNarrow} scope="col">
+                PR
+              </th>
+              <th className={styles.colMid} scope="col">
+                OD, мм
+              </th>
+              <th className={`${styles.colMid} ${styles.secondary}`} scope="col">
+                Масса, кг
+              </th>
+              <th className={`${styles.colWide} ${styles.secondary}`} scope="col">
+                Рек. обод
+              </th>
             </tr>
           </thead>
           <tbody>
             {variants.map((variant) => (
-              <tr key={variant.id} className="border-b border-border/60 last:border-0">
-                <td className="py-3 pr-4 whitespace-nowrap">{variant.size}</td>
-                <td className="py-3 pr-4 whitespace-nowrap">{variant.rimDiameter ?? "—"}</td>
-                <td className="py-3 pr-4 whitespace-nowrap">{variant.loadIndex ?? "—"}</td>
-                <td className="py-3 pr-4 whitespace-nowrap">{variant.speedIndex ?? "—"}</td>
-                <td className="py-3 pr-4 whitespace-nowrap">{variant.plyRating ?? "—"}</td>
-                <td className="py-3 pr-4 whitespace-nowrap">{variant.overallDiameter ?? "—"}</td>
-                <td className="py-3 pr-4 whitespace-nowrap">{variant.weight ?? "—"}</td>
-                <td className="py-3 pr-4 whitespace-nowrap">{variant.recommendedRim ?? "—"}</td>
-                <td className="py-3 pr-4 whitespace-nowrap">{formatAvailability(variant.available)}</td>
-                <td className="py-3 pr-4 whitespace-nowrap">{formatPrice(variant)}</td>
-                <td className="py-3 whitespace-nowrap">
-                  <Link
-                    href={`${modelPath}?variant=${variant.id}#quick-order`}
-                    className="btn-glass inline-flex text-xs px-3 py-1"
-                  >
-                    Запросить
-                  </Link>
+              <tr key={variant.id}>
+                <th className={`${styles.stickyCol} ${styles.colSize}`} scope="row">
+                  {variant.size}
+                </th>
+                <td className={styles.colNarrow}>{cell(variant.rimDiameter)}</td>
+                <td className={styles.colNarrow}>{cell(variant.loadIndex)}</td>
+                <td className={styles.colNarrow}>{cell(variant.speedIndex)}</td>
+                <td className={styles.colNarrow}>{cell(variant.plyRating)}</td>
+                <td className={styles.colMid}>{cell(variant.overallDiameter)}</td>
+                <td className={`${styles.colMid} ${styles.secondary}`}>
+                  {cell(variant.weight)}
+                </td>
+                <td className={`${styles.colWide} ${styles.secondary}`}>
+                  {cell(variant.recommendedRim)}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-    </div>
+    </section>
   );
 }

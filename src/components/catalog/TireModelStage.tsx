@@ -38,7 +38,7 @@ export function TireModelStage({
 
   return (
     <main className={styles.modelPage} data-main-chrome-tone="light">
-      <div className={styles.pageInner}>
+      <div className={`${styles.pageInner} ${styles.pageInnerBeforeAdvantages}`}>
         <PageHeader
           title={model.name}
           description={model.descriptionShort}
@@ -107,11 +107,7 @@ export function TireModelStage({
       </div>
 
       {model.advantages.length > 0 && (
-        <section className={styles.advantagesBlock} aria-labelledby="advantages-title">
-          <div className={styles.advantagesIntro}>
-            <p className={styles.eyebrow}>Инженерная логика</p>
-            <h2 id="advantages-title">Преимущества модели</h2>
-          </div>
+        <section className={styles.advantagesBlock}>
           <ModelAdvantagesCarousel advantages={model.advantages} />
         </section>
       )}

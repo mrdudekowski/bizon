@@ -13,11 +13,13 @@ import { useEffect, useRef } from 'react';
  */
 export const useFocusTrap = (isActive) => {
   const containerRef = useRef(null);
+  const returnFocusRef = useRef(null);
   
   useEffect(() => {
     if (!isActive || !containerRef.current) return;
     
     const container = containerRef.current;
+    returnFocusRef.current = document.activeElement;
     
     // Находим все фокусируемые элементы внутри контейнера
     const getFocusableElements = () => {
@@ -32,9 +34,12 @@ export const useFocusTrap = (isActive) => {
       
       return Array.from(container.querySelectorAll(selector)).filter(
         (el) => {
-          // Проверяем, что элемент видим
           const style = window.getComputedStyle(el);
-          return style.display !== 'none' && style.visibility !== 'hidden';
+          return (
+            style.display !== 'none' &&
+            style.visibility !== 'hidden' &&
+            el.getClientRects().length > 0
+          );
         }
       );
     };
@@ -78,6 +83,8 @@ export const useFocusTrap = (isActive) => {
     
     return () => {
       container.removeEventListener('keydown', handleTab);
+      returnFocusRef.current?.focus?.({ preventScroll: true });
+      returnFocusRef.current = null;
     };
   }, [isActive]);
   

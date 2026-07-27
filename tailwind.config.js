@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
-/** Цвета — только var(--color-*); hex задаются в src/index.css (SSOT). */
+/** Цвета и геометрия — только CSS vars из src/app/globals.css (SSOT). */
 
 export default {
 
@@ -84,6 +84,46 @@ export default {
 
         accentDark: "var(--bizon-accent-dark)",
 
+        coral: {
+          50: "var(--bizon-coral-50)",
+          100: "var(--bizon-coral-100)",
+          200: "var(--bizon-coral-200)",
+          300: "var(--bizon-coral-300)",
+          400: "var(--bizon-coral-400)",
+          500: "var(--bizon-coral-500)",
+          600: "var(--bizon-coral-600)",
+          700: "var(--bizon-coral-700)",
+          800: "var(--bizon-coral-800)",
+          900: "var(--bizon-coral-900)",
+        },
+
+        mint: {
+          50: "var(--bizon-mint-50)",
+          100: "var(--bizon-mint-100)",
+          200: "var(--bizon-mint-200)",
+          300: "var(--bizon-mint-300)",
+          400: "var(--bizon-mint-400)",
+          500: "var(--bizon-mint-500)",
+          600: "var(--bizon-mint-600)",
+          700: "var(--bizon-mint-700)",
+          800: "var(--bizon-mint-800)",
+          900: "var(--bizon-mint-900)",
+        },
+
+        neutral: {
+          50: "var(--bizon-neutral-50)",
+          100: "var(--bizon-neutral-100)",
+          200: "var(--bizon-neutral-200)",
+          300: "var(--bizon-neutral-300)",
+          400: "var(--bizon-neutral-400)",
+          500: "var(--bizon-neutral-500)",
+          600: "var(--bizon-neutral-600)",
+          700: "var(--bizon-neutral-700)",
+          800: "var(--bizon-neutral-800)",
+          900: "var(--bizon-neutral-900)",
+          950: "var(--bizon-neutral-950)",
+        },
+
       },
 
     },
@@ -92,21 +132,21 @@ export default {
 
     borderRadius: {
 
-      DEFAULT: "var(--radius)",
+      DEFAULT: "var(--radius-control)",
 
-      sm: "calc(var(--radius) - 4px)",
+      sm: "calc(var(--radius-control) - 4px)",
 
-      md: "calc(var(--radius) - 2px)",
+      md: "calc(var(--radius-control) - 2px)",
 
-      lg: "var(--radius)",
+      lg: "var(--radius-control)",
 
-      xl: "calc(var(--radius) + 4px)",
+      xl: "var(--radius-card)",
 
-      "2xl": "calc(var(--radius) + 8px)",
+      "2xl": "var(--radius-panel)",
 
-      "3xl": "calc(var(--radius) + 12px)",
+      "3xl": "var(--radius-panel)",
 
-      "4xl": "calc(var(--radius) + 16px)",
+      "4xl": "var(--radius-panel)",
 
     },
 

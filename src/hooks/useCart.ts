@@ -9,9 +9,11 @@ import {
   CART_STORAGE_KEY,
   clearCart,
   readCart,
+  replaceCartFromServer,
   removeCartItem,
   updateCartItemQuantity,
 } from "@/lib/cart/cartStorage";
+import { readServerCart, syncCartToServer } from "@/lib/cart/serverCartClient";
 import type { RequestItemInput } from "@/types/requestItem";
 
 export function useCart() {
@@ -24,6 +26,19 @@ export function useCart() {
 
   useEffect(() => {
     refresh();
+    let cancelled = false;
+
+    void readServerCart().then((snapshot) => {
+      if (cancelled || snapshot === null) return;
+      if (snapshot.hasSession) {
+        replaceCartFromServer(snapshot.items);
+        setItems(snapshot.items);
+        return;
+      }
+
+      const localItems = readCart();
+      if (localItems.length > 0) void syncCartToServer(localItems);
+    });
 
     const onUpdate = () => refresh();
     const onStorage = (event: StorageEvent) => {
@@ -36,6 +51,7 @@ export function useCart() {
     window.addEventListener(CART_OPEN_EVENT, onOpenRequest);
 
     return () => {
+      cancelled = true;
       window.removeEventListener(CART_UPDATED_EVENT, onUpdate);
       window.removeEventListener("storage", onStorage);
       window.removeEventListener(CART_OPEN_EVENT, onOpenRequest);

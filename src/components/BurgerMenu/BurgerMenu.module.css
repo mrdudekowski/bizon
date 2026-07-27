@@ -1,16 +1,24 @@
 .menuOverlay {
+  --menu-link-hover: var(--color-accent-coral);
   position: fixed;
   inset: 0;
-  display: grid;
-  grid-template-columns: 1fr;
+  display: none;
+  grid-template-columns: minmax(0, 1fr);
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
-  transition: opacity 200ms ease;
-  z-index: 400;
+  transition: opacity var(--transition-fast);
+  z-index: var(--z-index-overlay);
+}
+
+.menuOverlay[data-menu-context="shop"] {
+  --menu-link-hover: var(--color-accent-mint);
 }
 
 .menuOpen {
+  display: grid;
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
 }
 
@@ -22,14 +30,16 @@
 
 .menuPanel {
   position: relative;
-  width: min(860px, 92vw);
+  width: min(1180px, 100vw);
   height: 100vh;
+  height: 100dvh;
   max-height: 100%;
   background: var(--color-surface);
   transform: translateX(-100%);
-  transition: transform 280ms ease;
+  transition: transform var(--transition-premium);
   display: flex;
   flex-direction: column;
+  overscroll-behavior: contain;
 }
 
 .menuOpen .menuPanel {
@@ -38,8 +48,17 @@
 
 .menuHeader {
   display: flex;
-  justify-content: flex-end;
-  padding: 20px 24px 0;
+  align-items: center;
+  justify-content: space-between;
+  padding: max(20px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right)) 0 max(24px, env(safe-area-inset-left));
+}
+
+.menuBrand {
+  color: var(--color-foreground);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-decoration: none;
 }
 
 .closeButton {
@@ -49,154 +68,138 @@
   cursor: pointer;
   width: 44px;
   height: 44px;
+  border-radius: 50%;
+  color: var(--color-foreground);
+}
+
+.closeButton:hover {
+  background: var(--color-surface-muted);
+}
+
+.closeButton:focus-visible,
+.menuBrand:focus-visible,
+.menuLink:focus-visible,
+.featuredLink:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-offset);
 }
 
 .menuBody {
-  display: grid;
-  grid-template-columns: 300px 1fr;
-  gap: 0;
   flex: 1;
   min-height: 0;
-  padding: 24px;
-  overflow: visible;
+  padding: 24px max(40px, env(safe-area-inset-right)) max(48px, env(safe-area-inset-bottom)) max(40px, env(safe-area-inset-left));
+  overflow-y: auto;
 }
 
-.leftPane {
-  padding-right: 24px;
+.featuredLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 28px 32px;
+  padding: 18px 20px;
+  border-radius: var(--radius-control);
+  background: var(--color-foreground);
+  color: var(--color-surface);
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
 }
 
-.menuList {
+.featuredLink:hover {
+  background: var(--color-accent);
+}
+
+.cartLink {
+  display: flex;
+  min-height: 56px;
+  align-items: center;
+  justify-content: space-between;
+  margin: -16px 28px 32px;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-foreground);
+  padding: 12px 0 18px;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.cartLink span:first-child {
+  display: grid;
+  gap: 4px;
+}
+
+.cartLink small {
+  color: var(--color-text-subtle);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.cartLink:hover {
+  color: var(--menu-link-hover);
+}
+
+.cartLink:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-offset);
+}
+
+.menuColumns {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  min-height: 100%;
+}
+
+.menuColumn {
+  padding: 12px 28px 28px;
+  border-left: 1px solid var(--color-border);
+}
+
+.menuColumn:first-child {
+  border-left: 0;
+}
+
+.columnTitle {
+  margin: 0 0 22px;
+  font-size: clamp(22px, 2.2vw, 34px);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+
+.columnLinks,
+.mobileColumnList {
   list-style: none;
   padding: 0;
   margin: 0;
   display: grid;
-  gap: 12px;
+  gap: 8px;
 }
 
-.menuItem {
+.menuLink,
+.mobileColumnButton {
   width: 100%;
   border: none;
   background: transparent;
   text-align: left;
-  padding: 14px 16px;
-  border-radius: 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.menuItemActive {
-  background: var(--color-surface-muted);
-}
-
-.menuArrow {
-  font-size: 18px;
-  color: var(--color-muted);
-}
-
-.rightPane {
-  background: var(--color-surface-muted);
-  border-radius: 12px;
-  padding: 20px;
-  overflow-y: auto !important;
-  overflow-x: hidden !important;
-  height: 100% !important;
-  min-height: 0 !important;
-  max-height: 100% !important;
-  box-sizing: border-box !important;
-  display: flex !important;
-  flex-direction: column !important;
-}
-
-.sectionTitle {
-  margin: 0 0 16px;
-  font-size: 20px;
-  flex-shrink: 0;
-}
-
-.submenuContent {
-  display: grid;
-  gap: 16px;
-  flex: 1 !important;
-  min-height: 0 !important;
-  align-content: start;
-}
-
-.submenuCard {
-  display: grid;
-  grid-template-columns: 120px 1fr;
-  gap: 16px;
-  background: var(--color-surface);
-  border-radius: 12px;
-  padding: 16px;
-  min-height: 140px;
-  text-decoration: none;
   color: inherit;
-  transition: transform var(--transition-fast);
-}
-
-.submenuCardSingle {
-  grid-template-columns: minmax(0, 1fr);
-  min-height: auto;
-}
-
-.submenuCard:hover {
-  transform: var(--transform-hover-lift);
-}
-
-.submenuImage {
-  position: relative;
-  width: 120px;
-  height: 108px;
-  max-width: 100%;
-  min-width: 0;
-  border-radius: 8px;
-  overflow: hidden;
-  background: var(--color-surface-muted);
-}
-
-.submenuText {
-  display: grid;
-  gap: 6px;
-}
-
-.submenuName {
-  font-weight: 600;
-}
-
-.submenuMeta {
-  font-size: 13px;
-  color: var(--color-text-subtle);
-}
-
-.submenuDescription {
+  text-decoration: none;
+  padding: 14px 0;
+  border-radius: var(--radius-control);
   display: flex;
   flex-direction: column;
   gap: 4px;
-  margin-top: 8px;
+  font-size: 17px;
+  line-height: 1.25;
+  transition: color var(--transition-fast), transform var(--transition-fast);
 }
 
-.descriptionItem {
-  font-size: 13px;
-  color: var(--color-muted);
-  line-height: 1.4;
+.menuLink:hover,
+.menuLink[aria-current="page"] {
+  color: var(--menu-link-hover);
+  transform: translateX(4px);
 }
 
-.comingSoon {
+.menuLinkMeta {
   color: var(--color-text-subtle);
-  flex-shrink: 0;
-}
-
-.backButton {
-  border: none;
-  background: transparent;
-  font-size: 16px;
-  cursor: pointer;
-  padding: 10px 0;
-  min-width: 120px;
-  flex-shrink: 0;
+  font-size: 13px;
 }
 
 @media (max-width: 768px) {
@@ -205,31 +208,39 @@
   }
 
   .menuBody {
+    padding: 16px 24px 36px;
+  }
+
+  .featuredLink {
+    margin: 0 0 32px;
+  }
+
+  .cartLink {
+    margin: -16px 0 32px;
+  }
+
+  .menuColumns {
+    display: grid;
     grid-template-columns: 1fr;
-    padding: 16px;
-    flex: 1 !important;
-    min-height: 0 !important;
-    overflow: visible !important;
+    gap: 30px;
   }
 
-  .leftPane {
-    padding-right: 0;
+  .menuColumn {
+    padding: 0;
+    border-left: 0;
   }
 
-  .rightPane {
-    background: var(--color-surface);
-    padding: 16px;
-    height: 100% !important;
-    min-height: 0 !important;
-    max-height: 100% !important;
-    box-sizing: border-box !important;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-    display: flex !important;
-    flex-direction: column !important;
+  .columnTitle {
+    margin-bottom: 10px;
+    color: var(--color-text-subtle);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
   }
 
-  .submenuCard {
-    grid-template-columns: 1fr;
+  .menuLink {
+    padding: 11px 0;
+    font-size: 20px;
   }
 }

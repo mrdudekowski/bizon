@@ -1,6 +1,6 @@
-import { createPageMetadata } from "@/lib/seo/metadata";
+import { EditorialListing } from "@/components/content/EditorialListing";
 import { getTireIQArticles } from "@/lib/cms";
-import { CatalogListingPage } from "@/components/catalog/CatalogListingPage";
+import { createPageMetadata } from "@/lib/seo/metadata";
 
 export const metadata = createPageMetadata({
   title: "Tire IQ",
@@ -12,10 +12,14 @@ export default async function TireIQPage() {
   const articles = await getTireIQArticles();
 
   return (
-    <CatalogListingPage
+    <EditorialListing
+      kicker="Знания и практика"
       title="Tire IQ"
-      description="Статьи и гайды для fleet-операторов и механиков."
-      breadcrumbs={[{ href: "/", label: "Главная" }, { href: "/tire-iq", label: "Tire IQ" }]}
+      description="Методики подбора и эксплуатации шин для fleet-операторов и технических специалистов."
+      breadcrumbs={[
+        { href: "/", label: "Главная" },
+        { href: "/tire-iq", label: "Tire IQ" },
+      ]}
       items={articles.map((article) => ({
         key: article.slug,
         href: `/tire-iq/${article.slug}`,
@@ -24,7 +28,9 @@ export default async function TireIQPage() {
         meta: article.publishedAt,
         imageUrl: article.imageUrl,
         imageAlt: article.title,
+        fallbackKey: article.slug,
       }))}
+      emptyMessage="Опубликованных статей Tire IQ пока нет."
     />
   );
 }

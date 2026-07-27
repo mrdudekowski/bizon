@@ -1,7 +1,12 @@
 import { notFound } from "next/navigation";
 import { getAllShopCategorySlugs, getShopProducts, getShopCategoryBySlug } from "@/lib/cms";
 import { createPageMetadata } from "@/lib/seo/metadata";
-import { CatalogListingPage } from "@/components/catalog/CatalogListingPage";
+import { ShopLifestyleCategoryPage } from "@/components/shop/ShopLifestyleCategory";
+import { ShopProductCatalog } from "@/components/shop/ShopProductCatalog";
+import {
+  getShopLifestyleCategory,
+  SHOP_LIFESTYLE_CATEGORIES,
+} from "@/constants/shopCategories";
 
 type PageProps = {
   params: Promise<{ categorySlug: string }>;
@@ -9,11 +14,23 @@ type PageProps = {
 
 export async function generateStaticParams() {
   const slugs = await getAllShopCategorySlugs();
-  return slugs.map((categorySlug) => ({ categorySlug }));
+  return Array.from(new Set([
+    ...SHOP_LIFESTYLE_CATEGORIES.map((category) => category.slug),
+    ...slugs,
+  ])).map((categorySlug) => ({ categorySlug }));
 }
 
 export async function generateMetadata({ params }: PageProps) {
   const { categorySlug } = await params;
+  const lifestyleCategory = getShopLifestyleCategory(categorySlug);
+  if (lifestyleCategory) {
+    return createPageMetadata({
+      title: lifestyleCategory.kicker,
+      description: lifestyleCategory.description,
+      path: `/shop/${lifestyleCategory.slug}`,
+    });
+  }
+
   const category = await getShopCategoryBySlug(categorySlug);
   if (!category) return {};
   return createPageMetadata({
@@ -25,6 +42,13 @@ export async function generateMetadata({ params }: PageProps) {
 
 export default async function ShopCategoryPage({ params }: PageProps) {
   const { categorySlug } = await params;
+  const lifestyleCategory = getShopLifestyleCategory(categorySlug);
+
+  if (lifestyleCategory) {
+    const products = await getShopProducts({ categorySlug });
+    return <ShopLifestyleCategoryPage category={lifestyleCategory} products={products} />;
+  }
+
   const category = await getShopCategoryBySlug(categorySlug);
 
   if (!category) {
@@ -34,25 +58,6 @@ export default async function ShopCategoryPage({ params }: PageProps) {
   const products = await getShopProducts({ categorySlug });
 
   return (
-    <CatalogListingPage
-      title={category.name}
-      description={category.description}
-      breadcrumbs={[
-        { href: "/", label: "Главная" },
-        { href: "/shop", label: "Магазин" },
-        { href: `/shop/${category.slug}`, label: category.name },
-      ]}
-      items={products.map((product) => ({
-        key: product.slug,
-        href: `/shop/product/${product.slug}`,
-        title: product.name,
-        description: product.descriptionShort,
-        meta: product.brand,
-        imageUrl: product.imageUrl,
-        imageAlt: product.name,
-      }))}
-      emptyMessage="Товары в этой категории скоро появятся."
-      footerLink={{ href: "/shop", label: "← Все категории" }}
-    />
+    <ShopProductCatalog category={category} products={products} />
   );
 }

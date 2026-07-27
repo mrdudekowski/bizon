@@ -7,6 +7,8 @@ node_modules/
 coverage/
 *.lcov
 .nyc_output
+playwright-report/
+test-results/
 
 # Production build
 dist/
@@ -61,6 +63,7 @@ Desktop.ini
 *.tmp
 *.temp
 .cache/
+.npm-cache/
 
 # Catalog (generated PDF, models, use-cases) — repo root only, not src/components/catalog/
 /catalog/
@@ -70,3 +73,13 @@ docs/
 
 # Payload reference monorepo (not used — app uses npm @payloadcms/*)
 payload-bizon/
+
+# Local agent / import artifacts (not the product)
+.codex-temp/
+.superpowers/
+outputs/
+reports/
+~$*
+
+# Excel lock files
+**/~$*.xlsx

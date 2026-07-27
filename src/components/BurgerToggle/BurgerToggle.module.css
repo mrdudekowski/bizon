@@ -1,17 +1,11 @@
- .wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.checkbox {
-  display: none;
-}
-
 .toggle {
   position: relative;
   width: 36px;
   height: 36px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -21,11 +15,21 @@
   transition-duration: 0.5s;
 }
 
+.toggle:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-offset);
+}
+
 .bar {
+  display: block;
   width: 100%;
   height: 3px;
   background-color: var(--color-foreground);
   border-radius: 6px;
+}
+
+.inverted .bar {
+  background-color: #fff;
 }
 
 .barMiddle {
@@ -37,29 +41,29 @@
   width: 80%;
 }
 
-.checkbox:checked + .toggle .bar {
+.open .bar {
   position: absolute;
   transition-duration: 0.5s;
 }
 
-.checkbox:checked + .toggle .barMiddle {
+.open .barMiddle {
   transform: scaleX(0);
   transition-duration: 0.5s;
 }
 
-.checkbox:checked + .toggle .barTop {
+.open .barTop {
   width: 100%;
   transform: rotate(45deg);
   transition-duration: 0.5s;
 }
 
-.checkbox:checked + .toggle .barBottom {
+.open .barBottom {
   width: 100%;
   transform: rotate(-45deg);
   transition-duration: 0.5s;
 }
 
-.checkbox:checked + .toggle {
+.open {
   transition-duration: 0.5s;
   transform: rotate(180deg);
 }

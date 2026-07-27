@@ -1,11 +1,9 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
+import { Suspense } from "react";
 import { getAllShopProductSlugs, getShopProductBySlug } from "@/lib/cms";
 import { createProductMetadata } from "@/lib/seo/metadata";
 import { createProductStructuredData } from "@/lib/seo/structuredData";
-import { PageHeader } from "@/components/catalog/PageHeader";
-import { AddToCartButton } from "@/components/cart/AddToCartButton";
-import { ProductQuickOrderForm } from "@/components/forms/ContactForm";
+import { ShopProductConfigurator } from "@/components/shop/ShopProductConfigurator";
 
 type PageProps = {
   params: Promise<{ productSlug: string }>;
@@ -40,50 +38,14 @@ export default async function ProductPage({ params }: PageProps) {
   });
 
   return (
-    <div className="section-inner">
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <PageHeader
-        title={product.name}
-        description={product.descriptionShort}
-        breadcrumbs={[
-          { href: "/", label: "Главная" },
-          { href: "/shop", label: "Магазин" },
-          { href: `/shop/${product.categorySlug}`, label: product.categorySlug.toUpperCase() },
-          { href: `/shop/product/${product.slug}`, label: product.name },
-        ]}
-      />
-      <article className="card-base info-card max-w-3xl">
-        <p className="info-card-text">{product.descriptionLong}</p>
-      </article>
-      <div className="mt-8 flex flex-wrap items-center gap-4">
-        <AddToCartButton
-          item={{
-            itemType: "shopProduct",
-            itemId: product.id,
-            name: product.name,
-            slug: product.slug,
-            url: `/shop/product/${product.slug}`,
-            quantity: 1,
-            priceOnRequest: true,
-          }}
-        />
-      </div>
-      <div className="mt-8">
-        <ProductQuickOrderForm
-          productSlug={product.slug}
-          productName={product.name}
-          productUrl={`/shop/product/${product.slug}`}
-          productId={product.id}
-        />
-      </div>
-      <div className="mt-8 flex flex-wrap gap-4">
-        <Link href="/contact" className="btn-accent inline-flex">
-          Запросить цену
-        </Link>
-      </div>
-    </div>
+      <Suspense fallback={<div className="section-inner min-h-[70vh]" />}>
+        <ShopProductConfigurator product={product} />
+      </Suspense>
+    </>
   );
 }

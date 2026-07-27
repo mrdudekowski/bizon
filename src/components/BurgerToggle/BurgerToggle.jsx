@@ -1,31 +1,19 @@
 import styles from "./BurgerToggle.module.css";
 
-const BurgerToggle = ({ isOpen, onToggle }) => {
-  const handleChange = () => {
-    onToggle(!isOpen);
-  };
-
-  return (
-    <div className={styles.wrapper}>
-      <input
-        id="burger-toggle"
-        type="checkbox"
-        className={styles.checkbox}
-        checked={isOpen}
-        onChange={handleChange}
-      />
-      <label
-        className={styles.toggle}
-        htmlFor="burger-toggle"
-        aria-label={isOpen ? "Закрыть меню" : "Открыть меню"}
-      >
-        <div className={`${styles.bar} ${styles.barTop}`} />
-        <div className={`${styles.bar} ${styles.barMiddle}`} />
-        <div className={`${styles.bar} ${styles.barBottom}`} />
-      </label>
-    </div>
-  );
-};
+const BurgerToggle = ({ isOpen, onToggle, inverted = false }) => (
+  <button
+    className={`${styles.toggle} ${isOpen ? styles.open : ""} ${inverted ? styles.inverted : ""}`}
+    type="button"
+    aria-label={isOpen ? "Закрыть меню" : "Открыть меню"}
+    aria-expanded={isOpen}
+    aria-controls="burger-menu"
+    onClick={() => onToggle(!isOpen)}
+  >
+    <span className={`${styles.bar} ${styles.barTop}`} />
+    <span className={`${styles.bar} ${styles.barMiddle}`} />
+    <span className={`${styles.bar} ${styles.barBottom}`} />
+  </button>
+);
 
 export default BurgerToggle;
 

@@ -1,6 +1,8 @@
 import Link from "next/link";
 import type { CmsWheelModel, CmsWheelVariant } from "@/lib/cms/types";
 
+import styles from "./CatalogSpecsTable.module.css";
+
 type WheelVariantsTableProps = {
   model: CmsWheelModel;
   variants: CmsWheelVariant[];
@@ -14,73 +16,114 @@ function formatSize(variant: CmsWheelVariant): string {
   return variant.sizeLabel;
 }
 
-function formatPrice(variant: CmsWheelVariant): string {
-  if (variant.priceOnRequest || variant.price == null) {
-    return "По запросу";
-  }
-  return `${variant.price.toLocaleString("ru-RU")} ₽`;
+function cell(value: string | number | null | undefined): string {
+  if (value == null || value === "") return "—";
+  return String(value);
 }
 
-function formatAvailability(available: boolean): string {
-  return available ? "В наличии" : "Под заказ";
-}
-
-export function WheelVariantsTable({ variants, modelPath }: WheelVariantsTableProps) {
+export function WheelVariantsTable({ variants }: WheelVariantsTableProps) {
   if (variants.length === 0) {
     return (
-      <p className="section-description mt-6">
-        Размеры для этой модели скоро появятся.{" "}
-        <Link href="/contact" className="underline">
-          Запросить подбор
-        </Link>
-      </p>
+      <section className={styles.section}>
+        <h2 className={styles.title}>Технические параметры</h2>
+        <p className={styles.empty}>
+          Размеры для этой модели скоро появятся.{" "}
+          <Link href="/contact" className="underline">
+            Запросить подбор
+          </Link>
+        </p>
+      </section>
     );
   }
 
   return (
-    <div className="mt-8 w-full max-w-full min-w-0">
-      <h2 className="section-title text-xl mb-4">Технические параметры</h2>
-      <div className="card-base info-card w-full max-w-full min-w-0 overflow-x-auto">
-        <table className="w-full max-w-full min-w-0 text-sm">
+    <section className={styles.section} aria-labelledby="wheel-specs-title">
+      <h2 className={styles.title} id="wheel-specs-title">
+        Технические параметры
+      </h2>
+
+      <div className={styles.cards}>
+        {variants.map((variant) => (
+          <article className={styles.card} key={variant.id}>
+            <h3 className={styles.cardSize}>{formatSize(variant)}</h3>
+            <dl className={styles.cardFacts}>
+              <div>
+                <dt>PCD</dt>
+                <dd>{cell(variant.pcd)}</dd>
+              </div>
+              <div>
+                <dt>ET</dt>
+                <dd>{cell(variant.offsetET)}</dd>
+              </div>
+              <div>
+                <dt>DIA</dt>
+                <dd>{cell(variant.centerBore)}</dd>
+              </div>
+              <div>
+                <dt>Нагрузка</dt>
+                <dd>{cell(variant.loadRating)}</dd>
+              </div>
+              <div>
+                <dt>Цвет</dt>
+                <dd>{cell(variant.color)}</dd>
+              </div>
+              <div>
+                <dt>Покрытие</dt>
+                <dd>{cell(variant.finish)}</dd>
+              </div>
+            </dl>
+          </article>
+        ))}
+      </div>
+
+      <div className={styles.scroll}>
+        <table className={styles.table}>
           <thead>
-            <tr className="text-left border-b border-border">
-              <th className="py-2 pr-4 font-medium">Размер</th>
-              <th className="py-2 pr-4 font-medium">PCD</th>
-              <th className="py-2 pr-4 font-medium">ET</th>
-              <th className="py-2 pr-4 font-medium">DIA</th>
-              <th className="py-2 pr-4 font-medium">Нагрузка</th>
-              <th className="py-2 pr-4 font-medium">Цвет</th>
-              <th className="py-2 pr-4 font-medium">Покрытие</th>
-              <th className="py-2 pr-4 font-medium">Наличие</th>
-              <th className="py-2 pr-4 font-medium">Цена</th>
-              <th className="py-2 font-medium" />
+            <tr>
+              <th className={`${styles.stickyCol} ${styles.colSize}`} scope="col">
+                Размер
+              </th>
+              <th className={styles.colMid} scope="col">
+                PCD
+              </th>
+              <th className={styles.colNarrow} scope="col">
+                ET
+              </th>
+              <th className={styles.colNarrow} scope="col">
+                DIA
+              </th>
+              <th className={styles.colMid} scope="col">
+                Нагрузка
+              </th>
+              <th className={`${styles.colMid} ${styles.secondary}`} scope="col">
+                Цвет
+              </th>
+              <th className={`${styles.colWide} ${styles.secondary}`} scope="col">
+                Покрытие
+              </th>
             </tr>
           </thead>
           <tbody>
             {variants.map((variant) => (
-              <tr key={variant.id} className="border-b border-border/60 last:border-0">
-                <td className="py-3 pr-4 whitespace-nowrap">{formatSize(variant)}</td>
-                <td className="py-3 pr-4 whitespace-nowrap">{variant.pcd ?? "—"}</td>
-                <td className="py-3 pr-4 whitespace-nowrap">{variant.offsetET ?? "—"}</td>
-                <td className="py-3 pr-4 whitespace-nowrap">{variant.centerBore ?? "—"}</td>
-                <td className="py-3 pr-4 whitespace-nowrap">{variant.loadRating ?? "—"}</td>
-                <td className="py-3 pr-4 whitespace-nowrap">{variant.color ?? "—"}</td>
-                <td className="py-3 pr-4 whitespace-nowrap">{variant.finish ?? "—"}</td>
-                <td className="py-3 pr-4 whitespace-nowrap">{formatAvailability(variant.available)}</td>
-                <td className="py-3 pr-4 whitespace-nowrap">{formatPrice(variant)}</td>
-                <td className="py-3 whitespace-nowrap">
-                  <Link
-                    href={`${modelPath}?variant=${variant.id}#quick-order`}
-                    className="btn-glass inline-flex text-xs px-3 py-1"
-                  >
-                    Запросить
-                  </Link>
+              <tr key={variant.id}>
+                <th className={`${styles.stickyCol} ${styles.colSize}`} scope="row">
+                  {formatSize(variant)}
+                </th>
+                <td className={styles.colMid}>{cell(variant.pcd)}</td>
+                <td className={styles.colNarrow}>{cell(variant.offsetET)}</td>
+                <td className={styles.colNarrow}>{cell(variant.centerBore)}</td>
+                <td className={styles.colMid}>{cell(variant.loadRating)}</td>
+                <td className={`${styles.colMid} ${styles.secondary}`}>
+                  {cell(variant.color)}
+                </td>
+                <td className={`${styles.colWide} ${styles.secondary}`}>
+                  {cell(variant.finish)}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-    </div>
+    </section>
   );
 }

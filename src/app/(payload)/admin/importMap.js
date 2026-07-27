@@ -1,4 +1,5 @@
 import { RelatedCatalogField as RelatedCatalogField_bc3fe146c63593d1e77a821b8a8939e0 } from '../../../payload-admin/RelatedCatalogField.tsx'
+import { PublishSelectedButton as PublishSelectedButton_2feab21cc36ba21bf3b123389ad16f16 } from '../../../payload-admin/PublishSelectedButton.tsx'
 import { SlugField as SlugField_2b8867833a34864a02ddf429b0728a40 } from '@payloadcms/next/client'
 import { RscEntryLexicalCell as RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
 import { RscEntryLexicalField as RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
@@ -29,6 +30,7 @@ import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } f
 
 export const importMap = {
   "./payload-admin/RelatedCatalogField.tsx#RelatedCatalogField": RelatedCatalogField_bc3fe146c63593d1e77a821b8a8939e0,
+  "./payload-admin/PublishSelectedButton.tsx#PublishSelectedButton": PublishSelectedButton_2feab21cc36ba21bf3b123389ad16f16,
   "@payloadcms/next/client#SlugField": SlugField_2b8867833a34864a02ddf429b0728a40,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell": RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalField": RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e,

@@ -4,6 +4,7 @@ import * as migration_20260726_041541_add_cart_sessions from './20260726_041541_
 import * as migration_20260726_094343_add_tbr_catalog_schema from './20260726_094343_add_tbr_catalog_schema';
 import * as migration_20260726_105520_bizon_refactor_baseline from './20260726_105520_bizon_refactor_baseline';
 import * as migration_20260727_015500_tire_catalog_manager_ux from './20260727_015500_tire_catalog_manager_ux';
+import * as migration_20260727_072000_add_site_pages from './20260727_072000_add_site_pages';
 
 export const migrations = [
   {
@@ -35,5 +36,10 @@ export const migrations = [
     up: migration_20260727_015500_tire_catalog_manager_ux.up,
     down: migration_20260727_015500_tire_catalog_manager_ux.down,
     name: '20260727_015500_tire_catalog_manager_ux'
+  },
+  {
+    up: migration_20260727_072000_add_site_pages.up,
+    down: migration_20260727_072000_add_site_pages.down,
+    name: '20260727_072000_add_site_pages'
   },
 ];

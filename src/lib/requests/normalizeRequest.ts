@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 
 import { toCatalogItemRelation, toCatalogVariantRelation } from "./requestCatalogItem";
+import { normalizeSelectionContext } from "./selectionContext";
 
 import type {
   IncomingRequestBody,
@@ -156,6 +157,9 @@ export function normalizeRequest(
     purchaseVolume: cleanString(body.purchaseVolume, 120),
     preferredContact: normalizePreferredContact(body.preferredContact),
     message: cleanString(body.message, 4000),
+    selectionContext: body.selectionContext
+      ? normalizeSelectionContext(body.selectionContext)
+      : undefined,
     items: normalizeItems(body),
     sourcePage: cleanString(body.sourcePage, 300),
     sourceForm: normalizeSourceForm(body.sourceForm),
@@ -182,6 +186,7 @@ export function toPayloadRequestData(data: NormalizedRequest) {
     purchaseVolume: data.purchaseVolume,
     preferredContact: data.preferredContact,
     message: data.message,
+    selectionContext: data.selectionContext,
     items: data.items.map((item) => ({
       itemType: item.itemType,
       catalogItem: toCatalogItemRelation(item),

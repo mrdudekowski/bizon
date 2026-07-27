@@ -1,4 +1,5 @@
 import type { RequestItemInput, RequestItemType, SourceForm } from "@/types/requestItem";
+import type { NormalizedSelectionContext } from "./selectionContext";
 
 export type { RequestItem, RequestItemInput, RequestItemType, SourceForm } from "@/types/requestItem";
 export { isRequestItemType, isSourceForm } from "@/types/requestItem";
@@ -15,6 +16,7 @@ export type IncomingRequestBody = {
   purchaseVolume?: string | null;
   preferredContact?: string | null;
   message?: string | null;
+  selectionContext?: unknown;
   items?: RequestItemInput[] | null;
   sourcePage?: string | null;
   sourceForm?: string | null;
@@ -56,6 +58,7 @@ export type NormalizedRequest = {
   purchaseVolume?: string;
   preferredContact?: "phone" | "email" | "telegram" | "whatsapp";
   message?: string;
+  selectionContext?: NormalizedSelectionContext;
   items: NormalizedRequestItem[];
   sourcePage?: string;
   sourceForm: SourceForm;

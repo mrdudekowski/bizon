@@ -33,7 +33,9 @@ import {
   getAllWheelTypeSlugs,
 } from "./getWheelTypes";
 import { getWheelVariantsByModelId, getWheelVariantsByTypeSlug } from "./getWheelVariants";
-import { getMenuItems } from "./getMenuItems";
+import { getMainMenuItems, getMenuItems } from "./getMenuItems";
+import { getPublishedTireCatalog } from "@/lib/catalog/getPublishedTireCatalog";
+import { getPageContent } from "./pages/getPageContent";
 
 export {
   getShopProducts,
@@ -64,7 +66,10 @@ export {
   getAllWheelModelRouteParams,
   getWheelVariantsByModelId,
   getWheelVariantsByTypeSlug,
+  getMainMenuItems,
   getMenuItems,
+  getPublishedTireCatalog,
+  getPageContent,
 };
 
 export { resolveMedia, resolveMediaUrl, type ResolvedMedia } from "./media";

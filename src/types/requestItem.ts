@@ -8,6 +8,11 @@ export type RequestItemType = (typeof REQUEST_ITEM_TYPES)[number]["value"];
 
 export const SOURCE_FORMS = [
   { label: "Контакты", value: "contact" },
+  { label: "Подбор шин", value: "tire_selection" },
+  { label: "Брендирование", value: "branding" },
+  { label: "Поставщик", value: "supplier" },
+  { label: "Гарантия", value: "warranty" },
+  { label: "Подбор дисков", value: "wheel_selection" },
   { label: "Быстрый заказ товара", value: "product_quick_order" },
   { label: "Корзина", value: "cart" },
   { label: "Hero CTA", value: "hero_cta" },

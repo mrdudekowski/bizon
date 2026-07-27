@@ -1,7 +1,9 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import BurgerToggle from "../BurgerToggle/BurgerToggle.jsx";
 import { CartHeaderButton } from "@/components/cart/CartHeaderButton";
-import { ThemeToggle } from "../ThemeToggle/ThemeToggle.jsx";
 import { HEADER_NAV, ROUTES } from "@/constants/navigation";
 
 /**
@@ -9,40 +11,39 @@ import { HEADER_NAV, ROUTES } from "@/constants/navigation";
  * Содержит навигацию, логотип и кнопку контакта
  */
 export const Header = ({ menuOpen, onMenuToggle, cartCount = 0, onCartOpen }) => {
+  const pathname = usePathname();
+  const isShop = pathname === ROUTES.shop || pathname.startsWith(`${ROUTES.shop}/`);
+
   return (
-    <header className="site-header">
+    <header className={`site-header${isShop ? " site-header--shop" : ""}`}>
       <div className="navbar">
-        <div
-          className="burger-button"
-          aria-expanded={menuOpen}
-          aria-controls="burger-menu"
-        >
+        <div className="burger-button">
           <BurgerToggle isOpen={menuOpen} onToggle={onMenuToggle} />
         </div>
 
-        <Link className="brand" href={ROUTES.home} aria-label="Bizon Tires — на главную">
-          <img
-            src="/bizon_inverted_hd.svg"
-            alt="Bizon Tires"
-            className="brand-logo"
-            draggable={false}
-            onDragStart={(event) => event.preventDefault()}
-          />
-        </Link>
+        {!isShop && (
+          <Link className="brand" href={ROUTES.home} aria-label="Bizon Tires — на главную">
+            <span className="brand-wordmark" translate="no">BIZON</span>
+            <span className="brand-descriptor">Heavy Duty</span>
+          </Link>
+        )}
 
         <div className="nav-actions">
           {onCartOpen && <CartHeaderButton count={cartCount} onOpen={onCartOpen} />}
-          <ThemeToggle />
-          <nav className="desktop-nav" aria-label="Основная навигация">
-            {HEADER_NAV.map((item) => (
-              <Link key={item.href} href={item.href}>
-                {item.label}
+          {!isShop && (
+            <>
+              <nav className="desktop-nav" aria-label="Основная навигация">
+                {HEADER_NAV.map((item) => (
+                  <Link key={item.href} href={item.href}>
+                    {item.label}
+                  </Link>
+                ))}
+              </nav>
+              <Link href={ROUTES.contact} className="contact-button">
+                Запросить расчёт
               </Link>
-            ))}
-          </nav>
-          <Link href={ROUTES.contact} className="contact-button">
-            Связаться
-          </Link>
+            </>
+          )}
         </div>
       </div>
     </header>

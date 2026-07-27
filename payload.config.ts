@@ -6,7 +6,9 @@ import { buildConfig } from "payload";
 import sharp from "sharp";
 
 import {
+  CartSessions,
   Media,
+  Pages,
   PeopleStories,
   Products,
   Requests,
@@ -47,7 +49,9 @@ export default buildConfig({
   },
   collections: [
     Users,
+    CartSessions,
     Media,
+    Pages,
     ShopCategories,
     TireTypes,
     TireModels,
@@ -66,7 +70,8 @@ export default buildConfig({
     outputFile: path.resolve(dirname, "src/payload-types.ts"),
   },
   db: postgresAdapter({
-    push: false,
+    // ponytail: flip to true only while bootstrapping a new collection schema locally, then migrate.
+    push: process.env.PAYLOAD_DB_PUSH === "1",
     pool: {
       connectionString: process.env.TBR_DATABASE_URI || process.env.DATABASE_URI || "",
     },

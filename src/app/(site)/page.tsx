@@ -1,20 +1,43 @@
-import { Hero } from "@/components/Hero/Hero.jsx";
-import { ProductsSection } from "@/components/ProductsSection/ProductsSection.jsx";
-import { FeaturesSection } from "@/components/FeaturesSection/FeaturesSection.jsx";
-import { AccessoriesSection } from "@/components/AccessoriesSection/AccessoriesSection.jsx";
-import { ContactSection } from "@/components/ContactSection/ContactSection.jsx";
-import { getTireTypes } from "@/lib/cms";
+import { Suspense } from "react";
+
+import { ExpertiseSupport } from "@/components/main/ExpertiseSupport";
+import { MainHero } from "@/components/main/MainHero";
+import { SelectionResumeCallout } from "@/components/main/SelectionResumeCallout";
+import { ShopCampaign } from "@/components/main/ShopCampaign";
+import { TireDirectionShowcase } from "@/components/main/TireDirectionShowcase";
+import { TireSelectionEntry } from "@/components/main/TireSelectionEntry";
+import {
+  getPageContent,
+  getPeopleStories,
+  getPublishedTireCatalog,
+  getTireIQArticles,
+} from "@/lib/cms";
 
 export default async function HomePage() {
-  const tireTypes = await getTireTypes();
+  const [page, catalog, articles, stories] = await Promise.all([
+    getPageContent("home"),
+    getPublishedTireCatalog(),
+    getTireIQArticles(),
+    getPeopleStories(),
+  ]);
 
   return (
     <>
-      <Hero />
-      <ProductsSection tireTypes={tireTypes} />
-      <FeaturesSection />
-      <AccessoriesSection />
-      <ContactSection />
+      <MainHero content={page.hero} />
+      <Suspense fallback={null}>
+        <TireSelectionEntry content={page.selectionEntry} catalog={catalog} />
+      </Suspense>
+      <TireDirectionShowcase
+        directions={catalog.directions}
+        content={page.directions}
+      />
+      <ExpertiseSupport
+        article={articles[0]}
+        story={stories[0]}
+        content={page.expertise}
+      />
+      <ShopCampaign content={page.shopCampaign} />
+      <SelectionResumeCallout content={page.resume} />
     </>
   );
 }

@@ -53,6 +53,7 @@ export function CatalogListingPage({
               meta={item.meta}
               imageUrl={item.imageUrl}
               imageAlt={item.imageAlt}
+              mediaKey={item.key}
             />
           ))}
         </div>
@@ -62,7 +63,7 @@ export function CatalogListingPage({
 
       {footerLink && (
         <p className="mt-8">
-          <Link href={footerLink.href} className="btn-glass inline-flex">
+          <Link href={footerLink.href} className="btn-secondary inline-flex">
             {footerLink.label}
           </Link>
         </p>

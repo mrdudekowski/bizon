@@ -1,15 +1,16 @@
 import { notFound } from "next/navigation";
 import {
   getAllTireTypeSlugs,
-  getTireModelsByTypeSlug,
+  getPublishedTireCatalog,
   getTireTypeBySlug,
 } from "@/lib/cms";
-import { getApplicationCategoryLabel } from "@/lib/cms/applicationCategory";
+import { TireDirectionPage } from "@/components/catalog/TireDirectionPage";
+import { parseTireFilters } from "@/lib/catalog/tireFilters";
 import { createPageMetadata } from "@/lib/seo/metadata";
-import { CatalogListingPage } from "@/components/catalog/CatalogListingPage";
 
 type PageProps = {
   params: Promise<{ tireTypeSlug: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
 
 export async function generateStaticParams() {
@@ -28,37 +29,15 @@ export async function generateMetadata({ params }: PageProps) {
   });
 }
 
-export default async function TireTypeModelsPage({ params }: PageProps) {
-  const { tireTypeSlug } = await params;
-  const tireType = await getTireTypeBySlug(tireTypeSlug);
+export default async function TireTypeModelsPage({ params, searchParams }: PageProps) {
+  const [{ tireTypeSlug }, rawFilters, catalog] = await Promise.all([
+    params,
+    searchParams,
+    getPublishedTireCatalog(),
+  ]);
+  const direction = catalog.directions.find((item) => item.slug === tireTypeSlug);
 
-  if (!tireType) {
-    notFound();
-  }
+  if (!direction) notFound();
 
-  const models = await getTireModelsByTypeSlug(tireType.slug);
-  const typeBasePath = `/models/${tireType.slug}`;
-
-  return (
-    <CatalogListingPage
-      title={tireType.name}
-      description={tireType.description}
-      breadcrumbs={[
-        { href: "/", label: "Главная" },
-        { href: "/models", label: "Модели" },
-        { href: typeBasePath, label: tireType.name },
-      ]}
-      items={models.map((model) => ({
-        key: model.slug,
-        href: `${typeBasePath}/${model.slug}`,
-        title: model.name,
-        description: model.descriptionShort,
-        meta: `${model.brand} · ${getApplicationCategoryLabel(model.applicationCategory)}`,
-        imageUrl: model.imageUrl,
-        imageAlt: model.name,
-      }))}
-      emptyMessage="Модели этого типа скоро появятся."
-      footerLink={{ href: "/models", label: "← Все типы шин" }}
-    />
-  );
+  return <TireDirectionPage direction={direction} filters={parseTireFilters(rawFilters)} />;
 }

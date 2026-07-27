@@ -23,6 +23,7 @@ export const TIRE_APPLICATION_CATEGORIES = [
   { label: "Regional", value: "regional" },
   { label: "Off-Road", value: "off_road" },
   { label: "Construction", value: "construction" },
+  { label: "Urban", value: "urban" },
 ] as const;
 
 export { REQUEST_ITEM_TYPES, SOURCE_FORMS, type RequestItemType, type SourceForm } from "@/types/requestItem";
@@ -72,6 +73,7 @@ export const ADMIN_GROUPS = {
   catalog: "Каталог",
   tireCatalog: "Каталог шин",
   wheelCatalog: "Каталог дисков",
+  sitePages: "Страницы сайта",
   content: "Контент",
   media: "Медиа",
   sales: "Продажи",

@@ -75,14 +75,13 @@ export function ModelAdvantagesCarousel({ advantages }: ModelAdvantagesCarouselP
     <section
       className={styles.carousel}
       aria-roledescription="carousel"
-      aria-label="Преимущества модели"
+      aria-labelledby="advantages-title"
       data-main-chrome-tone="dark"
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
     >
       {slides.map((slide, index) => {
         const image = getFeatureImage(slide.key);
-        const kicker = `${String(index + 1).padStart(2, "0")} · ${image?.label ?? slide.key}`;
 
         return (
           <article
@@ -105,7 +104,9 @@ export function ModelAdvantagesCarousel({ advantages }: ModelAdvantagesCarouselP
             )}
             <div className={styles.overlay} aria-hidden="true" />
             <div className={styles.content}>
-              <p>{kicker}</p>
+              <p id={index === activeIndex ? "advantages-title" : undefined}>
+                Преимущества модели
+              </p>
               <h2>{slide.title}</h2>
               {slide.description ? (
                 <p className={styles.description}>{slide.description}</p>

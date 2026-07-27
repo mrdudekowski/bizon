@@ -15,6 +15,7 @@ import {
   statusField,
 } from "@/collections/fields";
 import {
+  rewriteLocalMediaUrls,
   sanitizeMediaFilename,
   setMediaStoragePrefix,
   validateMediaUpload,
@@ -56,6 +57,7 @@ export const Media: CollectionConfig = {
   },
   hooks: {
     beforeChange: [setMediaStoragePrefix, sanitizeMediaFilename, validateMediaUpload, setPublishedAt],
+    afterRead: [rewriteLocalMediaUrls],
     afterChange: [revalidateSiteCache],
     afterDelete: [revalidateSiteCacheAfterDelete],
   },

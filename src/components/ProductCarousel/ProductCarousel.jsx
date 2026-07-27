@@ -73,7 +73,13 @@ export default function ProductCarousel({ items = [] }) {
           return (
             <Link key={item.slug} href={`/models/${item.slug}`} className="category-card">
               <div className="category-card-media" aria-hidden="true">
-                <CatalogImage src={item.imageUrl} alt="" fill sizes="80vw" />
+                <CatalogImage
+                  src={item.imageUrl}
+                  alt=""
+                  fallbackKey={item.slug}
+                  fill
+                  sizes="80vw"
+                />
               </div>
               <div className="category-card-overlay" aria-hidden="true" />
               <div className="category-card-content">

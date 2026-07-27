@@ -1,9 +1,13 @@
-import type { CollectionBeforeChangeHook } from "payload";
+import type { CollectionAfterReadHook, CollectionBeforeChangeHook } from "payload";
 import { APIError } from "payload";
 
 import { MEDIA_TYPES } from "@/collections/fields/constants";
 import { getCatalogStorageSegment } from "@/lib/catalog/catalogNav";
 import { parseCatalogRelation } from "@/lib/catalog/parseCatalogRelation";
+import {
+  localMediaFileExists,
+  rewriteMediaDocUrlsForLocalStorage,
+} from "@/lib/cms/localMediaUrl";
 import { isS3StorageEnabled, MAX_MEDIA_FILE_SIZE_BYTES } from "@/lib/payload/s3StorageConfig";
 
 const MEDIA_TYPE_FOLDER: Record<(typeof MEDIA_TYPES)[number]["value"], string> = {
@@ -45,7 +49,13 @@ async function resolveRelatedCatalogSlug(
 }
 
 export const setMediaStoragePrefix: CollectionBeforeChangeHook = async ({ data, req }) => {
-  if (!data || !isS3StorageEnabled()) return data;
+  if (!data) return data;
+
+  // Local staticDir stores files flat under public/media — S3 prefixes break /api/media/file.
+  if (!isS3StorageEnabled()) {
+    data.prefix = null;
+    return data;
+  }
 
   const mediaType = (data.mediaType as keyof typeof MEDIA_TYPE_FOLDER) || "image";
   const folder = MEDIA_TYPE_FOLDER[mediaType] ?? "files";
@@ -56,6 +66,15 @@ export const setMediaStoragePrefix: CollectionBeforeChangeHook = async ({ data, 
     : `bizon/content/${folder}`;
 
   return data;
+};
+
+/** Serve local uploads via Next public /media/* instead of broken prefixed API paths. */
+export const rewriteLocalMediaUrls: CollectionAfterReadHook = ({ doc }) => {
+  if (!doc?.filename) return doc;
+  // Rewrite when S3 is off, or when the file was seeded into public/media
+  // (Next reloads S3_* from .env.local even if the shell cleared them).
+  if (isS3StorageEnabled() && !localMediaFileExists(doc.filename)) return doc;
+  return rewriteMediaDocUrlsForLocalStorage(doc);
 };
 
 export const validateMediaUpload: CollectionBeforeChangeHook = ({ data }) => {

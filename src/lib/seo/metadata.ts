@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+import { PUBLIC_OG_IMAGE } from "@/lib/readiness/publicSite";
+
 const SITE_NAME = "Bizon Tires";
 const DEFAULT_DESCRIPTION =
   "Премиальная большегрузная резина BIZON — магистральные, карьерные и внедорожные решения для тяжёлой техники.";
@@ -26,7 +28,7 @@ export function createPageMetadata({
   const siteUrl = getSiteUrl();
   const url = `${siteUrl}${path.startsWith("/") ? path : `/${path}`}`;
   const fullTitle = title ? `${title} | ${SITE_NAME}` : `${SITE_NAME} — Премиальная большегрузная резина`;
-  const ogImage = image ?? `${siteUrl}/bizon_inverted_hd.svg`;
+  const ogImage = image ?? `${siteUrl}${PUBLIC_OG_IMAGE}`;
 
   return {
     title: fullTitle,

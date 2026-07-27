@@ -74,8 +74,9 @@ export function parseTireSize(input: string): ParseTireSizeResult {
     };
   }
 
+  // 12.00R20 or whole-inch 13R22.5 (common TBR flotation notation)
   const imperial = raw.match(
-    /^(\d{1,2}\.\d{2})\s*([rRdDbB])\s*(\d{1,2}(?:\.\d+)?)$/,
+    /^(\d{1,2}(?:\.\d{1,2})?)\s*([rRdDbB])\s*(\d{1,2}(?:\.\d+)?)$/,
   );
   if (imperial) {
     const imperialWidthIn = Number(imperial[1]);

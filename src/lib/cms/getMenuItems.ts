@@ -1,61 +1,51 @@
 import { ROUTES } from "@/constants/navigation";
 import { getTireTypes } from "./getTireTypes";
 
-const STATIC_MENU_ITEMS = [
-  {
-    id: "about",
-    label: "О нас",
-    hasSubmenu: true,
-    submenu: [
-      { name: "О компании BIZON", link: ROUTES.about },
-      { name: "Гарантия", link: ROUTES.warranty },
-      { name: "People Stories", link: ROUTES.peopleStories },
-    ],
-  },
-  {
-    id: "shop",
-    label: "Магазин",
-    hasSubmenu: false,
-    href: ROUTES.shop,
-  },
+const MAIN_MENU_SECTIONS = [
   {
     id: "services",
-    label: "Услуги",
-    hasSubmenu: true,
-    submenu: [
-      { name: "Tire IQ", link: ROUTES.tireIq },
-      { name: "Подбор и консультация", link: ROUTES.contact },
-      { name: "Гарантийное обслуживание", link: ROUTES.warranty },
+    label: "Сервис и поддержка",
+    items: [
+      { name: "BIZON Shop", link: ROUTES.shop, description: "Диски и аксессуары" },
+      { name: "Индивидуальное брендирование", link: ROUTES.branding },
+      { name: "Гарантия", link: ROUTES.warranty },
     ],
   },
   {
-    id: "account",
-    label: "Аккаунт",
-    hasSubmenu: false,
-    href: ROUTES.contact,
+    id: "company",
+    label: "Материалы и компания",
+    items: [
+      { name: "Tire IQ", link: ROUTES.tireIq, description: "Статьи и рекомендации" },
+      { name: "Истории клиентов", link: ROUTES.peopleStories },
+      { name: "О компании", link: ROUTES.about },
+      { name: "Стать поставщиком", link: ROUTES.supplier },
+    ],
   },
 ];
 
-export async function getMenuItems() {
+export async function getMainMenuItems() {
   const tireTypes = await getTireTypes();
-  const tireTypesSubmenu = tireTypes
+  const tireTypeItems = tireTypes
     .filter((type) => type.showInMenu)
     .map((type) => ({
       id: type.slug,
       name: type.name,
       description: type.shortDescription,
       link: `${ROUTES.models}/${type.slug}`,
-      image: true,
-      imageUrl: type.imageUrl,
     }));
 
   return [
     {
       id: "models",
-      label: "Модели",
-      hasSubmenu: true,
-      submenu: tireTypesSubmenu,
+      label: "Каталог шин",
+      items: [
+        { name: "Все шины", link: ROUTES.models, description: "TBR и OTR" },
+        ...tireTypeItems,
+      ],
     },
-    ...STATIC_MENU_ITEMS,
+    ...MAIN_MENU_SECTIONS,
   ];
 }
+
+/** @deprecated Use getMainMenuItems to make the site context explicit. */
+export const getMenuItems = getMainMenuItems;

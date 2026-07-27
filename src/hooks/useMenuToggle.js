@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
 /**
  * Хук для управления состоянием мобильного меню
@@ -15,14 +15,20 @@ import { useState, useEffect, useCallback } from 'react';
  */
 export const useMenuToggle = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const scrollPositionRef = useRef(0);
   
   useEffect(() => {
-    // Добавляем/удаляем класс для предотвращения прокрутки фона
-    document.body.classList.toggle('menu-open', menuOpen);
-    
-    // Cleanup при размонтировании
+    if (!menuOpen) return undefined;
+
+    scrollPositionRef.current = window.scrollY;
+    document.body.style.setProperty('--scroll-lock-top', `-${scrollPositionRef.current}px`);
+    document.body.classList.add('menu-open');
+
     return () => {
       document.body.classList.remove('menu-open');
+      document.body.style.removeProperty('--scroll-lock-top');
+      const scrollPosition = scrollPositionRef.current;
+      window.requestAnimationFrame(() => window.scrollTo(0, scrollPosition));
     };
   }, [menuOpen]);
   

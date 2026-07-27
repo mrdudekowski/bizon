@@ -4,6 +4,12 @@
   color: var(--color-foreground);
 }
 
+/* main already clears fixed chrome via --header-height; don't stack another hero pad */
+.catalogPage :global(.page-header),
+.modelPage :global(.page-header) {
+  padding-top: clamp(0.5rem, 1.5vw, 1rem);
+}
+
 .pageInner {
   width: 100%;
   max-width: var(--container-max);
@@ -190,29 +196,17 @@
 .productFacts dd { margin: 0; font-size: 0.9375rem; font-weight: 600; }
 .disclaimer { margin: 0; color: var(--color-muted); font-size: 0.8125rem; line-height: 1.5; }
 
+.pageInnerBeforeAdvantages {
+  padding-bottom: clamp(1.25rem, 3vw, 2rem);
+}
+
 .advantagesBlock {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   width: 100%;
   max-width: 100%;
   min-width: 0;
-  margin: var(--section-space) 0 0;
-}
-
-.advantagesIntro {
-  width: 100%;
-  max-width: var(--container-max);
-  min-width: 0;
-  margin: 0 auto;
-  padding: 0 var(--page-gutter) clamp(1.25rem, 3vw, 2rem);
-}
-
-.advantagesIntro h2 {
-  margin: 0.75rem 0 0;
-  font-size: clamp(2rem, 4vw, 3.5rem);
-  font-weight: 550;
-  line-height: 1.05;
-  letter-spacing: -0.04em;
+  margin: 0;
 }
 
 .documents h2, .finalCta h2 { margin: .75rem 0 0; font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 550; line-height: 1.05; letter-spacing: -.04em; }

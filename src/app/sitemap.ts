@@ -2,14 +2,16 @@ import type { MetadataRoute } from "next";
 import {
   getAllPeopleStorySlugs,
   getAllShopProductSlugs,
-  getAllShopCategorySlugs,
+  getShopProducts,
   getAllTireIQSlugs,
-  getAllTireModelRouteParams,
   getAllTireTypeSlugs,
+  getTireModelsByTypeSlug,
   getAllWheelModelRouteParams,
   getAllWheelTypeSlugs,
 } from "@/lib/cms";
+import { TIRE_CATEGORIES, getTireCategoryByValue } from "@/lib/catalog/tireCategories";
 import { SITEMAP_CONTENT_LIST_ROUTES, SITEMAP_STATIC_ROUTES } from "@/constants/navigation";
+import { SHOP_LIFESTYLE_CATEGORIES } from "@/constants/shopCategories";
 import { getSiteUrl } from "@/lib/seo/metadata";
 
 function listRouteEntry(path: string): MetadataRoute.Sitemap[number] {
@@ -24,17 +26,23 @@ function listRouteEntry(path: string): MetadataRoute.Sitemap[number] {
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = getSiteUrl();
 
-  const [productSlugs, tireTypeSlugs, modelRoutes, categorySlugs, articleSlugs, storySlugs, wheelTypeSlugs, wheelModelRoutes] =
+  const [productSlugs, shopProducts, tireTypeSlugs, articleSlugs, storySlugs, wheelTypeSlugs, wheelModelRoutes] =
     await Promise.all([
       getAllShopProductSlugs(),
+      getShopProducts(),
       getAllTireTypeSlugs(),
-      getAllTireModelRouteParams(),
-      getAllShopCategorySlugs(),
       getAllTireIQSlugs(),
       getAllPeopleStorySlugs(),
       getAllWheelTypeSlugs(),
       getAllWheelModelRouteParams(),
     ]);
+
+  const tireModelsByType = await Promise.all(
+    tireTypeSlugs.map(async (tireTypeSlug) => ({
+      tireTypeSlug,
+      models: await getTireModelsByTypeSlug(tireTypeSlug),
+    })),
+  );
 
   const entries: MetadataRoute.Sitemap = SITEMAP_STATIC_ROUTES.map((path) => ({
     url: `${siteUrl}${path}`,
@@ -52,16 +60,40 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     });
   }
 
-  for (const route of modelRoutes) {
-    entries.push({
-      url: `${siteUrl}/models/${route.tireTypeSlug}/${route.modelSlug}`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    });
+  for (const { tireTypeSlug, models } of tireModelsByType) {
+    const categoryValues = tireTypeSlug === "tbr"
+      ? TIRE_CATEGORIES.map((category) => category.value)
+      : Array.from(new Set(models.map((model) => model.applicationCategory)));
+
+    for (const categoryValue of categoryValues) {
+      const category = getTireCategoryByValue(categoryValue);
+      if (!category) continue;
+      entries.push({
+        url: `${siteUrl}/models/${tireTypeSlug}/${category.slug}`,
+        lastModified: new Date(),
+        changeFrequency: "weekly",
+        priority: 0.8,
+      });
+    }
+
+    for (const model of models) {
+      const category = getTireCategoryByValue(model.applicationCategory);
+      const categoryPath = category ? `/${category.slug}` : "";
+      entries.push({
+        url: `${siteUrl}/models/${tireTypeSlug}${categoryPath}/${model.slug}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.8,
+      });
+    }
   }
 
-  for (const slug of categorySlugs) {
+  const allShopCategorySlugs = new Set([
+    ...SHOP_LIFESTYLE_CATEGORIES.map((category) => category.slug),
+    ...shopProducts.map((product) => product.categorySlug).filter(Boolean),
+  ]);
+
+  for (const slug of allShopCategorySlugs) {
     entries.push({
       url: `${siteUrl}/shop/${slug}`,
       lastModified: new Date(),

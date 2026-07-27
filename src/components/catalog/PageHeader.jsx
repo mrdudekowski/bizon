@@ -2,21 +2,23 @@ import Link from "next/link";
 
 export function PageHeader({ title, description, breadcrumbs = [] }) {
   return (
-    <header className="section">
+    <header className="page-header">
       {breadcrumbs.length > 0 && (
-        <nav aria-label="Breadcrumb" className="mb-4 text-sm text-muted">
-          {breadcrumbs.map((item, index) => (
-            <span key={item.href}>
-              {index > 0 && " / "}
+        <nav aria-label="Breadcrumb" className="breadcrumbs">
+          <ol>
+            {breadcrumbs.map((item, index) => (
+              <li key={item.href}>
               {index === breadcrumbs.length - 1 ? (
-                <span>{item.label}</span>
+                <span aria-current="page">{item.label}</span>
               ) : (
-                <Link href={item.href} className="hover:text-foreground">
+                <Link href={item.href}>
                   {item.label}
                 </Link>
               )}
-            </span>
-          ))}
+              {index < breadcrumbs.length - 1 && <span aria-hidden="true">/</span>}
+              </li>
+            ))}
+          </ol>
         </nav>
       )}
       <h1 className="section-title">{title}</h1>

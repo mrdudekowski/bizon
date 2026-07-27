@@ -73,24 +73,28 @@ export function getS3StoragePlugin(): Plugin {
   const isPrivate = isPrivateS3Bucket();
   const acl = isPrivate ? "private" : "public-read";
 
+  const s3Enabled = isS3StorageEnabled();
   const mediaCollectionConfig: {
-    prefix: string;
+    prefix?: string;
     generateFileURL?: (args: { filename: string; prefix?: string }) => string;
-  } = {
-    prefix: "bizon/media",
-  };
+  } = {};
 
-  // Private bucket: do NOT expose direct S3 URLs — Payload proxies via /api/media/file/...
-  if (!isPrivate) {
-    mediaCollectionConfig.generateFileURL = ({ filename, prefix = "" }) =>
-      buildPublicFileUrl(filename, prefix) ??
-      (endpoint
-        ? `${endpoint.replace(/\/$/, "")}/${bucket}/${[prefix, filename].filter(Boolean).join("/")}`
-        : `https://${bucket}.s3.${region}.amazonaws.com/${[prefix, filename].filter(Boolean).map(encodeURIComponent).join("/")}`);
+  // Default S3 key prefix only when S3 is actually on. A non-empty default while
+  // enabled:false stamps prefix=bizon/media onto local uploads and breaks file URLs.
+  if (s3Enabled) {
+    mediaCollectionConfig.prefix = "bizon/media";
+    // Private bucket: do NOT expose direct S3 URLs — Payload proxies via /api/media/file/...
+    if (!isPrivate) {
+      mediaCollectionConfig.generateFileURL = ({ filename, prefix = "" }) =>
+        buildPublicFileUrl(filename, prefix) ??
+        (endpoint
+          ? `${endpoint.replace(/\/$/, "")}/${bucket}/${[prefix, filename].filter(Boolean).join("/")}`
+          : `https://${bucket}.s3.${region}.amazonaws.com/${[prefix, filename].filter(Boolean).map(encodeURIComponent).join("/")}`);
+    }
   }
 
   const s3Plugin = s3Storage({
-    enabled: isS3StorageEnabled(),
+    enabled: s3Enabled,
     alwaysInsertFields: true,
     acl,
     bucket,

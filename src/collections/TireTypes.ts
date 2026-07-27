@@ -14,6 +14,10 @@ import {
   statusField,
 } from "@/collections/fields";
 import { catalogContentHooks } from "@/payload/hooks/catalogContentHooks";
+import {
+  OPERATING_CONDITION_OPTIONS,
+  VEHICLE_TYPE_OPTIONS,
+} from "@/lib/selection/options";
 
 export const TireTypes: CollectionConfig = {
   slug: "tire-types",
@@ -63,6 +67,28 @@ export const TireTypes: CollectionConfig = {
       },
     },
     mainImageField({ name: "coverImage", label: "Обложка" }),
+    {
+      name: "selectionVehicleTypes",
+      type: "select",
+      label: "Подходит для техники",
+      hasMany: true,
+      required: true,
+      options: [...VEHICLE_TYPE_OPTIONS],
+      admin: {
+        description: "Используется детерминированным подбором на сайте",
+      },
+    },
+    {
+      name: "selectionConditions",
+      type: "select",
+      label: "Условия эксплуатации",
+      hasMany: true,
+      required: true,
+      options: [...OPERATING_CONDITION_OPTIONS],
+      admin: {
+        description: "Опубликованные условия, для которых предназначено направление",
+      },
+    },
     {
       name: "showInMenu",
       type: "checkbox",

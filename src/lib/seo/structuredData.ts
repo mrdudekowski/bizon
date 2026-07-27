@@ -1,4 +1,5 @@
 import { SITE_CONTACT } from "@/constants/contact";
+import { PUBLIC_LOGO } from "@/lib/readiness/publicSite";
 import { getSiteUrl } from "./metadata";
 
 export type ProductStructuredDataInput = {
@@ -35,7 +36,7 @@ export function createOrganizationStructuredData() {
     "@type": "Organization",
     name: "Bizon Tires",
     url: siteUrl,
-    logo: `${siteUrl}/bizon_inverted_hd.svg`,
+    logo: `${siteUrl}${PUBLIC_LOGO}`,
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "sales",

@@ -1,7 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { SiteShell } from "@/components/layout/SiteShell";
-import { getMenuItems } from "@/lib/cms";
+import { getMainMenuItems } from "@/lib/cms/getMenuItems";
+import { SHOP_BURGER_MENU_ITEMS } from "@/constants/shopBurgerMenu";
 import { createPageMetadata } from "@/lib/seo/metadata";
 import "../globals.css";
 
@@ -11,7 +12,24 @@ const inter = Inter({
   display: "swap",
 });
 
-export const metadata: Metadata = createPageMetadata();
+export const metadata: Metadata = {
+  ...createPageMetadata(),
+  manifest: "/manifest.webmanifest",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "16x16 32x32 48x48" },
+      { url: "/favicon.svg", type: "image/svg+xml", sizes: "any" },
+      { url: "/favicon-32x32.png", type: "image/png", sizes: "32x32" },
+      { url: "/favicon-16x16.png", type: "image/png", sizes: "16x16" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+    other: [{ rel: "mask-icon", url: "/favicon.svg", color: "#222222" }],
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#ffffff",
+};
 
 /** ponytail: ISR baseline — admin publishes appear within ~60s even without on-demand revalidate */
 export const revalidate = 60;
@@ -21,20 +39,14 @@ export default async function SiteLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const menuItems = await getMenuItems();
+  const mainMenuItems = await getMainMenuItems();
 
   return (
-    <html lang="ru" className={inter.variable} suppressHydrationWarning>
-      <head>
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){var k="theme",s=localStorage.getItem(k),d=s==="dark"?true:s==="light"?false:window.matchMedia("(prefers-color-scheme: dark)").matches;if(d)document.documentElement.classList.add("dark");})();`,
-          }}
-        />
-      </head>
+    <html lang="ru" className={inter.variable} data-scroll-behavior="smooth">
       <body>
-        <SiteShell menuItems={menuItems}>{children}</SiteShell>
+        <SiteShell mainMenuItems={mainMenuItems} shopMenuItems={SHOP_BURGER_MENU_ITEMS}>
+          {children}
+        </SiteShell>
       </body>
     </html>
   );

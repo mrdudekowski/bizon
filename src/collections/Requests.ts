@@ -108,6 +108,12 @@ export const Requests: CollectionConfig = {
       label: "Сообщение",
     },
     {
+      name: "selectionContext",
+      type: "json",
+      label: "Контекст подбора шин",
+      admin: { readOnly: true },
+    },
+    {
       name: "items",
       type: "array",
       label: "Позиции заявки",

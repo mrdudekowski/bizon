@@ -114,6 +114,7 @@ payload.config.ts        # Payload CMS config (root)
 | `/tire-iq`, `/tire-iq/[slug]` | Articles |
 | `/people-stories`, `/people-stories/[slug]` | Customer stories |
 | `/contact` | Contact form |
+| `/selection` | Deterministic URL-backed tire selection |
 | `/about` | About company |
 | `/warranty` | Warranty info |
 | `/admin` | Payload CMS admin |
@@ -123,7 +124,11 @@ payload.config.ts        # Payload CMS config (root)
 
 - Responsive layout with explicit grid/flex constraints
 - Two-pane burger menu with CSS Module animations
-- Dark/light theme toggle (localStorage + system preference)
+- Single light theme shared by the main site and shop
+- Coral for commercial actions, Mint for technical signals and focus, Neutral for the white-first foundation
+- Exactly two intentional black homepage accents: tire assortment and BIZON Shop
+- Shared floating chrome geometry with surface-specific main-site and Shop content
+- Published-CMS-only tire catalog and deterministic, non-AI selection
 - Product carousel with touch/drag support
 - SEO: metadata, Open Graph, sitemap, robots.txt, JSON-LD placeholders
 
@@ -150,10 +155,12 @@ If `/admin` shows `[ Server ] undefined`, check the terminal — usually Postgre
 - [Project structure](docs/project-structure.md)
 - [Cleanup audit](docs/project-cleanup-audit.md)
 - [Payload data model](docs/payload-data-model.md)
+- [BIZON Shop CMS handover](docs/shop-cms-handover.md)
 - [Migration report](docs/next-migration-report.md)
 - [Migration notes](docs/next-migration-notes.md)
 - [Styling guidelines](docs/STYLING_GUIDELINES.md)
 - [Theme palette](docs/theme-palette.md)
+- [Refactor and development pipeline](docs/refactor-development-pipeline.md)
 - [Archived SPA-era docs](docs/archive/spa-era/)
 - [Archived Payload task reports](docs/archive/payload-reports/)
 
@@ -168,6 +175,7 @@ Workflow: [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)
 1. PostgreSQL 16 service container
 2. `npm run seed:all` — schema push + catalog/content seeds
 3. `npm run verify:db` — fails if core seeds missing
+4. `npm run verify:shop` — read-only production-content gate for Shop
 4. `npm run build` — full SSG path list from seeded DB
 
 Locally mirror CI: `npm run db:up` → set `DATABASE_URI` (port **5433**) → `npm run seed:all` → `npm run build`.

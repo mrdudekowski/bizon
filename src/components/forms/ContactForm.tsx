@@ -49,7 +49,7 @@ export function ContactForm() {
   }
 
   return (
-    <form className="card-base info-card max-w-xl grid gap-4" onSubmit={handleSubmit}>
+    <form className="card-base info-card form-card max-w-xl" onSubmit={handleSubmit}>
       <input
         type="text"
         name={HONEYPOT_FIELD}
@@ -59,7 +59,7 @@ export function ContactForm() {
         className="absolute left-[-9999px] h-0 w-0 opacity-0"
       />
       <div>
-        <label htmlFor="name" className="info-card-title block mb-2">
+        <label htmlFor="name" className="field-label">
           Имя
         </label>
         <input
@@ -67,33 +67,38 @@ export function ContactForm() {
           name="name"
           type="text"
           required
-          className="w-full rounded-xl border border-border bg-background px-4 py-3"
+          autoComplete="name"
+          className="field-input"
         />
       </div>
       <div>
-        <label htmlFor="phone" className="info-card-title block mb-2">
+        <label htmlFor="phone" className="field-label">
           Телефон
         </label>
         <input
           id="phone"
           name="phone"
           type="tel"
-          className="w-full rounded-xl border border-border bg-background px-4 py-3"
+          autoComplete="tel"
+          inputMode="tel"
+          className="field-input"
         />
       </div>
       <div>
-        <label htmlFor="email" className="info-card-title block mb-2">
+        <label htmlFor="email" className="field-label">
           Email
         </label>
         <input
           id="email"
           name="email"
           type="email"
-          className="w-full rounded-xl border border-border bg-background px-4 py-3"
+          autoComplete="email"
+          spellCheck={false}
+          className="field-input"
         />
       </div>
       <div>
-        <label htmlFor="message" className="info-card-title block mb-2">
+        <label htmlFor="message" className="field-label">
           Сообщение
         </label>
         <textarea
@@ -101,14 +106,14 @@ export function ContactForm() {
           name="message"
           required
           rows={4}
-          className="w-full rounded-xl border border-border bg-background px-4 py-3"
+          className="field-input"
         />
       </div>
       <button type="submit" className="btn-accent" disabled={status === "loading"}>
         {status === "loading" ? "Отправка…" : "Отправить"}
       </button>
       {message && (
-        <p className={`info-card-text ${status === "error" ? "text-destructive" : ""}`} role="status">
+        <p className={`info-card-text ${status === "error" ? "text-destructive" : ""}`} role="status" aria-live="polite">
           {message}
         </p>
       )}
@@ -172,7 +177,7 @@ export function QuickOrderForm({ item, heading, sourcePage }: QuickOrderFormProp
   }
 
   return (
-    <form className="card-base info-card max-w-xl grid gap-4" onSubmit={handleSubmit}>
+    <form className="card-base info-card form-card max-w-xl" onSubmit={handleSubmit}>
       <h3 className="info-card-title">{heading ?? `Быстрый заказ — ${displayName}`}</h3>
       {item.variantLabel && (
         <p className="text-sm text-muted">Размер / комплектация: {item.variantLabel}</p>
@@ -186,7 +191,7 @@ export function QuickOrderForm({ item, heading, sourcePage }: QuickOrderFormProp
         className="absolute left-[-9999px] h-0 w-0 opacity-0"
       />
       <div>
-        <label htmlFor="quick-name" className="info-card-title block mb-2">
+        <label htmlFor="quick-name" className="field-label">
           Имя
         </label>
         <input
@@ -194,11 +199,12 @@ export function QuickOrderForm({ item, heading, sourcePage }: QuickOrderFormProp
           name="name"
           type="text"
           required
-          className="w-full rounded-xl border border-border bg-background px-4 py-3"
+          autoComplete="name"
+          className="field-input"
         />
       </div>
       <div>
-        <label htmlFor="quick-phone" className="info-card-title block mb-2">
+        <label htmlFor="quick-phone" className="field-label">
           Телефон
         </label>
         <input
@@ -206,11 +212,13 @@ export function QuickOrderForm({ item, heading, sourcePage }: QuickOrderFormProp
           name="phone"
           type="tel"
           required
-          className="w-full rounded-xl border border-border bg-background px-4 py-3"
+          autoComplete="tel"
+          inputMode="tel"
+          className="field-input"
         />
       </div>
       <div>
-        <label htmlFor="quick-quantity" className="info-card-title block mb-2">
+        <label htmlFor="quick-quantity" className="field-label">
           Количество
         </label>
         <input
@@ -219,25 +227,26 @@ export function QuickOrderForm({ item, heading, sourcePage }: QuickOrderFormProp
           type="number"
           min={1}
           defaultValue={item.quantity ?? 1}
-          className="w-full rounded-xl border border-border bg-background px-4 py-3"
+          inputMode="numeric"
+          className="field-input"
         />
       </div>
       <div>
-        <label htmlFor="quick-message" className="info-card-title block mb-2">
+        <label htmlFor="quick-message" className="field-label">
           Комментарий
         </label>
         <textarea
           id="quick-message"
           name="message"
           rows={3}
-          className="w-full rounded-xl border border-border bg-background px-4 py-3"
+          className="field-input"
         />
       </div>
       <button type="submit" className="btn-accent" disabled={status === "loading"}>
         {status === "loading" ? "Отправка…" : "Отправить заявку"}
       </button>
       {message && (
-        <p className={`info-card-text ${status === "error" ? "text-destructive" : ""}`} role="status">
+        <p className={`info-card-text ${status === "error" ? "text-destructive" : ""}`} role="status" aria-live="polite">
           {message}
         </p>
       )}

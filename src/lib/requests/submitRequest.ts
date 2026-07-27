@@ -1,4 +1,5 @@
 import { HONEYPOT_FIELD } from "./validateRequest";
+import type { ApiRequestSuccess } from "./types";
 
 export type SubmitRequestOptions = {
   sourceForm: string;
@@ -6,7 +7,7 @@ export type SubmitRequestOptions = {
   body: Record<string, unknown>;
 };
 
-export async function submitRequest({ sourceForm, sourcePage, body }: SubmitRequestOptions) {
+export async function submitRequest({ sourceForm, sourcePage, body }: SubmitRequestOptions): Promise<ApiRequestSuccess> {
   const response = await fetch("/api/requests", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -28,5 +29,5 @@ export async function submitRequest({ sourceForm, sourcePage, body }: SubmitRequ
     throw new Error(data.message ?? "Request failed");
   }
 
-  return data;
+  return data as ApiRequestSuccess;
 }
