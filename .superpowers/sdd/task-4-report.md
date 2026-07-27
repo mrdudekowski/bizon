@@ -1,44 +1,35 @@
-# Task 4 Report — Hooks: normalize identity + enforce publish gates
+# Task 4 Report: Wire carousel into TireModelStage
 
 ## Status
 
-Implemented and committed as `584a908` (`feat(tires): auto identity and enforce publish gates`).
+Implemented and committed on `feat/model-advantages-carousel`.
+
+Commit: `951393d Wire full-bleed advantages carousel into tire model PDP.`
 
 ## Changes
 
-- `normalizeTireModelData` now derives a blank `modelCode` from `slug` with `buildModelCodeFromSlug`.
-- `normalizeTireVariantData` parses the normalized size and derives a blank `sku` with `buildTireVariantSku`.
-- The variant `beforeValidate` hook resolves a relationship ID through Payload when the parent model code is not already populated.
-- Model publication now delegates to `validateModelPublication` and reports critical Russian validation messages.
-- Variant publication now delegates to `validateVariantPublication`, loads the linked model status, and optionally rejects a duplicate SKU.
-- Draft records permit ordinary commercial/editorial edits without verification demotion.
-- Removed obsolete verification-transition, source-snapshot, trusted-import, and `publishBlocked` workflow logic.
-- Deleted `tireCatalogGuards.ts` and its tests because no live imports remained.
-
-## TDD evidence
-
-The focused tests were updated first. The red run failed 8 tests for the expected missing behavior:
-
-- blank model code remained blank;
-- blank variant SKU remained blank;
-- old publication inputs rejected otherwise valid records;
-- old hook errors exposed English field names instead of Russian messages.
-
-After implementation, `npx vitest run src/payload/hooks` passed all 11 tests in 2 files.
+- Moved the model advantages section outside the constrained `pageInner`.
+- Added the constrained advantages intro above the full-width `ModelAdvantagesCarousel`.
+- Kept the product stage, variants table, documents, and final CTA in their original order.
+- Removed the retired advantages grid markup and CSS, including its mobile override.
+- Preserved the documents and final CTA heading styles under their own selectors.
 
 ## Verification
 
-- `npx vitest run src/payload/hooks` — PASS, 11/11 tests.
-- ESLint on the four changed TypeScript/test files — PASS.
-- `git diff --check -- src/payload/hooks` — PASS; only Git's existing LF-to-CRLF notices.
-- `npx tsc --noEmit` — BLOCKED by pre-existing Stage 1 schema migration errors in `scripts/seed-tbr-models.ts`, `scripts/seed-tire-axis.ts`, and `src/lib/cms/payload/mappers.ts`. No hook-file TypeScript errors were reported.
+- `npx tsc --noEmit` — PASS (exit 0).
+- IDE diagnostics for both changed files — PASS, no errors.
+- Desktop smoke at `/models/tbr/long-haul/dla968` — PASS: full-width carousel, constrained intro, autoplay advance, pause, next arrow, specs and CTA order, and no horizontal overflow.
+- Mobile smoke at 390 × 844 — PASS: 390px carousel width, no horizontal overflow, and active slide text remained above the controls.
 
-## Scope
+## Concerns
 
-The commit contains only the six requested hook files. Existing unrelated dirty-tree changes were not staged.
+None within Task 4 scope.
 
-## Important review fix
+## Review finding fix
 
-- Kept the original `tireModel` relationship ID after resolving its model code for automatic SKU generation.
-- Added an async hook regression test covering a numeric relationship ID, blank SKU, and an existing normalized size.
-- `npx vitest run src/payload/hooks/normalizeTireCatalog.test.ts src/payload/hooks/validateTirePublication.test.ts` — PASS, 12/12 tests.
+- Added the clean-checkout dependencies imported by `TireModelStage`.
+- Replaced the legacy model route with the catch-all tire route that mounts `TireModelStage`.
+- Kept the route independent of unrelated CMS barrel changes by importing the tire catalog reader directly.
+- `npx tsc --noEmit` — PASS (exit 0).
+- Staged clean-snapshot check — Task 4 imports typecheck; remaining failures are pre-existing untracked shop dependencies outside Task 4 scope.
+- `git show HEAD:src/components/catalog/TireModelStage.tsx` and direct-import `git ls-files` check — PASS.

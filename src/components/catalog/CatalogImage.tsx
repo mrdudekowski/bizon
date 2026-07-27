@@ -9,6 +9,7 @@ type CatalogImageProps = {
   fill?: boolean;
   sizes?: string;
   priority?: boolean;
+  fallbackKey?: string;
 };
 
 export function CatalogImage({
