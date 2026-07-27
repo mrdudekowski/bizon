@@ -27,4 +27,8 @@ describe("featureImages", () => {
   it("returns null for unknown keys", () => {
     expect(getFeatureImage("not-a-feature")).toBeNull();
   });
+
+  it("returns null for prototype keys like toString", () => {
+    expect(getFeatureImage("toString")).toBeNull();
+  });
 });

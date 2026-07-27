@@ -8,9 +8,9 @@ export type FeatureImage = {
   label: string;
 };
 
-export const FEATURE_IMAGE_KEYS = TIRE_PERFORMANCE_FEATURE_OPTIONS.map(
-  (option) => option.value,
-) as TireFeatureKey[];
+export const FEATURE_IMAGE_KEYS: readonly TireFeatureKey[] = Object.freeze(
+  TIRE_PERFORMANCE_FEATURE_OPTIONS.map((option) => option.value),
+);
 
 const byKey = Object.fromEntries(
   TIRE_PERFORMANCE_FEATURE_OPTIONS.map((option) => [
@@ -24,6 +24,6 @@ const byKey = Object.fromEntries(
 ) as Record<TireFeatureKey, FeatureImage>;
 
 export function getFeatureImage(key: string): FeatureImage | null {
-  if (key in byKey) return byKey[key as TireFeatureKey];
+  if (Object.hasOwn(byKey, key)) return byKey[key as TireFeatureKey];
   return null;
 }
