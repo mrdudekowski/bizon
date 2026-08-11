@@ -1,8 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { SiteShell } from "@/components/layout/SiteShell";
-import { getMainMenuItems } from "@/lib/cms/getMenuItems";
-import { SHOP_BURGER_MENU_ITEMS } from "@/constants/shopBurgerMenu";
+import { getMainDualPaneMenu, getShopDualPaneMenu } from "@/lib/cms/getDualPaneMenu";
 import { createPageMetadata } from "@/lib/seo/metadata";
 import "../globals.css";
 
@@ -39,12 +38,15 @@ export default async function SiteLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const mainMenuItems = await getMainMenuItems();
+  const [mainMenu, shopMenu] = await Promise.all([
+    getMainDualPaneMenu(),
+    getShopDualPaneMenu(),
+  ]);
 
   return (
     <html lang="ru" className={inter.variable} data-scroll-behavior="smooth">
       <body>
-        <SiteShell mainMenuItems={mainMenuItems} shopMenuItems={SHOP_BURGER_MENU_ITEMS}>
+        <SiteShell mainMenu={mainMenu} shopMenu={shopMenu}>
           {children}
         </SiteShell>
       </body>

@@ -19,6 +19,7 @@ import {
   getTireModelsByTypeSlug,
   getTireModelByTypeAndSlug,
   getAllTireModelRouteParams,
+  getPublishedTireModels,
 } from "./getTireModels";
 import { getTireTypes, getTireTypeBySlug, getAllTireTypeSlugs } from "./getTireTypes";
 import { getTireVariantsByModelId } from "./getTireVariants";
@@ -26,6 +27,7 @@ import {
   getWheelModelsByTypeSlug,
   getWheelModelByTypeAndSlug,
   getAllWheelModelRouteParams,
+  getPublishedWheelModels,
 } from "./getWheelModels";
 import {
   getWheelTypes,
@@ -33,7 +35,7 @@ import {
   getAllWheelTypeSlugs,
 } from "./getWheelTypes";
 import { getWheelVariantsByModelId, getWheelVariantsByTypeSlug } from "./getWheelVariants";
-import { getMainMenuItems, getMenuItems } from "./getMenuItems";
+import { getMainDualPaneMenu, getShopDualPaneMenu } from "./getDualPaneMenu";
 import { getPublishedTireCatalog } from "@/lib/catalog/getPublishedTireCatalog";
 import { getPageContent } from "./pages/getPageContent";
 
@@ -57,6 +59,7 @@ export {
   getTireModelsByTypeSlug,
   getTireModelByTypeAndSlug,
   getAllTireModelRouteParams,
+  getPublishedTireModels,
   getTireVariantsByModelId,
   getWheelTypes,
   getWheelTypeBySlug,
@@ -64,10 +67,11 @@ export {
   getWheelModelsByTypeSlug,
   getWheelModelByTypeAndSlug,
   getAllWheelModelRouteParams,
+  getPublishedWheelModels,
   getWheelVariantsByModelId,
   getWheelVariantsByTypeSlug,
-  getMainMenuItems,
-  getMenuItems,
+  getMainDualPaneMenu,
+  getShopDualPaneMenu,
   getPublishedTireCatalog,
   getPageContent,
 };

@@ -11,6 +11,7 @@ import {
   documentsField,
   galleryField,
   mainImageField,
+  menuCurationFields,
   publishedAtField,
   seoFields,
   slugField,
@@ -34,7 +35,7 @@ export const TireModels: CollectionConfig = {
   admin: {
     group: ADMIN_GROUPS.tireCatalog,
     useAsTitle: "name",
-    defaultColumns: ["name", "modelCode", "tireType", "status", "updatedAt"],
+    defaultColumns: ["name", "modelCode", "tireType", "showInMenu", "menuOrder", "status", "updatedAt"],
     description:
       "Модель шины: карточка для сайта, характеристики и размеры.",
   },
@@ -138,6 +139,7 @@ export const TireModels: CollectionConfig = {
         },
       ],
     },
+    ...menuCurationFields(),
     statusField(),
     publishedAtField(),
   ],

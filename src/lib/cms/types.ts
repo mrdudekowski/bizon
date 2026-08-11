@@ -45,6 +45,8 @@ export type CmsShopCategory = {
   name: string;
   description: string;
   imageUrl?: string | null;
+  showInMenu: boolean;
+  sortOrder: number;
 };
 
 export type CmsTireType = {
@@ -90,6 +92,8 @@ export type CmsTireModel = {
   selectionVehicleTypes: VehicleType[];
   selectionConditions: OperatingCondition[];
   selectionAxles: CatalogAxle[];
+  showInMenu: boolean;
+  menuOrder: number;
 };
 
 export type CmsTireVariant = {
@@ -120,6 +124,8 @@ export type CmsArticle = {
   /** Payload Lexical JSON — render with LexicalContent on detail pages. */
   content: unknown;
   imageUrl?: string | null;
+  showInMenu: boolean;
+  menuOrder: number;
 };
 
 export type CmsStory = CmsArticle & {
@@ -163,6 +169,8 @@ export type CmsWheelModel = {
   imageUrl?: string | null;
   gallery: CmsWheelGalleryImage[];
   documents?: { url: string; title: string }[];
+  showInMenu: boolean;
+  menuOrder: number;
 };
 
 export type CmsWheelVariant = {

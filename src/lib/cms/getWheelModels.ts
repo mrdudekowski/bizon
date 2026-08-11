@@ -3,6 +3,13 @@ import { findPublished, findPublishedBySlug } from "./payload/query";
 import type { WheelModel } from "@/payload-types";
 import type { CmsWheelModel, WheelModelRouteParam } from "./types";
 
+/** Published wheel models for dual-pane menu. */
+export async function getPublishedWheelModels(): Promise<CmsWheelModel[]> {
+  const docs = await findPublished("wheel-models", { depth: 1 });
+  if (!docs?.length) return [];
+  return docs.map((doc) => mapWheelModelDetail(doc as WheelModel));
+}
+
 export async function getWheelModelsByTypeSlug(wheelTypeSlug: string): Promise<CmsWheelModel[]> {
   const normalized = wheelTypeSlug?.trim().toLowerCase();
   if (!normalized) return [];

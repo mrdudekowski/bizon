@@ -36,7 +36,7 @@ Premium **industrial** B2B (большегрузные шины, fleet). Не к
 
 ## Защита
 
-**`BurgerMenu.jsx`** — не менять структуру, логику, JSX, handlers. Стили: `BurgerMenu.module.css`, `BurgerToggle.module.css`. Задание polish: `docs/burger-menu-refactor-prompt.md`.
+**`DualPaneMenu`** — Porsche-style dual-pane overlay (left sections → right Gallery/List). Toggle: `BurgerToggle`. Data: `getMainDualPaneMenu` / `getShopDualPaneMenu`.
 
 ## Принцип
 

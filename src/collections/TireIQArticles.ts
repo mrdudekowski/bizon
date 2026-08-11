@@ -9,6 +9,7 @@ import {
 import {
   ADMIN_GROUPS,
   mainImageField,
+  menuCurationFields,
   publishedAtField,
   seoFields,
   slugField,
@@ -25,7 +26,7 @@ export const TireIQArticles: CollectionConfig = {
   admin: {
     group: ADMIN_GROUPS.content,
     useAsTitle: "title",
-    defaultColumns: ["title", "status", "publishedAt", "updatedAt"],
+    defaultColumns: ["title", "showInMenu", "menuOrder", "status", "publishedAt", "updatedAt"],
     description: "Экспертные статьи для раздела /tire-iq.",
   },
   access: {
@@ -67,6 +68,7 @@ export const TireIQArticles: CollectionConfig = {
       admin: { position: "sidebar" },
     },
     seoFields,
+    ...menuCurationFields(),
     statusField(),
     publishedAtField(),
   ],

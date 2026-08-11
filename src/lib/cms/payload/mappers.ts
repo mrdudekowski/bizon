@@ -150,6 +150,8 @@ export function mapTireModelDetail(doc: TireModel): CmsTireModel {
     brand: DEFAULT_BRAND,
     descriptionShort,
     descriptionLong,
+    showInMenu: doc.showInMenu ?? true,
+    menuOrder: doc.menuOrder ?? 0,
     application: applicationTypes.join(", ") || undefined,
     axlePosition: positions.join(", ") || undefined,
     imageUrl: mapImageUrl(doc.mainImage),
@@ -241,6 +243,8 @@ export function mapWheelModelDetail(doc: WheelModel): CmsWheelModel {
     documents,
     gallery,
     imageUrl: mapImageUrl(doc.mainImage),
+    showInMenu: doc.showInMenu ?? true,
+    menuOrder: doc.menuOrder ?? 0,
   };
 }
 
@@ -279,6 +283,8 @@ export function mapShopCategory(doc: ShopCategory): CmsShopCategory {
     name: doc.name,
     description: doc.description?.trim() || doc.name,
     imageUrl: mapImageUrl(doc.coverImage),
+    showInMenu: doc.showInMenu ?? true,
+    sortOrder: doc.sortOrder ?? 0,
   };
 }
 
@@ -289,6 +295,8 @@ function mapArticleBase(doc: {
   publishedAt?: string | null;
   content?: unknown;
   featuredImage?: Media | number | null;
+  showInMenu?: boolean | null;
+  menuOrder?: number | null;
 }): CmsArticle {
   const excerpt = doc.excerpt?.trim() || doc.title;
   return {
@@ -298,6 +306,8 @@ function mapArticleBase(doc: {
     publishedAt: formatPublishedDate(doc.publishedAt),
     content: isLexicalContent(doc.content) ? doc.content : null,
     imageUrl: mapImageUrl(doc.featuredImage),
+    showInMenu: doc.showInMenu ?? true,
+    menuOrder: doc.menuOrder ?? 0,
   };
 }
 

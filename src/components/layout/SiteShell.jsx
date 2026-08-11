@@ -1,6 +1,6 @@
 "use client";
 
-import BurgerMenu from "@/components/BurgerMenu/BurgerMenu.jsx";
+import { DualPaneMenu } from "@/components/DualPaneMenu/DualPaneMenu";
 import { BackToTop } from "@/components/BackToTop/BackToTop.jsx";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { MainChrome } from "@/components/main/MainChrome";
@@ -18,12 +18,12 @@ import { ROUTES } from "@/constants/navigation";
  * Client shell: header, burger menu, footer, scroll helpers.
  * Wraps all public site pages.
  */
-export function SiteShell({ children, mainMenuItems, shopMenuItems }) {
+export function SiteShell({ children, mainMenu, shopMenu }) {
   const { menuOpen, closeMenu, toggleMenu } = useMenuToggle();
   const cart = useCart();
   const pathname = usePathname();
   const isShop = pathname === ROUTES.shop || pathname.startsWith(`${ROUTES.shop}/`);
-  const menuItems = isShop ? shopMenuItems : mainMenuItems;
+  const menu = isShop ? shopMenu : mainMenu;
   useBodyScrollLock(cart.open, "cart-open");
 
   return (
@@ -59,10 +59,10 @@ export function SiteShell({ children, mainMenuItems, shopMenuItems }) {
         <BackToTop onScrollToTop={scrollToTop} />
       </div>
 
-      <BurgerMenu
+      <DualPaneMenu
         isOpen={menuOpen}
         onClose={closeMenu}
-        menuItems={menuItems}
+        menu={menu}
         context={isShop ? "shop" : "main"}
         title={isShop ? "Меню BIZON Shop" : "Меню BIZON Tires"}
         homeHref={isShop ? ROUTES.shop : ROUTES.home}

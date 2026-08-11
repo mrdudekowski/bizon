@@ -517,6 +517,14 @@ export interface TireModel {
     robotsIndex?: boolean | null;
     robotsFollow?: boolean | null;
   };
+  /**
+   * Показывать в меню
+   */
+  showInMenu?: boolean | null;
+  /**
+   * Порядок в меню
+   */
+  menuOrder?: number | null;
   status: 'draft' | 'published' | 'archived';
   publishedAt?: string | null;
   updatedAt: string;
@@ -696,6 +704,14 @@ export interface WheelModel {
     robotsIndex?: boolean | null;
     robotsFollow?: boolean | null;
   };
+  /**
+   * Показывать в меню
+   */
+  showInMenu?: boolean | null;
+  /**
+   * Порядок в меню
+   */
+  menuOrder?: number | null;
   status: 'draft' | 'published' | 'archived';
   publishedAt?: string | null;
   updatedAt: string;
@@ -1148,6 +1164,14 @@ export interface TireIqArticle {
     robotsIndex?: boolean | null;
     robotsFollow?: boolean | null;
   };
+  /**
+   * Показывать в меню
+   */
+  showInMenu?: boolean | null;
+  /**
+   * Порядок в меню
+   */
+  menuOrder?: number | null;
   status: 'draft' | 'published' | 'archived';
   publishedAt?: string | null;
   updatedAt: string;
@@ -1705,6 +1729,8 @@ export interface TireModelsSelect<T extends boolean = true> {
   slug?: T;
   modelCode?: T;
   tireType?: T;
+  showInMenu?: T;
+  menuOrder?: T;
   positions?: T;
   applicationTypes?: T;
   features?:
@@ -1814,6 +1840,8 @@ export interface WheelModelsSelect<T extends boolean = true> {
   generateSlug?: T;
   slug?: T;
   wheelType?: T;
+  showInMenu?: T;
+  menuOrder?: T;
   series?: T;
   designStyle?: T;
   material?: T;
@@ -1987,6 +2015,8 @@ export interface TireIqArticlesSelect<T extends boolean = true> {
   slug?: T;
   excerpt?: T;
   content?: T;
+  showInMenu?: T;
+  menuOrder?: T;
   featuredImage?: T;
   author?: T;
   seo?:
