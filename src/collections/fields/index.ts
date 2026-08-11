@@ -5,3 +5,4 @@ export * from "./seoFields";
 export * from "./mediaRelationFields";
 export * from "./priceFields";
 export * from "./tireCatalogFields";
+export * from "./menuCurationFields";

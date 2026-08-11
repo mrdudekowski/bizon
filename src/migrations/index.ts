@@ -5,6 +5,7 @@ import * as migration_20260726_094343_add_tbr_catalog_schema from './20260726_09
 import * as migration_20260726_105520_bizon_refactor_baseline from './20260726_105520_bizon_refactor_baseline';
 import * as migration_20260727_015500_tire_catalog_manager_ux from './20260727_015500_tire_catalog_manager_ux';
 import * as migration_20260727_072000_add_site_pages from './20260727_072000_add_site_pages';
+import * as migration_20260811_140000_menu_curation_fields from './20260811_140000_menu_curation_fields';
 
 export const migrations = [
   {
@@ -41,5 +42,10 @@ export const migrations = [
     up: migration_20260727_072000_add_site_pages.up,
     down: migration_20260727_072000_add_site_pages.down,
     name: '20260727_072000_add_site_pages'
+  },
+  {
+    up: migration_20260811_140000_menu_curation_fields.up,
+    down: migration_20260811_140000_menu_curation_fields.down,
+    name: '20260811_140000_menu_curation_fields'
   },
 ];

@@ -12,6 +12,7 @@ import {
   documentsField,
   galleryField,
   mainImageField,
+  menuCurationFields,
   publishedAtField,
   seoFields,
   slugField,
@@ -28,7 +29,7 @@ export const WheelModels: CollectionConfig = {
   admin: {
     group: ADMIN_GROUPS.wheelCatalog,
     useAsTitle: "name",
-    defaultColumns: ["name", "wheelType", "status", "updatedAt"],
+    defaultColumns: ["name", "wheelType", "showInMenu", "menuOrder", "status", "updatedAt"],
     description:
       "Дизайн / линейка дисков. Тип (кованые/литые) — через «Тип дисков». Размеры — в «Размеры и параметры».",
   },
@@ -107,6 +108,7 @@ export const WheelModels: CollectionConfig = {
     galleryField(),
     documentsField(),
     seoFields,
+    ...menuCurationFields(),
     statusField(),
     publishedAtField(),
   ],

@@ -3,6 +3,13 @@ import { findPublished, findPublishedBySlug } from "./payload/query";
 import type { TireModel } from "@/payload-types";
 import type { CmsTireModel, TireModelRouteParam } from "./types";
 
+/** Published tire models for dual-pane menu (variants not required). */
+export async function getPublishedTireModels(): Promise<CmsTireModel[]> {
+  const docs = await findPublished("tire-models", { depth: 1 });
+  if (!docs?.length) return [];
+  return docs.map((doc) => mapTireModelDetail(doc as TireModel));
+}
+
 export async function getTireModelsByTypeSlug(tireTypeSlug: string): Promise<CmsTireModel[]> {
   const normalized = tireTypeSlug?.trim().toLowerCase();
   if (!normalized) return [];
