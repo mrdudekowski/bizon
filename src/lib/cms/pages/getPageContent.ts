@@ -38,11 +38,12 @@ export async function getPageContent<K extends PageKey>(
     return result.docs[0] ?? null;
   });
 
-  if (!doc || !isPageKey(doc.key)) {
+  const pageDoc = doc as { key?: unknown } | null;
+  if (!pageDoc || !isPageKey(pageDoc.key)) {
     return defaults;
   }
 
-  const loose = doc as unknown as Record<string, unknown>;
+  const loose = pageDoc as Record<string, unknown>;
 
   if (key === "home") {
     return mergeHomeContent(
