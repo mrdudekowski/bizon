@@ -177,9 +177,16 @@ export function mapTireVariant(doc: TireVariant): CmsTireVariant {
     size: doc.sizeNormalized?.trim() || doc.sizeRaw?.trim() || "",
     rimDiameter: doc.rimDiameterIn ?? undefined,
     loadIndex: doc.loadIndexSingle != null ? String(doc.loadIndexSingle) : undefined,
+    loadIndexDual: doc.loadIndexDual != null ? String(doc.loadIndexDual) : undefined,
     speedIndex: doc.speedSymbol ?? undefined,
     plyRating: doc.plyRatingPr != null ? String(doc.plyRatingPr) : undefined,
     overallDiameter: doc.overallDiameterMm ?? undefined,
+    sectionWidth: doc.sectionWidthMm ?? undefined,
+    treadDepth: doc.treadDepthMm ?? undefined,
+    pressureSingleKpa: doc.pressureSingleKpa ?? undefined,
+    pressureDualKpa: doc.pressureDualKpa ?? undefined,
+    maxLoadSingleKg: doc.maxLoadSingleKg ?? undefined,
+    maxLoadDualKg: doc.maxLoadDualKg ?? undefined,
     recommendedRim: doc.standardRimIn != null ? String(doc.standardRimIn) : undefined,
     available: doc.availabilityStatus !== "unavailable",
     price,
@@ -264,12 +271,16 @@ export function mapWheelVariant(doc: WheelVariant, modelId?: string): CmsWheelVa
     width: doc.width ?? undefined,
     boltHoles: doc.boltHoles ?? undefined,
     pcd: doc.pcd?.trim() || undefined,
+    pcdMm: doc.pcdMm ?? undefined,
     offsetET: doc.offsetET ?? undefined,
     centerBore: doc.centerBore ?? undefined,
     loadRating: doc.loadRating?.trim() || undefined,
     weight: doc.weight ?? undefined,
     color: doc.color?.trim() || undefined,
     finish: doc.finish?.trim() || undefined,
+    fastenerType: doc.fastenerType?.trim() || undefined,
+    fastenerMaterial: doc.fastenerMaterial?.trim() || undefined,
+    sourceSpecification: doc.sourceSpecification?.trim() || undefined,
     compatibleTireSizes: doc.compatibleTireSizes?.trim() || undefined,
     available: doc.available ?? true,
     price: doc.price ?? undefined,
@@ -312,7 +323,10 @@ function mapArticleBase(doc: {
 }
 
 export function mapTireIQArticle(doc: TireIqArticle): CmsArticle {
-  return mapArticleBase(doc);
+  return {
+    ...mapArticleBase(doc),
+    taxonomy: Array.isArray(doc.taxonomy) ? doc.taxonomy : [],
+  };
 }
 
 export function mapPeopleStory(doc: PeopleStory): CmsStory {

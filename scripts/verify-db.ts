@@ -1,4 +1,5 @@
 console.log("verify-db: start");
+/** Level A — minimal demo seed presence. Does not prove production catalog readiness. */
 
 import { getPayload } from "../src/lib/payload/getPayload";
 

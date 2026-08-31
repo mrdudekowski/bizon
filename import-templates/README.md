@@ -2,6 +2,8 @@
 
 CSV templates for bulk catalog loading. Imported by `npm run import:catalog` (`scripts/import-catalog.ts`).
 
+**Demo vs production:** rows in this folder are **development/CI fixtures only**. They are not contractual product data and must not be treated as production catalog filling. Real SKU, specs, prices, and media come from the Client.
+
 ## Files
 
 | File | Collection | Required columns |

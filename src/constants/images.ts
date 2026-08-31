@@ -1,3 +1,5 @@
+import { isLocalMediaMode } from "@/lib/media/mediaMode";
+
 /** Single source for catalog image fallbacks until Payload media is populated. */
 export const CATALOG_IMAGE_PLACEHOLDER = "/images/placeholder.svg";
 
@@ -44,8 +46,12 @@ const PREMIUM_FALLBACK_BY_KEY: Record<string, string> = {
 };
 
 export function resolveCatalogImageSrc(src?: string | null, fallbackKey?: string): string {
+  const localSrc = src?.trim();
+  if (isLocalMediaMode() && localSrc && /^https?:\/\//i.test(localSrc)) {
+    return (fallbackKey ? PREMIUM_FALLBACK_BY_KEY[fallbackKey] : undefined) || CATALOG_IMAGE_PLACEHOLDER;
+  }
   return (
-    src?.trim() ||
+    localSrc ||
     (fallbackKey ? PREMIUM_FALLBACK_BY_KEY[fallbackKey] : undefined) ||
     CATALOG_IMAGE_PLACEHOLDER
   );

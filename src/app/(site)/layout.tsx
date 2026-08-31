@@ -1,13 +1,22 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import localFont from "next/font/local";
+import { YandexMetrika } from "@/components/analytics/YandexMetrika";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { getMainDualPaneMenu, getShopDualPaneMenu } from "@/lib/cms/getDualPaneMenu";
 import { createPageMetadata } from "@/lib/seo/metadata";
 import "../globals.css";
 
-const inter = Inter({
-  subsets: ["latin", "cyrillic"],
-  variable: "--font-sans",
+const bounded = localFont({
+  src: "../../../public/Fonts/Bounded-Variable.ttf",
+  variable: "--font-bounded",
+  weight: "200 900",
+  display: "swap",
+});
+
+const manrope = localFont({
+  src: "../../../public/Fonts/Manrope.ttf",
+  variable: "--font-manrope",
+  weight: "200 800",
   display: "swap",
 });
 
@@ -44,8 +53,9 @@ export default async function SiteLayout({
   ]);
 
   return (
-    <html lang="ru" className={inter.variable} data-scroll-behavior="smooth">
+    <html lang="ru" className={`${bounded.variable} ${manrope.variable}`} data-scroll-behavior="smooth">
       <body>
+        <YandexMetrika />
         <SiteShell mainMenu={mainMenu} shopMenu={shopMenu}>
           {children}
         </SiteShell>

@@ -14,11 +14,16 @@ import {
   mergeStubContent,
 } from "./merge";
 import type { PageContentByKey } from "./types";
+import { isLocalMediaMode } from "@/lib/media/mediaMode";
 
 export async function getPageContent<K extends PageKey>(
   key: K,
 ): Promise<PageContentByKey[K]> {
   const defaults = getPageDefaults(key);
+
+  if (isLocalMediaMode()) {
+    return defaults;
+  }
 
   const doc = await withPayload(async (payload) => {
     const result = await payload.find({

@@ -2,9 +2,27 @@ import { mapTireModelDetail, resolveRelationSlug } from "./payload/mappers";
 import { findPublished, findPublishedBySlug } from "./payload/query";
 import type { TireModel } from "@/payload-types";
 import type { CmsTireModel, TireModelRouteParam } from "./types";
+import localModels from "@/lib/content/local/tire-models.json";
+import localTypes from "@/lib/content/local/tire-types.json";
+import localVariants from "@/lib/content/local/tire-variants.json";
+import { isLocalMediaMode } from "@/lib/media/mediaMode";
+
+function localRelationId(value: unknown): string | number | null {
+  if (typeof value === "number" || typeof value === "string") return value;
+  if (value && typeof value === "object" && "id" in value) return (value as { id?: string | number }).id ?? null;
+  return null;
+}
+
+function localTireModels(typeSlug?: string): CmsTireModel[] {
+  const type = typeSlug ? localTypes.find((item) => item.slug === typeSlug) : null;
+  return (localModels as TireModel[])
+    .filter((item) => !type || localRelationId(item.tireType) === type.id)
+    .map((item) => mapTireModelDetail(item));
+}
 
 /** Published tire models for dual-pane menu (variants not required). */
 export async function getPublishedTireModels(): Promise<CmsTireModel[]> {
+  if (isLocalMediaMode()) return localTireModels();
   const docs = await findPublished("tire-models", { depth: 1 });
   if (!docs?.length) return [];
   return docs.map((doc) => mapTireModelDetail(doc as TireModel));
@@ -13,6 +31,12 @@ export async function getPublishedTireModels(): Promise<CmsTireModel[]> {
 export async function getTireModelsByTypeSlug(tireTypeSlug: string): Promise<CmsTireModel[]> {
   const normalized = tireTypeSlug?.trim().toLowerCase();
   if (!normalized) return [];
+  if (isLocalMediaMode()) {
+    const type = localTypes.find((item) => item.slug === normalized);
+    if (!type) return [];
+    const models = localTireModels(normalized);
+    return models.filter((model) => (localVariants as Array<{ tireModel?: unknown }>).some((variant) => String(localRelationId(variant.tireModel)) === String(model.id)));
+  }
 
   const typeDoc = await findPublishedBySlug("tire-types", normalized);
   if (!typeDoc) return [];
@@ -43,6 +67,7 @@ export async function getTireModelByTypeAndSlug(
   modelSlug: string,
 ): Promise<CmsTireModel | null> {
   const normalizedType = tireTypeSlug?.trim().toLowerCase();
+  if (isLocalMediaMode()) return localTireModels(normalizedType).find((model) => model.slug === modelSlug) ?? null;
   const doc = await findPublishedBySlug("tire-models", modelSlug);
   if (!doc) return null;
 
@@ -51,6 +76,7 @@ export async function getTireModelByTypeAndSlug(
 }
 
 export async function getAllTireModelRouteParams(): Promise<TireModelRouteParam[]> {
+  if (isLocalMediaMode()) return localTireModels().map((model) => ({ tireTypeSlug: model.tireTypeSlug, modelSlug: model.slug }));
   const docs = await findPublished("tire-models", { depth: 1 });
   if (!docs?.length) return [];
 

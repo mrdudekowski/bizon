@@ -1,0 +1,3238 @@
+[
+  {
+    "id": 11,
+    "title": "Строительный маршрут: как оценить смешанную эксплуатацию",
+    "generateSlug": false,
+    "slug": "construction-route-tire-check",
+    "excerpt": "Чек-лист для маршрутов между дорогой, площадкой и грунтом.",
+    "taxonomy": [
+      "construction",
+      "selection",
+      "diagnostics"
+    ],
+    "content": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "На строительном маршруте шина последовательно работает на дороге, подъезде, площадке и иногда на грунте. Подбор должен учитывать весь цикл, а не только самый длинный участок.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Ключевые вопросы",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Зафиксируйте долю асфальта и грунта, скорость, частоту манёвров на месте, наличие щебня, перепады нагрузки и время простоя с грузом.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Контроль после смены",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Осматривайте протектор и боковины после работы на площадке, фиксируйте новые повреждения и сравнивайте давление на холодной шине по принятой процедуре.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Что не следует делать",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Не выбирайте шину по одному слову «универсальная» и не переносите требования одной техники на другую без проверки.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          }
+        ],
+        "direction": "ltr"
+      }
+    },
+    "featuredImage": null,
+    "author": null,
+    "seo": {
+      "seoTitle": null,
+      "seoDescription": null,
+      "seoKeywords": null,
+      "ogTitle": null,
+      "ogDescription": null,
+      "ogImage": null,
+      "canonicalUrl": null,
+      "robotsIndex": true,
+      "robotsFollow": true
+    },
+    "showInMenu": true,
+    "menuOrder": 0,
+    "status": "published",
+    "publishedAt": "2026-08-21T17:46:50.836Z",
+    "updatedAt": "2026-08-21T17:46:50.837Z",
+    "createdAt": "2026-08-21T17:46:03.989Z"
+  },
+  {
+    "id": 12,
+    "title": "Журнал давления: какие данные действительно полезны",
+    "generateSlug": false,
+    "slug": "fleet-pressure-log-method",
+    "excerpt": "Минимальная структура записи для контроля состояния шин автопарка.",
+    "taxonomy": [
+      "pressure",
+      "diagnostics",
+      "tco"
+    ],
+    "content": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Журнал давления нужен не для формальной отметки, а для поиска повторяющихся отклонений. Запись должна связывать показание с конкретной шиной, осью, датой и режимом.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Минимальная запись",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Укажите автомобиль, позицию, размер и модель шины, дату, пробег, показание на холодной шине, нагрузочный режим и замечания по состоянию.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Как находить сигнал",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Сравнивайте одну позицию во времени и пару шин при сдвоенной установке. Повторная потеря давления важнее единичного отклонения и требует поиска причины.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Безопасность данных",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Журнал не заменяет техническую документацию и не должен использоваться для назначения универсальной нормы давления.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          }
+        ],
+        "direction": "ltr"
+      }
+    },
+    "featuredImage": null,
+    "author": null,
+    "seo": {
+      "seoTitle": null,
+      "seoDescription": null,
+      "seoKeywords": null,
+      "ogTitle": null,
+      "ogDescription": null,
+      "ogImage": null,
+      "canonicalUrl": null,
+      "robotsIndex": true,
+      "robotsFollow": true
+    },
+    "showInMenu": true,
+    "menuOrder": 0,
+    "status": "published",
+    "publishedAt": "2026-08-21T17:46:50.819Z",
+    "updatedAt": "2026-08-21T17:46:50.820Z",
+    "createdAt": "2026-08-21T17:46:04.037Z"
+  },
+  {
+    "id": 10,
+    "title": "TBR-шины в карьерном режиме: какие условия фиксировать",
+    "generateSlug": false,
+    "slug": "quarry-tbr-operating-conditions",
+    "excerpt": "Как описать карьерный маршрут до выбора шины.",
+    "taxonomy": [
+      "quarry",
+      "selection",
+      "wear"
+    ],
+    "content": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Карьерный режим объединяет нагрузку, абразивное покрытие, малые скорости, манёвры и переменный цикл. Поэтому его нельзя описать только словом «карьер» — условия нужно зафиксировать отдельно.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Что собрать",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Опишите покрытие, длину плеча, уклоны, частоту разворотов, среднюю загрузку и участки с острыми препятствиями. Отдельно отметьте повторяющиеся порезы, перегрев или неравномерный износ.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Как использовать данные",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Сопоставьте условия с официальным назначением конкретной модели и требованиями техники. Не переносите дорожные ожидания на карьерный режим без подтверждения.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Ограничение",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Материал не задаёт универсальную модель или норму давления. Решение требует проверки размера, нагрузки, оси и документации производителя.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          }
+        ],
+        "direction": "ltr"
+      }
+    },
+    "featuredImage": null,
+    "author": null,
+    "seo": {
+      "seoTitle": null,
+      "seoDescription": null,
+      "seoKeywords": null,
+      "ogTitle": null,
+      "ogDescription": null,
+      "ogImage": null,
+      "canonicalUrl": null,
+      "robotsIndex": true,
+      "robotsFollow": true
+    },
+    "showInMenu": true,
+    "menuOrder": 0,
+    "status": "published",
+    "publishedAt": "2026-08-21T17:46:50.813Z",
+    "updatedAt": "2026-08-21T17:46:50.815Z",
+    "createdAt": "2026-08-21T17:46:03.903Z"
+  },
+  {
+    "id": 9,
+    "title": "Предрейсовый осмотр TBR-шин: короткий чек-лист",
+    "generateSlug": false,
+    "slug": "tbr-pre-trip-tire-inspection",
+    "excerpt": "Что проверить и зафиксировать до выхода грузовой техники на маршрут.",
+    "taxonomy": [
+      "diagnostics",
+      "pressure",
+      "wear",
+      "axles"
+    ],
+    "content": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Предрейсовый осмотр помогает заметить повреждение, потерю давления или изменение состояния до выхода техники на маршрут. Это первичный контроль, а не замена профессиональной диагностике.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Осмотр до начала движения",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "ul",
+            "type": "list",
+            "start": 1,
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "type": "listitem",
+                "value": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Проверьте боковины, протектор, видимые порезы, вздутия и следы контакта.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "listitem",
+                "value": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Сравните положение шины с записью в журнале и проверьте, не было ли недавней перестановки.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "listitem",
+                "value": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Измерьте давление на холодной шине по норме для конкретной модели, нагрузки и конфигурации.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "listitem",
+                "value": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Осмотрите вентиль, колпачок, обод и пространство между шинами при сдвоенной установке.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              }
+            ],
+            "listType": "bullet",
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Что зафиксировать",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Запишите дату, позицию, показание давления, замеченные повреждения и решение по дальнейшей эксплуатации. Фотография и повторное измерение помогают сравнивать состояние во времени.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Когда нельзя продолжать движение",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Повреждение каркаса или боковины, быстрое падение давления, контакт в сдвоенной установке, выраженный перегрев или сомнение в безопасности требуют остановки и осмотра специалистом.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Ограничение чек-листа",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Внешний осмотр не подтверждает пригодность шины к дальнейшей эксплуатации и не задаёт универсальную норму давления. Числовые значения нужно брать из документации конкретной шины и автомобиля.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          }
+        ],
+        "direction": "ltr"
+      }
+    },
+    "featuredImage": null,
+    "author": null,
+    "seo": {
+      "seoTitle": null,
+      "seoDescription": null,
+      "seoKeywords": null,
+      "ogTitle": null,
+      "ogDescription": null,
+      "ogImage": null,
+      "canonicalUrl": null,
+      "robotsIndex": true,
+      "robotsFollow": true
+    },
+    "showInMenu": true,
+    "menuOrder": 0,
+    "status": "published",
+    "publishedAt": "2026-08-21T17:46:50.805Z",
+    "updatedAt": "2026-08-21T17:46:50.808Z",
+    "createdAt": "2026-08-21T17:43:53.832Z"
+  },
+  {
+    "id": 13,
+    "title": "Повреждение шины: когда нужна немедленная эскалация",
+    "generateSlug": false,
+    "slug": "tire-damage-escalation",
+    "excerpt": "Как отделить наблюдение от решения о дальнейшей эксплуатации.",
+    "taxonomy": [
+      "diagnostics",
+      "wear",
+      "axles"
+    ],
+    "content": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Любое повреждение сначала нужно описать, а не объяснять одной причиной. Важны место, размер, динамика, потеря давления и положение шины на оси.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Что зафиксировать",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Сделайте фото, укажите позицию, пробег, нагрузочный режим, наличие перегрева, контакт с препятствием и историю ремонтов.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Красные флаги",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Вздутие, повреждение каркаса, быстрое падение давления, контакт в сдвоенной установке или выраженный локальный перегрев требуют остановки до осмотра специалистом.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Почему нельзя угадывать",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "По фотографии нельзя подтвердить пригодность к дальнейшей эксплуатации, ремонту или восстановлению. Финальное решение принимает квалифицированный специалист по действующей документации.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          }
+        ],
+        "direction": "ltr"
+      }
+    },
+    "featuredImage": null,
+    "author": null,
+    "seo": {
+      "seoTitle": null,
+      "seoDescription": null,
+      "seoKeywords": null,
+      "ogTitle": null,
+      "ogDescription": null,
+      "ogImage": null,
+      "canonicalUrl": null,
+      "robotsIndex": true,
+      "robotsFollow": true
+    },
+    "showInMenu": true,
+    "menuOrder": 0,
+    "status": "published",
+    "publishedAt": "2026-08-21T17:46:50.771Z",
+    "updatedAt": "2026-08-21T17:46:50.776Z",
+    "createdAt": "2026-08-21T17:46:04.076Z"
+  },
+  {
+    "id": 8,
+    "title": "Сдвоенная установка: как контролировать пару шин",
+    "generateSlug": false,
+    "slug": "dual-fitment-tire-check",
+    "excerpt": "Практический чек-лист контроля шин при сдвоенной установке.",
+    "taxonomy": [
+      "axles",
+      "diagnostics",
+      "pressure",
+      "wear"
+    ],
+    "content": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Сдвоенная установка требует контроля не только каждой шины, но и пары как единой рабочей системы. Разница в состоянии, давлении или эффективном диаметре может менять распределение нагрузки между шинами.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Что проверить при установке",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "ul",
+            "type": "list",
+            "start": 1,
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "type": "listitem",
+                "value": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Совпадение размера, конструкции и допустимой конфигурации установки.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "listitem",
+                "value": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Состояние обеих шин, вентилей, обода и пространства между боковинами.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "listitem",
+                "value": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Отсутствие заметной разницы по давлению и признаков повторной потери воздуха.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "listitem",
+                "value": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Корректность монтажа и отсутствие контакта между шинами или с элементами техники.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              }
+            ],
+            "listType": "bullet",
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Контроль в эксплуатации",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Проверяйте пару вместе: фиксируйте положение, давление на холодной шине, глубину протектора и изменение износа. Если одна шина заметно перегревается или изнашивается быстрее, не ограничивайтесь заменой показаний в журнале — ищите причину.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Чего нельзя делать",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Нельзя компенсировать неизвестную причину случайным изменением давления или смешивать несовместимые шины без подтвержденной рекомендации. Норму нужно брать из документации конкретной шины, оси и автомобиля.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Когда остановить эксплуатацию",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "При повреждении боковины, контакте шин, повторной потере давления или выраженной разнице температур нужна проверка специалиста до продолжения работы.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          }
+        ],
+        "direction": "ltr"
+      }
+    },
+    "featuredImage": null,
+    "author": null,
+    "seo": {
+      "seoTitle": null,
+      "seoDescription": null,
+      "seoKeywords": null,
+      "ogTitle": null,
+      "ogDescription": null,
+      "ogImage": null,
+      "canonicalUrl": null,
+      "robotsIndex": true,
+      "robotsFollow": true
+    },
+    "showInMenu": true,
+    "menuOrder": 0,
+    "status": "published",
+    "publishedAt": "2026-08-21T17:41:16.840Z",
+    "updatedAt": "2026-08-21T17:41:56.224Z",
+    "createdAt": "2026-08-21T17:40:27.822Z"
+  },
+  {
+    "id": 7,
+    "title": "Как подбирать шину для ведущей оси",
+    "generateSlug": false,
+    "slug": "drive-axle-tire-selection",
+    "excerpt": "Практический алгоритм оценки условий работы и требований к шине на ведущей оси.",
+    "taxonomy": [
+      "axles",
+      "selection",
+      "load",
+      "diagnostics"
+    ],
+    "content": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Ведущая ось передаёт тягу от двигателя к покрытию, поэтому подбор шины начинается не с рисунка протектора, а с фиксации условий работы автомобиля и требований конкретной техники.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Какие данные собрать",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "ul",
+            "type": "list",
+            "start": 1,
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "type": "listitem",
+                "value": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Размер и полное обозначение шины, включая индексы нагрузки и скорости.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "listitem",
+                "value": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Фактическую нагрузку на ведущую ось и конфигурацию колёс.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "listitem",
+                "value": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Тип покрытия, долю мокрых и грунтовых участков, уклоны и частоту манёвров.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "listitem",
+                "value": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Историю износа и повторяющиеся повреждения на этой позиции.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              }
+            ],
+            "listType": "bullet",
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Что оценивать на ведущей оси",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Для ведущей оси важны передача тяги, устойчивость элементов протектора к сдвигу и равномерность контакта. Один и тот же рисунок может вести себя по-разному при изменении нагрузки, покрытия, давления и режима движения.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Как сравнивать варианты",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Сначала исключите варианты, которые не соответствуют размеру, нагрузке, ободу или требованиям автомобиля. Затем сравнивайте оставшиеся решения по подтверждённому назначению, условиям маршрута и наблюдаемому износу, а не по одному визуальному признаку.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Когда нужна проверка специалиста",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Если нагрузка неизвестна, давление заметно отличается между колёсами, есть повреждение каркаса или шина работает вне привычного режима, решение нужно подтвердить техническим специалистом до изменения комплектации.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          }
+        ],
+        "direction": "ltr"
+      }
+    },
+    "featuredImage": null,
+    "author": null,
+    "seo": {
+      "seoTitle": null,
+      "seoDescription": null,
+      "seoKeywords": null,
+      "ogTitle": null,
+      "ogDescription": null,
+      "ogImage": null,
+      "canonicalUrl": null,
+      "robotsIndex": true,
+      "robotsFollow": true
+    },
+    "showInMenu": true,
+    "menuOrder": 0,
+    "status": "published",
+    "publishedAt": "2026-08-21T17:27:42.989Z",
+    "updatedAt": "2026-08-21T17:28:43.775Z",
+    "createdAt": "2026-08-21T17:23:40.257Z"
+  },
+  {
+    "id": 4,
+    "title": "Как читать маркировку грузовой шины",
+    "generateSlug": false,
+    "slug": "how-to-read-tire-size-marking",
+    "excerpt": "Разбираем обозначение 315/80 R22.5 156/150 L и отделяем общий смысл маркировки от данных конкретной модели.",
+    "taxonomy": [
+      "selection",
+      "load"
+    ],
+    "content": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Маркировка помогает описать размер, конструкцию, посадочный диаметр, индексы нагрузки и символ скорости. Для окончательного подбора её всегда нужно сверять со спецификацией автомобиля и производителя шины.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Пример 315/80 R22.5 156/150 L",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "ul",
+            "type": "list",
+            "start": 1,
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "type": "listitem",
+                "value": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "315 — номинальная ширина профиля в миллиметрах.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "listitem",
+                "value": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "80 — отношение высоты профиля к ширине.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "listitem",
+                "value": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "R — радиальная конструкция.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "listitem",
+                "value": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "22.5 — посадочный диаметр обода в дюймах.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "listitem",
+                "value": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "156/150 — индексы нагрузки для одиночной и сдвоенной установки.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "listitem",
+                "value": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "L — символ скорости.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              }
+            ],
+            "listType": "bullet",
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Что маркировка не заменяет",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Обозначение на боковине не подтверждает совместимость со всеми осями и режимами. Нужно дополнительно проверить требования техники, фактическую нагрузку, конфигурацию колёс и официальную документацию конкретной модели.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          }
+        ],
+        "direction": "ltr"
+      }
+    },
+    "featuredImage": null,
+    "author": null,
+    "seo": {
+      "seoTitle": null,
+      "seoDescription": null,
+      "seoKeywords": null,
+      "ogTitle": null,
+      "ogDescription": null,
+      "ogImage": null,
+      "canonicalUrl": null,
+      "robotsIndex": true,
+      "robotsFollow": true
+    },
+    "showInMenu": true,
+    "menuOrder": 0,
+    "status": "published",
+    "publishedAt": "2026-08-20T14:50:35.969Z",
+    "updatedAt": "2026-08-21T16:16:01.775Z",
+    "createdAt": "2026-08-20T14:49:45.257Z"
+  },
+  {
+    "id": 5,
+    "title": "Нагрузка и давление: почему нельзя выбирать норму по размеру",
+    "generateSlug": false,
+    "slug": "load-and-inflation-engineering-relationship",
+    "excerpt": "Инженерная связь между фактической нагрузкой, конфигурацией и требуемым холодным давлением.",
+    "taxonomy": [
+      "load",
+      "pressure"
+    ],
+    "content": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Требуемое холодное давление определяется не только размером шины. В расчёт входят фактическая нагрузка, конфигурация оси, спецификация шины и условия эксплуатации.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Связь параметров",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Фактическая нагрузка + конфигурация колёс + спецификация шины → требуемое холодное давление. Если один из элементов изменился, прежняя настройка требует повторной проверки.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Практический порядок",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "ul",
+            "type": "list",
+            "start": 1,
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "type": "listitem",
+                "value": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Зафиксируйте нагрузку по осям и режим маршрута.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "listitem",
+                "value": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Проверьте, какая спецификация шины установлена на каждой оси.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "listitem",
+                "value": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Сверьте требование с официальной таблицей производителя.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "listitem",
+                "value": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Измерьте давление на холодной шине и сохраните результат в журнале.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              }
+            ],
+            "listType": "bullet",
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Ограничение",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Эта статья объясняет методику, но не задаёт конкретную норму давления. Для численного решения нужны валидированные данные производителя и проверка специалистом.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          }
+        ],
+        "direction": "ltr"
+      }
+    },
+    "featuredImage": null,
+    "author": null,
+    "seo": {
+      "seoTitle": null,
+      "seoDescription": null,
+      "seoKeywords": null,
+      "ogTitle": null,
+      "ogDescription": null,
+      "ogImage": null,
+      "canonicalUrl": null,
+      "robotsIndex": true,
+      "robotsFollow": true
+    },
+    "showInMenu": true,
+    "menuOrder": 0,
+    "status": "published",
+    "publishedAt": "2026-08-20T14:50:35.893Z",
+    "updatedAt": "2026-08-21T16:16:01.815Z",
+    "createdAt": "2026-08-20T14:49:45.344Z"
+  },
+  {
+    "id": 6,
+    "title": "Жизненный цикл шины: от установки до снятия",
+    "generateSlug": false,
+    "slug": "tire-lifecycle-inspection-basics",
+    "excerpt": "Как связать эксплуатацию, осмотры, историю ремонтов и решение о дальнейшем использовании.",
+    "taxonomy": [
+      "diagnostics",
+      "wear"
+    ],
+    "content": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Управление шиной — это последовательность решений, а не только момент покупки: установка, эксплуатация, осмотр, фиксация состояния, ремонт и снятие.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Какие данные сохранять",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "ul",
+            "type": "list",
+            "start": 1,
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "type": "listitem",
+                "value": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Позицию на автомобиле и дату установки.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "listitem",
+                "value": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Пробег, давление и глубину протектора.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "listitem",
+                "value": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Повреждения, ремонты и причину снятия.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "listitem",
+                "value": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Историю обслуживания и повторяющиеся симптомы.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              }
+            ],
+            "listType": "bullet",
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Как принимать решение",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Состояние каркаса, повреждения и пригодность к дальнейшему использованию требуют профессиональной оценки. Нельзя автоматически считать конкретную модель пригодной к восстановлению или второй жизни без подтверждённой документации.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Когда остановиться",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "При повреждении, быстром прогрессировании дефекта, повторной потере давления или сомнении в безопасности шину нужно вывести из эксплуатации до осмотра специалистом.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          }
+        ],
+        "direction": "ltr"
+      }
+    },
+    "featuredImage": null,
+    "author": null,
+    "seo": {
+      "seoTitle": null,
+      "seoDescription": null,
+      "seoKeywords": null,
+      "ogTitle": null,
+      "ogDescription": null,
+      "ogImage": null,
+      "canonicalUrl": null,
+      "robotsIndex": true,
+      "robotsFollow": true
+    },
+    "showInMenu": true,
+    "menuOrder": 0,
+    "status": "published",
+    "publishedAt": "2026-08-20T14:50:35.855Z",
+    "updatedAt": "2026-08-21T16:19:50.965Z",
+    "createdAt": "2026-08-20T14:49:45.413Z"
+  },
+  {
+    "id": 1,
+    "title": "Как проверять давление в шинах автопарка",
+    "generateSlug": false,
+    "slug": "cold-inflation-pressure-check",
+    "excerpt": "Практический порядок контроля давления без привязки к одной норме для всех размеров и осей.",
+    "taxonomy": [
+      "pressure",
+      "load",
+      "diagnostics"
+    ],
+    "content": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Давление нужно проверять относительно фактической нагрузки, конфигурации оси и спецификации конкретной шины. Одной универсальной цифры для любого размера и режима эксплуатации нет.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Что проверить до выезда",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "ul",
+            "type": "list",
+            "start": 1,
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "type": "listitem",
+                "value": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Состояние шины и вентиля перед измерением.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "listitem",
+                "value": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Положение шины на автомобиле и фактическую нагрузку на ось.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "listitem",
+                "value": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Показание на холодной шине и источник нормы, по которому оно сравнивается.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "listitem",
+                "value": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Отклонения по сдвоенным колёсам и повторяющиеся потери давления.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              }
+            ],
+            "listType": "bullet",
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Как интерпретировать результат",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Недостаточное давление увеличивает деформацию и может повышать нагрев, но похожие симптомы могут возникать по разным причинам. Измерение следует сопоставлять с нагрузкой и рекомендациями производителя, а не с одной цифрой из общего чек-листа.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Когда нужна проверка специалиста",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "При заметной разнице между шинами одной оси, повреждении боковины, повторной потере давления или сомнении в допустимой нагрузке эксплуатацию нужно остановить до профессиональной проверки.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          }
+        ],
+        "direction": "ltr"
+      }
+    },
+    "featuredImage": null,
+    "author": null,
+    "seo": {
+      "seoTitle": null,
+      "seoDescription": null,
+      "seoKeywords": null,
+      "ogTitle": null,
+      "ogDescription": null,
+      "ogImage": null,
+      "canonicalUrl": null,
+      "robotsIndex": true,
+      "robotsFollow": true
+    },
+    "showInMenu": true,
+    "menuOrder": 0,
+    "status": "published",
+    "publishedAt": "2026-08-20T14:35:49.973Z",
+    "updatedAt": "2026-08-21T16:16:01.723Z",
+    "createdAt": "2026-08-20T14:14:52.079Z"
+  },
+  {
+    "id": 2,
+    "title": "Как роль оси влияет на разговор о шине",
+    "generateSlug": false,
+    "slug": "axle-role-in-tire-selection",
+    "excerpt": "Рулевая, ведущая и прицепная оси работают в разных силовых и эксплуатационных контекстах.",
+    "taxonomy": [
+      "axles",
+      "selection"
+    ],
+    "content": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Ось задаёт исходный контекст подбора, но сама по себе не подтверждает совместимость конкретной модели. Решение нужно проверять по размеру, нагрузке, режиму эксплуатации и требованиям техники.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Рулевая ось",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Для рулевой оси важны управляемость, боковая устойчивость и предсказуемый характер износа. При анализе учитывайте манёвры, состояние покрытия и равномерность контакта.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Ведущая ось",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Ведущая ось передаёт тягу и работает с крутящим моментом. Поэтому при выборе обсуждают сцепление, устойчивость блоков протектора и характер износа в конкретном режиме.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Прицепная ось",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Для прицепной оси важны распределение нагрузки, боковой снос и износ от маневрирования. Оценка должна учитывать маршрут и реальные операции на площадках.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Следующий шаг",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Зафиксируйте ось, размер, нагрузку, маршрут и симптом. Если данных недостаточно, передайте задачу специалисту вместо подбора по одному признаку.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          }
+        ],
+        "direction": "ltr"
+      }
+    },
+    "featuredImage": null,
+    "author": null,
+    "seo": {
+      "seoTitle": null,
+      "seoDescription": null,
+      "seoKeywords": null,
+      "ogTitle": null,
+      "ogDescription": null,
+      "ogImage": null,
+      "canonicalUrl": null,
+      "robotsIndex": true,
+      "robotsFollow": true
+    },
+    "showInMenu": true,
+    "menuOrder": 0,
+    "status": "published",
+    "publishedAt": "2026-08-20T14:35:49.948Z",
+    "updatedAt": "2026-08-21T16:19:51.006Z",
+    "createdAt": "2026-08-20T14:14:52.409Z"
+  },
+  {
+    "id": 3,
+    "title": "Неравномерный износ: что проверить в первую очередь",
+    "generateSlug": false,
+    "slug": "uneven-tread-wear-first-checks",
+    "excerpt": "Методика первичной фиксации симптома без поспешного вывода об одной причине.",
+    "taxonomy": [
+      "wear",
+      "diagnostics"
+    ],
+    "content": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Рисунок износа помогает сформулировать гипотезу, но редко доказывает единственную причину. Сначала зафиксируйте, где именно появился износ и как он меняется по оси и пробегу.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Первичная фиксация",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "ul",
+            "type": "list",
+            "start": 1,
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "type": "listitem",
+                "value": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Положение шины: рулевая, ведущая или прицепная ось.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "listitem",
+                "value": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Зону износа: центр, оба плеча, одно плечо или отдельные блоки.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "listitem",
+                "value": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Глубину протектора в нескольких точках.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "type": "listitem",
+                "value": 1,
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Давление, пробег, ремонты и недавние изменения маршрута или нагрузки.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                ],
+                "direction": "ltr"
+              }
+            ],
+            "listType": "bullet",
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Почему нельзя делать вывод по одному признаку",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Износ обоих плеч может быть связан с эксплуатацией при недостаточном давлении, однако похожий рисунок могут давать и другие условия. Причину нужно проверять вместе с давлением, нагрузкой, геометрией и состоянием подвески.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Когда эскалировать задачу",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "При быстром прогрессировании, повреждении каркаса, локальном перегреве или повторении симптома после корректировки режима нужна профессиональная диагностика.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          }
+        ],
+        "direction": "ltr"
+      }
+    },
+    "featuredImage": null,
+    "author": null,
+    "seo": {
+      "seoTitle": null,
+      "seoDescription": null,
+      "seoKeywords": null,
+      "ogTitle": null,
+      "ogDescription": null,
+      "ogImage": null,
+      "canonicalUrl": null,
+      "robotsIndex": true,
+      "robotsFollow": true
+    },
+    "showInMenu": true,
+    "menuOrder": 0,
+    "status": "published",
+    "publishedAt": "2026-08-20T14:35:38.710Z",
+    "updatedAt": "2026-08-21T16:19:51.000Z",
+    "createdAt": "2026-08-20T14:14:52.520Z"
+  }
+]

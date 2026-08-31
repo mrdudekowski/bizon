@@ -2,6 +2,8 @@ import { mapProduct } from "./payload/mappers";
 import { findPublished, findPublishedBySlug } from "./payload/query";
 import type { Product } from "@/payload-types";
 import type { CmsProduct } from "./types";
+import { isLocalMediaMode } from "@/lib/media/mediaMode";
+import localProducts from "@/lib/content/local/shop-products.json";
 
 type ShopProductsOptions = {
   categorySlug?: string;
@@ -9,6 +11,24 @@ type ShopProductsOptions = {
 
 export async function getShopProducts(options: ShopProductsOptions = {}): Promise<CmsProduct[]> {
   const { categorySlug } = options;
+  if (isLocalMediaMode()) {
+    return localProducts
+      .filter((product) => product.status === "published")
+      .filter((product) => !categorySlug || product.shopCategorySlug === categorySlug)
+      .map((product) => ({
+        slug: product.slug,
+        name: product.name,
+        categorySlug: product.shopCategorySlug,
+        type: "shop",
+        brand: "BIZON",
+        descriptionShort: product.shortDescription,
+        descriptionLong: product.shortDescription,
+        gallery: [],
+        priceOnRequest: product.priceOnRequest,
+        available: true,
+        variants: [],
+      }));
+  }
 
   if (categorySlug) {
     const category = await findPublishedBySlug("shop-categories", categorySlug);
@@ -32,6 +52,7 @@ export async function getShopProductsByCategorySlug(categorySlug: string): Promi
 }
 
 export async function getAllShopProductSlugs(): Promise<string[]> {
+  if (isLocalMediaMode()) return localProducts.map((product) => product.slug);
   const docs = await findPublished("products", {
     depth: 0,
     select: { slug: true },

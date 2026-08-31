@@ -66,7 +66,7 @@ export function ForgedCatalog({ models }: { models: CmsWheelModel[] }) {
             <h2>Дизайн — начало подбора</h2>
             <p>Размер, вылет, разболтовка и покрытие подтверждаются после проверки автомобиля.</p>
           </div>
-          <Link href="/contact?subject=wheel-selection" className={styles.ctaLink}>Подобрать диски</Link>
+          <Link href="/contact?subject=wheel-selection" className={styles.ctaLink}>Проверить совместимость дисков</Link>
         </div>
       </section>
     </div>

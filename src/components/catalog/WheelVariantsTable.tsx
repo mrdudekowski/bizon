@@ -29,7 +29,7 @@ export function WheelVariantsTable({ variants }: WheelVariantsTableProps) {
         <p className={styles.empty}>
           Размеры для этой модели скоро появятся.{" "}
           <Link href="/contact" className="underline">
-            Запросить подбор
+            Запросить наличие и предложение
           </Link>
         </p>
       </section>

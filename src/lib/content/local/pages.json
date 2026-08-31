@@ -1,0 +1,244 @@
+[
+  {
+    "id": 2,
+    "key": "shop-home",
+    "title": "Главная Shop",
+    "path": "/shop",
+    "homeHero": {
+      "eyebrow": null,
+      "title": null,
+      "lead": null,
+      "image": null,
+      "imageAlt": null,
+      "primaryCta": {
+        "label": null,
+        "href": null
+      },
+      "secondaryCta": {
+        "label": null,
+        "href": null
+      },
+      "metricLabel": null,
+      "metricText": null
+    },
+    "homeSelectionEntry": {
+      "eyebrow": null,
+      "title": null,
+      "lead": null
+    },
+    "homeDirections": {
+      "eyebrow": null,
+      "title": null,
+      "lead": null
+    },
+    "homeExpertise": {
+      "eyebrow": null,
+      "title": null,
+      "lead": null
+    },
+    "homeShopCampaign": {
+      "eyebrow": null,
+      "title": null,
+      "lead": null,
+      "image": null,
+      "imageAlt": null,
+      "cta": {
+        "label": null,
+        "href": null
+      }
+    },
+    "homeResume": {
+      "eyebrow": null,
+      "title": null,
+      "lead": null,
+      "primaryCta": {
+        "label": null,
+        "href": null
+      },
+      "secondaryCta": {
+        "label": null,
+        "href": null
+      }
+    },
+    "shopHero": {
+      "eyebrow": "BIZON Forged",
+      "title": "Кованые диски для вашего автомобиля",
+      "lead": "Выберите дизайн — параметры и совместимость проверит специалист BIZON.",
+      "image": null,
+      "imageAlt": "Кованый диск BIZON и модель в красном образе",
+      "cta": {
+        "label": "Выбрать диски",
+        "href": "#wheels"
+      }
+    },
+    "shopWheelsIntro": {
+      "kicker": "BIZON Forged",
+      "eyebrow": "",
+      "title": "Выберите свой дизайн",
+      "lead": "Кованые диски BIZON изготавливаются под заказ. Выберите модель — специалист проверит совместимость с вашим автомобилем."
+    },
+    "shopOrderSteps": [
+      {
+        "id": "6a670bd90b456c3a3c145911",
+        "title": "Выберите дизайн",
+        "description": "Посмотрите модели и укажите предпочтительную конфигурацию."
+      },
+      {
+        "id": "6a670bd90b456c3a3c145912",
+        "title": "Расскажите об автомобиле",
+        "description": "Укажите марку, модель, год и пожелания к дискам."
+      },
+      {
+        "id": "6a670bd90b456c3a3c145913",
+        "title": "Получите подтверждение",
+        "description": "Специалист BIZON проверит совместимость, стоимость и возможность изготовления."
+      }
+    ],
+    "shopCategoryCarousel": [],
+    "shopVehicles": {
+      "eyebrow": "BIZON Forged",
+      "title": "Созданы менять характер",
+      "lead": "Один автомобиль — разные ощущения. Дизайн BIZON подчёркивает стиль от городского premium до экспедиционного off-road.",
+      "cta": {
+        "label": "Выбрать диски",
+        "href": "#wheels"
+      },
+      "slides": []
+    },
+    "stubHero": {
+      "eyebrow": null,
+      "title": null,
+      "lead": null,
+      "image": null,
+      "imageAlt": null
+    },
+    "seo": {
+      "seoTitle": null,
+      "seoDescription": null,
+      "seoKeywords": null,
+      "ogTitle": null,
+      "ogDescription": null,
+      "ogImage": null,
+      "canonicalUrl": null,
+      "robotsIndex": true,
+      "robotsFollow": true
+    },
+    "status": "published",
+    "publishedAt": "2026-07-27T07:42:17.382Z",
+    "updatedAt": "2026-07-27T07:42:17.386Z",
+    "createdAt": "2026-07-27T07:42:17.386Z"
+  },
+  {
+    "id": 1,
+    "key": "home",
+    "title": "Главная Bizon",
+    "path": "/",
+    "homeHero": {
+      "eyebrow": "BIZON TIRES · PROFESSIONAL SERIES",
+      "title": "Ресурс для реальной работы",
+      "lead": "Шины для коммерческого транспорта и тяжёлой техники — с понятным подбором по задаче, маршруту и нагрузке.",
+      "image": null,
+      "imageAlt": "Грузовой автопарк на магистрали",
+      "primaryCta": {
+        "label": "Подобрать шины",
+        "href": "/selection"
+      },
+      "secondaryCta": {
+        "label": "Изучить каталог",
+        "href": "/models"
+      },
+      "metricLabel": "01",
+      "metricText": "От задачи автопарка — к проверяемой рекомендации"
+    },
+    "homeSelectionEntry": {
+      "eyebrow": "Начать с задачи",
+      "title": "Для какой техники нужны шины?",
+      "lead": "Выберите направление — первый ответ уже будет сохранён в подборе."
+    },
+    "homeDirections": {
+      "eyebrow": "Опубликованный ассортимент",
+      "title": "Шины под рабочую среду",
+      "lead": "Каждое направление уже содержит модели для изучения. Конкретный типоразмер и наличие подтверждает специалист."
+    },
+    "homeExpertise": {
+      "eyebrow": "Практика и опыт",
+      "title": "Экспертиза и поддержка",
+      "lead": "Tire IQ, опыт эксплуатации и решения для корпоративных проектов."
+    },
+    "homeShopCampaign": {
+      "eyebrow": "Вторая поверхность BIZON",
+      "title": "BIZON Shop",
+      "lead": "Кованые диски и предметы для тех, кто воспринимает технику как часть собственного характера.",
+      "image": null,
+      "imageAlt": "Кованый диск BIZON",
+      "cta": {
+        "label": "Перейти в BIZON Shop",
+        "href": "/shop"
+      }
+    },
+    "homeResume": {
+      "eyebrow": "Готовы начать?",
+      "title": "Три ответа до предварительной рекомендации",
+      "lead": "Подбор не заменяет инженерную проверку — он помогает передать специалисту уже структурированную задачу.",
+      "primaryCta": {
+        "label": "Подобрать шины",
+        "href": "/selection"
+      },
+      "secondaryCta": {
+        "label": "Связаться напрямую",
+        "href": "/contact"
+      }
+    },
+    "shopHero": {
+      "eyebrow": null,
+      "title": null,
+      "lead": null,
+      "image": null,
+      "imageAlt": null,
+      "cta": {
+        "label": null,
+        "href": null
+      }
+    },
+    "shopWheelsIntro": {
+      "kicker": null,
+      "eyebrow": null,
+      "title": null,
+      "lead": null
+    },
+    "shopOrderSteps": [],
+    "shopCategoryCarousel": [],
+    "shopVehicles": {
+      "eyebrow": null,
+      "title": null,
+      "lead": null,
+      "cta": {
+        "label": null,
+        "href": null
+      },
+      "slides": []
+    },
+    "stubHero": {
+      "eyebrow": null,
+      "title": null,
+      "lead": null,
+      "image": null,
+      "imageAlt": null
+    },
+    "seo": {
+      "seoTitle": null,
+      "seoDescription": null,
+      "seoKeywords": null,
+      "ogTitle": null,
+      "ogDescription": null,
+      "ogImage": null,
+      "canonicalUrl": null,
+      "robotsIndex": true,
+      "robotsFollow": true
+    },
+    "status": "published",
+    "publishedAt": "2026-07-27T07:42:17.334Z",
+    "updatedAt": "2026-07-27T07:42:17.344Z",
+    "createdAt": "2026-07-27T07:42:17.341Z"
+  }
+]

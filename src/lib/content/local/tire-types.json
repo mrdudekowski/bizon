@@ -1,0 +1,72 @@
+[
+  {
+    "id": 2,
+    "name": "OTR — карьер и спецтехника",
+    "generateSlug": false,
+    "slug": "otr",
+    "description": "Off-the-road tyres for quarries and heavy equipment.",
+    "shortDescription": "Карьерные и внедорожные шины",
+    "coverImage": null,
+    "selectionVehicleTypes": [
+      "construction-dumper",
+      "quarry-special"
+    ],
+    "selectionConditions": [
+      "mixed",
+      "off-road"
+    ],
+    "showInMenu": true,
+    "sortOrder": 1,
+    "seo": {
+      "seoTitle": null,
+      "seoDescription": null,
+      "seoKeywords": null,
+      "ogTitle": null,
+      "ogDescription": null,
+      "ogImage": null,
+      "canonicalUrl": null,
+      "robotsIndex": true,
+      "robotsFollow": true
+    },
+    "status": "published",
+    "publishedAt": "2026-07-26T11:07:55.427Z",
+    "updatedAt": "2026-07-26T11:07:55.430Z",
+    "createdAt": "2026-07-26T11:07:55.429Z"
+  },
+  {
+    "id": 1,
+    "name": "TBR — грузовые шины",
+    "generateSlug": false,
+    "slug": "tbr",
+    "description": "Radial truck tyres for highways and regional routes.",
+    "shortDescription": "Магистральные и региональные грузовые шины",
+    "coverImage": null,
+    "selectionVehicleTypes": [
+      "long-haul-tractor",
+      "regional-truck",
+      "construction-dumper"
+    ],
+    "selectionConditions": [
+      "long-haul",
+      "regional",
+      "mixed"
+    ],
+    "showInMenu": true,
+    "sortOrder": 0,
+    "seo": {
+      "seoTitle": null,
+      "seoDescription": null,
+      "seoKeywords": null,
+      "ogTitle": null,
+      "ogDescription": null,
+      "ogImage": null,
+      "canonicalUrl": null,
+      "robotsIndex": true,
+      "robotsFollow": true
+    },
+    "status": "published",
+    "publishedAt": "2026-07-26T11:07:55.302Z",
+    "updatedAt": "2026-07-26T11:07:55.316Z",
+    "createdAt": "2026-07-26T11:07:55.313Z"
+  }
+]

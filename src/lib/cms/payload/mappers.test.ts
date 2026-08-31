@@ -106,4 +106,42 @@ describe("mapTireVariant", () => {
     expect(mapped.priceOnRequest).toBe(true);
     expect(mapped.available).toBe(false);
   });
+
+  it("maps engineering dual/load/pressure fields for the PDP table", () => {
+    const mapped = mapTireVariant({
+      id: 3,
+      sizeNormalized: "275/70R22.5",
+      rimDiameterIn: 22.5,
+      loadIndexSingle: 152,
+      loadIndexDual: 148,
+      speedSymbol: "J",
+      plyRatingPr: 18,
+      overallDiameterMm: 958,
+      sectionWidthMm: 276,
+      treadDepthMm: 22,
+      pressureSingleKpa: 900,
+      pressureDualKpa: 900,
+      maxLoadSingleKg: 3550,
+      maxLoadDualKg: 3150,
+      standardRimIn: 8.25,
+      availabilityStatus: "on_request",
+    } as never);
+
+    expect(mapped).toMatchObject({
+      size: "275/70R22.5",
+      rimDiameter: 22.5,
+      loadIndex: "152",
+      loadIndexDual: "148",
+      speedIndex: "J",
+      plyRating: "18",
+      overallDiameter: 958,
+      sectionWidth: 276,
+      treadDepth: 22,
+      pressureSingleKpa: 900,
+      pressureDualKpa: 900,
+      maxLoadSingleKg: 3550,
+      maxLoadDualKg: 3150,
+      recommendedRim: "8.25",
+    });
+  });
 });

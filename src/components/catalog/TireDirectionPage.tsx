@@ -1,9 +1,10 @@
 import Link from "next/link";
 
 import { TireCatalogFilters } from "@/components/catalog/TireCatalogFilters";
+import { TireCategoryNavigator } from "@/components/catalog/TireCategoryNavigator";
 import { TireModelCard } from "@/components/catalog/TireModelCard";
 import { PageHeader } from "@/components/catalog/PageHeader";
-import { getTireCategoryBySlug } from "@/lib/catalog/tireCategories";
+import { getTireCategoryBySlug, TIRE_CATEGORIES } from "@/lib/catalog/tireCategories";
 import { filterTireModels, type TireFilters } from "@/lib/catalog/tireFilters";
 import type { TireCatalogDirection } from "@/lib/catalog/tireReadModel";
 
@@ -36,9 +37,12 @@ export function TireDirectionPage({
   const typePath = `/models/${direction.slug}`;
   const pagePath = category ? `${typePath}/${category.slug}` : typePath;
   const sizes = Array.from(new Set(direction.models.flatMap((model) => model.sizes))).sort();
+  const availableCategories = TIRE_CATEGORIES.filter((item) =>
+    direction.models.some((model) => model.applicationCategory === item.value),
+  );
 
   return (
-    <main className={styles.catalogPage} data-main-chrome-tone="light">
+    <div className={styles.catalogPage} data-main-chrome-tone="light">
       <div className={styles.pageInner}>
         <PageHeader
           title={category ? `${category.name} — ${direction.name}` : direction.name}
@@ -50,6 +54,8 @@ export function TireDirectionPage({
             { href: pagePath, label: category?.name ?? direction.name },
           ]}
         />
+
+        <TireCategoryNavigator tireTypeSlug={direction.slug} categories={availableCategories} activeSlug={category?.slug} />
 
         <TireCatalogFilters
           filters={effectiveFilters}
@@ -71,12 +77,12 @@ export function TireDirectionPage({
             <h2>Точного совпадения по фильтрам пока нет</h2>
             <p>Передайте параметры команде BIZON — мы проверим ближайшее решение без обещания неподтверждённой совместимости.</p>
             <div className={styles.emptyActions}>
-              <Link className="btn-accent" href="/contact?subject=tire-selection">Запросить подбор</Link>
+              <Link className="btn-accent" href="/contact?subject=tire-selection">Запросить наличие и предложение</Link>
               <Link className="btn-secondary" href={pagePath}>Очистить фильтры</Link>
             </div>
           </div>
         )}
       </div>
-    </main>
+    </div>
   );
 }

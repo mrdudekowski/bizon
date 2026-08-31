@@ -152,17 +152,15 @@ If `/admin` shows `[ Server ] undefined`, check the terminal — usually Postgre
 
 ## Documentation
 
-- [Project structure](docs/project-structure.md)
-- [Cleanup audit](docs/project-cleanup-audit.md)
-- [Payload data model](docs/payload-data-model.md)
-- [BIZON Shop CMS handover](docs/shop-cms-handover.md)
-- [Migration report](docs/next-migration-report.md)
-- [Migration notes](docs/next-migration-notes.md)
-- [Styling guidelines](docs/STYLING_GUIDELINES.md)
-- [Theme palette](docs/theme-palette.md)
-- [Refactor and development pipeline](docs/refactor-development-pipeline.md)
-- [Archived SPA-era docs](docs/archive/spa-era/)
-- [Archived Payload task reports](docs/archive/payload-reports/)
+- [Client data blockers audit](docs/client-data-blockers-audit.md)
+- [Client-independent closeout](docs/implementation/client-independent-closeout.md)
+- [Deployment runbook](docs/implementation/deployment-runbook.md)
+- [Catalog import runbook](docs/implementation/catalog-import-runbook.md)
+- [Notifications runbook](docs/implementation/notifications-runbook.md)
+- [Analytics runbook](docs/implementation/analytics-runbook.md)
+- [Release checklist](docs/implementation/release-checklist.md)
+- [Client blockers registry](docs/implementation/client-blockers.md)
+- [Security verification](docs/implementation/security-verification.md)
 
 ## Deployment
 
@@ -172,20 +170,47 @@ This app requires a **Node.js** host (Vercel recommended). GitHub Pages static h
 
 Workflow: [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)
 
-1. PostgreSQL 16 service container
-2. `npm run seed:all` — schema push + catalog/content seeds
-3. `npm run verify:db` — fails if core seeds missing
-4. `npm run verify:shop` — read-only production-content gate for Shop
-4. `npm run build` — full SSG path list from seeded DB
+**Level A — Development integrity** (runs on every PR/push to `main`):
 
-Locally mirror CI: `npm run db:up` → set `DATABASE_URI` (port **5433**) → `npm run seed:all` → `npm run build`.
+1. PostgreSQL 16 service container
+2. `npm run lint`
+3. `npm run typecheck`
+4. `npm run test` — unit/integration (Vitest)
+5. `npm run seed:all` — **demo** catalog import + editorial seeds only (not contractual product filling)
+6. `npm run verify:db` — minimal schema seed check (`tireTypes ≥ 1`, `shopCategories ≥ 1`)
+7. `npm run build` — SSG from seeded DB
+
+Green CI **does not** prove production catalog readiness or real client product data.
+
+**Level C — Production / release readiness** (manual, requires client data + media):
+
+```bash
+npm run seed:wheel-axis    # optional: forged designs in CMS
+npm run seed:wheel-media   # optional: upload wheel PNGs to Media
+npm run verify:release     # alias for verify:shop — blocks on missing CMS product media
+```
+
+Locally mirror Level A: `npm run db:up` → set `DATABASE_URI` (port **5433**) → `npm run seed:all` → `npm run build`.
+
+See `docs/implementation/security-verification.md` and `docs/implementation/client-independent-baseline.md`.
+
+### E2E (Playwright)
+
+Requires a production build first:
+
+```bash
+npm run build
+npm run test:e2e:install   # once per machine
+npm run test:e2e
+```
 
 ### Production env
 
 - `DATABASE_URI`, `PAYLOAD_SECRET` — required
 - `NEXT_PUBLIC_SITE_URL` — canonical site URL for SEO/sitemap
 - `TELEGRAM_*` — request notifications (optional)
-- `SMTP_*`, `REQUESTS_EMAIL_TO` — optional; transport stub in `src/lib/notifications/email.ts` until nodemailer is wired
+- `SMTP_*`, `REQUESTS_EMAIL_TO` — optional; nodemailer transport in `src/lib/notifications/email.ts`
+- `API_RATE_LIMIT_*` — optional; public write API throttling (see `.env.example`)
 
 ## License
 

@@ -2,6 +2,8 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 
+import { ANALYTICS_EVENTS } from "@/lib/analytics/events";
+import { trackEvent } from "@/lib/analytics/yandexMetrika";
 import {
   addCartItem,
   CART_OPEN_EVENT,
@@ -47,7 +49,10 @@ export function useCart() {
 
     window.addEventListener(CART_UPDATED_EVENT, onUpdate);
     window.addEventListener("storage", onStorage);
-    const onOpenRequest = () => setOpen(true);
+    const onOpenRequest = () => {
+      trackEvent(ANALYTICS_EVENTS.cartOpen);
+      setOpen(true);
+    };
     window.addEventListener(CART_OPEN_EVENT, onOpenRequest);
 
     return () => {
@@ -60,10 +65,15 @@ export function useCart() {
 
   const addItem = useCallback((item: RequestItemInput) => {
     setItems(addCartItem(item));
+    trackEvent(ANALYTICS_EVENTS.addToCart, {
+      itemType: String(item.itemType ?? "shopProduct"),
+      slug: String(item.slug ?? ""),
+    });
   }, []);
 
   const removeItem = useCallback((key: string) => {
     setItems(removeCartItem(key));
+    trackEvent(ANALYTICS_EVENTS.removeFromCart, { key });
   }, []);
 
   const setQuantity = useCallback((key: string, quantity: number) => {

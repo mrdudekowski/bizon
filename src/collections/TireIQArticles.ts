@@ -16,6 +16,7 @@ import {
   statusField,
 } from "@/collections/fields";
 import { catalogContentHooks } from "@/payload/hooks/catalogContentHooks";
+import { TIRE_IQ_TAXONOMY } from "@/lib/content/tireIqTaxonomy";
 
 export const TireIQArticles: CollectionConfig = {
   slug: "tire-iq-articles",
@@ -50,6 +51,16 @@ export const TireIQArticles: CollectionConfig = {
       label: "Краткое описание",
       admin: {
         description: "Для карточек в списке статей",
+      },
+    },
+    {
+      name: "taxonomy",
+      type: "select",
+      hasMany: true,
+      label: "Технические темы",
+      options: [...TIRE_IQ_TAXONOMY],
+      admin: {
+        description: "Темы помогают группировать материалы по operational jobs.",
       },
     },
     {

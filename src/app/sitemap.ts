@@ -3,7 +3,6 @@ import {
   getAllPeopleStorySlugs,
   getAllShopProductSlugs,
   getShopProducts,
-  getAllTireIQSlugs,
   getAllTireTypeSlugs,
   getTireModelsByTypeSlug,
   getAllWheelModelRouteParams,
@@ -13,6 +12,7 @@ import { TIRE_CATEGORIES, getTireCategoryByValue } from "@/lib/catalog/tireCateg
 import { SITEMAP_CONTENT_LIST_ROUTES, SITEMAP_STATIC_ROUTES } from "@/constants/navigation";
 import { SHOP_LIFESTYLE_CATEGORIES } from "@/constants/shopCategories";
 import { getSiteUrl } from "@/lib/seo/metadata";
+import { getAllLocalTireIQSlugs } from "@/lib/content/localTireIq";
 
 function listRouteEntry(path: string): MetadataRoute.Sitemap[number] {
   return {
@@ -31,7 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       getAllShopProductSlugs(),
       getShopProducts(),
       getAllTireTypeSlugs(),
-      getAllTireIQSlugs(),
+      getAllLocalTireIQSlugs(),
       getAllPeopleStorySlugs(),
       getAllWheelTypeSlugs(),
       getAllWheelModelRouteParams(),

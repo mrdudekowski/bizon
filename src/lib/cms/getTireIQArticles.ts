@@ -3,8 +3,11 @@ import { findPublished, findPublishedBySlug, findPublishedSlugs } from "./payloa
 import type { TireIqArticle } from "@/payload-types";
 import type { CmsArticle } from "./types";
 
-export async function getTireIQArticles(): Promise<CmsArticle[]> {
-  const docs = await findPublished("tire-iq-articles", { sort: "-publishedAt" });
+export async function getTireIQArticles(topic?: string): Promise<CmsArticle[]> {
+  const docs = await findPublished("tire-iq-articles", {
+    sort: "-publishedAt",
+    ...(topic ? { where: { taxonomy: { contains: topic } } } : {}),
+  });
   if (!docs?.length) return [];
   return docs.map((doc) => mapTireIQArticle(doc as TireIqArticle));
 }

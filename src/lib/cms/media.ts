@@ -2,6 +2,7 @@ import type { Media } from "@/payload-types";
 
 import { shouldServeMediaFromPublicDir, toLocalPublicMediaUrl } from "./localMediaUrl";
 import { isS3StorageEnabled } from "@/lib/payload/s3StorageConfig";
+import { isLocalMediaMode } from "@/lib/media/mediaMode";
 
 export type MediaSizeName = "thumbnail" | "card" | "hero" | "og";
 
@@ -65,6 +66,7 @@ export function resolveMedia(
 
   const url = resolveMediaUrl(media, size);
   if (!url) return null;
+  if (isLocalMediaMode() && /^https?:\/\//i.test(url)) return null;
 
   const sized = size ? media.sizes?.[size] : undefined;
 

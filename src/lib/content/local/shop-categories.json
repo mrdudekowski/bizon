@@ -1,0 +1,38 @@
+[
+  {
+    "slug": "accessories",
+    "name": "Аксессуары",
+    "description": "Fleet accessories beyond tyres.",
+    "sortOrder": 0,
+    "showInMenu": true,
+    "showOnShopHome": true,
+    "status": "published"
+  },
+  {
+    "slug": "outdoor",
+    "name": "Outdoor",
+    "description": "Outdoor gear for fleet operators.",
+    "sortOrder": 1,
+    "showInMenu": true,
+    "showOnShopHome": true,
+    "status": "published"
+  },
+  {
+    "slug": "glasses",
+    "name": "Glasses",
+    "description": "Protective eyewear.",
+    "sortOrder": 2,
+    "showInMenu": true,
+    "showOnShopHome": true,
+    "status": "published"
+  },
+  {
+    "slug": "merch",
+    "name": "Merch",
+    "description": "BIZON branded merchandise.",
+    "sortOrder": 3,
+    "showInMenu": true,
+    "showOnShopHome": true,
+    "status": "published"
+  }
+]

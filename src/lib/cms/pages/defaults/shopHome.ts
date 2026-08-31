@@ -15,7 +15,7 @@ export const SHOP_HOME_PAGE_DEFAULTS: ShopHomePageContent = {
     lead: "Выберите дизайн — параметры и совместимость проверит специалист BIZON.",
     imageUrl: "/images/premium/shop-hero-forged-wheel-model.png",
     imageAlt: "Кованый диск BIZON и модель в красном образе",
-    cta: { label: "Выбрать диски", href: "#wheels" },
+    cta: { label: "Выбрать модель и проверить совместимость", href: "#wheels" },
   },
   wheelsIntro: {
     kicker: "BIZON Forged",
@@ -32,7 +32,7 @@ export const SHOP_HOME_PAGE_DEFAULTS: ShopHomePageContent = {
     eyebrow: "BIZON Forged",
     title: "Созданы менять характер",
     lead: "Один автомобиль — разные ощущения. Дизайн BIZON подчёркивает стиль от городского premium до экспедиционного off-road.",
-    cta: { label: "Выбрать диски", href: "#wheels" },
+    cta: { label: "Выбрать модель и проверить совместимость", href: "#wheels" },
     slides: SHOP_VEHICLE_STORIES.map((story) => ({
       title: story.title,
       image: story.image,

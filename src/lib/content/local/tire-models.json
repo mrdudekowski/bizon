@@ -1,0 +1,711 @@
+[
+  {
+    "id": 22,
+    "name": "BIZON DSR188",
+    "generateSlug": false,
+    "slug": "dsr188",
+    "modelCode": "DSR188",
+    "tireType": {
+      "id": 1,
+      "name": "TBR — грузовые шины",
+      "generateSlug": false,
+      "slug": "tbr",
+      "description": "Radial truck tyres for highways and regional routes.",
+      "shortDescription": "Магистральные и региональные грузовые шины",
+      "coverImage": null,
+      "selectionVehicleTypes": [
+        "long-haul-tractor",
+        "regional-truck",
+        "construction-dumper"
+      ],
+      "selectionConditions": [
+        "long-haul",
+        "regional",
+        "mixed"
+      ],
+      "showInMenu": true,
+      "sortOrder": 0,
+      "seo": {
+        "seoTitle": null,
+        "seoDescription": null,
+        "seoKeywords": null,
+        "ogTitle": null,
+        "ogDescription": null,
+        "ogImage": null,
+        "canonicalUrl": null,
+        "robotsIndex": true,
+        "robotsFollow": true
+      },
+      "status": "published",
+      "publishedAt": "2026-07-26T11:07:55.302Z",
+      "updatedAt": "2026-07-26T11:07:55.316Z",
+      "createdAt": "2026-07-26T11:07:55.313Z"
+    },
+    "positions": [
+      "steer",
+      "drive",
+      "trailer"
+    ],
+    "applicationTypes": [
+      "regional"
+    ],
+    "features": [
+      {
+        "id": "model-feature-46",
+        "key": "heavy-load",
+        "title": "Высокая грузоподъёмность",
+        "description": "Редакционный перевод: High-strength steel cords improve loading capability."
+      },
+      {
+        "id": "model-feature-47",
+        "key": "anti-wear",
+        "title": "Износостойкость",
+        "description": "Редакционный перевод: Anti-wear carbon black and silica make the rubber more wear resistant."
+      },
+      {
+        "id": "model-feature-48",
+        "key": "heat-dissipation",
+        "title": "Теплоотвод",
+        "description": "Редакционный перевод: Zig-zag pattern and open shoulder grooves improve steering performance and heat generation control."
+      }
+    ],
+    "variants": {
+      "docs": [
+        {
+          "id": 46,
+          "tireModel": 22,
+          "sku": "DSR188-12.00R20-18PR",
+          "supplierSku": null,
+          "sizeRaw": "12.00R20",
+          "sizeNormalized": "12.00R20",
+          "sizeFormat": "imperial",
+          "nominalWidthMm": null,
+          "imperialWidthIn": 12,
+          "aspectRatioPct": null,
+          "constructionCode": "R",
+          "rimDiameterIn": 20,
+          "plyRatingPr": 20,
+          "treadDepthMm": 17.5,
+          "standardRimIn": 8.5,
+          "pressureSingleKpa": 900,
+          "pressureDualKpa": 900,
+          "maxLoadSingleKg": 1814,
+          "maxLoadDualKg": 1656,
+          "loadIndexSingle": 156,
+          "loadIndexDual": 153,
+          "speedSymbol": "K",
+          "overallDiameterMm": 1125,
+          "sectionWidthMm": 315,
+          "price": null,
+          "availabilityStatus": "on_request",
+          "sortOrder": 0,
+          "status": "published",
+          "publishedAt": "2026-07-27T07:04:02.405Z",
+          "updatedAt": "2026-08-20T15:31:48.682Z",
+          "createdAt": "2026-07-26T11:13:34.870Z"
+        },
+        {
+          "id": 45,
+          "tireModel": 22,
+          "sku": "DSR188-12.00R20",
+          "supplierSku": null,
+          "sizeRaw": "12.00R20",
+          "sizeNormalized": "12.00R20",
+          "sizeFormat": "imperial",
+          "nominalWidthMm": null,
+          "imperialWidthIn": 12,
+          "aspectRatioPct": null,
+          "constructionCode": "R",
+          "rimDiameterIn": 20,
+          "plyRatingPr": 20,
+          "treadDepthMm": 17.5,
+          "standardRimIn": 8.5,
+          "pressureSingleKpa": 900,
+          "pressureDualKpa": 900,
+          "maxLoadSingleKg": 4000,
+          "maxLoadDualKg": 3650,
+          "loadIndexSingle": 156,
+          "loadIndexDual": 183,
+          "speedSymbol": "K",
+          "overallDiameterMm": 1125,
+          "sectionWidthMm": 315,
+          "price": null,
+          "availabilityStatus": "on_request",
+          "sortOrder": 0,
+          "status": "published",
+          "publishedAt": "2026-07-27T07:04:02.445Z",
+          "updatedAt": "2026-07-27T07:04:02.446Z",
+          "createdAt": "2026-07-26T11:13:34.686Z"
+        }
+      ],
+      "hasNextPage": false
+    },
+    "shortDescription": "Грузовая шина BIZON DSR188 для региональной эксплуатации.",
+    "fullDescription": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Модель BIZON DSR188. Позиция установки по каталогу: All position. Основные заявленные свойства: Износостойкость; Экономичность; Высокая грузоподъёмность; Теплоотвод.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr",
+            "textStyle": "",
+            "textFormat": 0
+          }
+        ],
+        "direction": "ltr"
+      }
+    },
+    "mainImage": {
+      "id": 25,
+      "title": "BIZON TBR Tire Product",
+      "alt": "Грузовая шина BIZON",
+      "mediaType": "image",
+      "sortOrder": 0,
+      "status": "published",
+      "publishedAt": "2026-07-27T14:40:07.537Z",
+      "seo": {
+        "seoTitle": null,
+        "seoDescription": null,
+        "seoKeywords": null,
+        "ogTitle": null,
+        "ogDescription": null,
+        "ogImage": null,
+        "canonicalUrl": null,
+        "robotsIndex": true,
+        "robotsFollow": true
+      },
+      "prefix": null,
+      "updatedAt": "2026-07-27T14:40:07.548Z",
+      "createdAt": "2026-07-27T14:40:07.546Z",
+      "url": "/api/media/file/bizon-tbr-tire-product.png",
+      "thumbnailURL": "/api/media/file/bizon-tbr-tire-product-300x225.jpg",
+      "filename": "bizon-tbr-tire-product.png",
+      "mimeType": "image/jpeg",
+      "filesize": 72468,
+      "width": 1024,
+      "height": 768,
+      "focalX": 50,
+      "focalY": 50,
+      "sizes": {
+        "thumbnail": {
+          "url": "/api/media/file/bizon-tbr-tire-product-300x225.jpg",
+          "width": 300,
+          "height": 225,
+          "mimeType": "image/jpeg",
+          "filesize": 7221,
+          "filename": "bizon-tbr-tire-product-300x225.jpg"
+        },
+        "card": {
+          "url": "/api/media/file/bizon-tbr-tire-product-600x450.jpg",
+          "width": 600,
+          "height": 450,
+          "mimeType": "image/jpeg",
+          "filesize": 21293,
+          "filename": "bizon-tbr-tire-product-600x450.jpg"
+        },
+        "hero": {
+          "url": null,
+          "width": null,
+          "height": null,
+          "mimeType": null,
+          "filesize": null,
+          "filename": null
+        },
+        "og": {
+          "url": "/api/media/file/bizon-tbr-tire-product-1200x630.jpg",
+          "width": 1200,
+          "height": 630,
+          "mimeType": "image/jpeg",
+          "filesize": 42727,
+          "filename": "bizon-tbr-tire-product-1200x630.jpg"
+        }
+      }
+    },
+    "gallery": [],
+    "documents": [],
+    "seo": {
+      "seoTitle": null,
+      "seoDescription": null,
+      "seoKeywords": null,
+      "ogTitle": null,
+      "ogDescription": null,
+      "ogImage": null,
+      "canonicalUrl": null,
+      "robotsIndex": true,
+      "robotsFollow": true
+    },
+    "showInMenu": true,
+    "menuOrder": 0,
+    "status": "published",
+    "publishedAt": "2026-07-27T07:04:01.109Z",
+    "updatedAt": "2026-07-27T14:40:07.801Z",
+    "createdAt": "2026-07-26T11:13:19.359Z"
+  },
+  {
+    "id": 21,
+    "name": "BIZON DSR158",
+    "generateSlug": false,
+    "slug": "dsr158",
+    "modelCode": "DSR158",
+    "tireType": {
+      "id": 1,
+      "name": "TBR — грузовые шины",
+      "generateSlug": false,
+      "slug": "tbr",
+      "description": "Radial truck tyres for highways and regional routes.",
+      "shortDescription": "Магистральные и региональные грузовые шины",
+      "coverImage": null,
+      "selectionVehicleTypes": [
+        "long-haul-tractor",
+        "regional-truck",
+        "construction-dumper"
+      ],
+      "selectionConditions": [
+        "long-haul",
+        "regional",
+        "mixed"
+      ],
+      "showInMenu": true,
+      "sortOrder": 0,
+      "seo": {
+        "seoTitle": null,
+        "seoDescription": null,
+        "seoKeywords": null,
+        "ogTitle": null,
+        "ogDescription": null,
+        "ogImage": null,
+        "canonicalUrl": null,
+        "robotsIndex": true,
+        "robotsFollow": true
+      },
+      "status": "published",
+      "publishedAt": "2026-07-26T11:07:55.302Z",
+      "updatedAt": "2026-07-26T11:07:55.316Z",
+      "createdAt": "2026-07-26T11:07:55.313Z"
+    },
+    "positions": [
+      "drive"
+    ],
+    "applicationTypes": [
+      "long-haul"
+    ],
+    "features": [
+      {
+        "id": "model-feature-40",
+        "key": "heavy-load",
+        "title": "Высокая грузоподъёмность",
+        "description": "Редакционный перевод: Strengthened bead design and improved steel wire strength increase loading performance."
+      },
+      {
+        "id": "model-feature-41",
+        "key": "self-cleaning",
+        "title": "Самоочищение",
+        "description": "Редакционный перевод: Small bulge in the bottom of grooves can effectively pop out stones."
+      },
+      {
+        "id": "model-feature-42",
+        "key": "anti-tear",
+        "title": "Стойкость к разрывам",
+        "description": "Редакционный перевод: RSS, silica and tear-resistant resin improve rubber strength and toughness."
+      }
+    ],
+    "variants": {
+      "docs": [
+        {
+          "id": 44,
+          "tireModel": 21,
+          "sku": "DSR158-12.00R20",
+          "supplierSku": null,
+          "sizeRaw": "12.00R20",
+          "sizeNormalized": "12.00R20",
+          "sizeFormat": "imperial",
+          "nominalWidthMm": null,
+          "imperialWidthIn": 12,
+          "aspectRatioPct": null,
+          "constructionCode": "R",
+          "rimDiameterIn": 20,
+          "plyRatingPr": 20,
+          "treadDepthMm": 18,
+          "standardRimIn": 8.5,
+          "pressureSingleKpa": 900,
+          "pressureDualKpa": 900,
+          "maxLoadSingleKg": 1814,
+          "maxLoadDualKg": 1656,
+          "loadIndexSingle": 156,
+          "loadIndexDual": 153,
+          "speedSymbol": "J",
+          "overallDiameterMm": 1125,
+          "sectionWidthMm": 315,
+          "price": null,
+          "availabilityStatus": "on_request",
+          "sortOrder": 0,
+          "status": "published",
+          "publishedAt": "2026-07-27T07:04:02.490Z",
+          "updatedAt": "2026-08-20T15:31:48.613Z",
+          "createdAt": "2026-07-26T11:13:34.566Z"
+        }
+      ],
+      "hasNextPage": false
+    },
+    "shortDescription": "Грузовая шина BIZON DSR158 для магистральной эксплуатации.",
+    "fullDescription": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Модель BIZON DSR158. Позиция установки по каталогу: Drive. Основные заявленные свойства: Высокая грузоподъёмность; Самоочищение; Стойкость к разрывам; Удаление камней.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr",
+            "textStyle": "",
+            "textFormat": 0
+          }
+        ],
+        "direction": "ltr"
+      }
+    },
+    "mainImage": {
+      "id": 25,
+      "title": "BIZON TBR Tire Product",
+      "alt": "Грузовая шина BIZON",
+      "mediaType": "image",
+      "sortOrder": 0,
+      "status": "published",
+      "publishedAt": "2026-07-27T14:40:07.537Z",
+      "seo": {
+        "seoTitle": null,
+        "seoDescription": null,
+        "seoKeywords": null,
+        "ogTitle": null,
+        "ogDescription": null,
+        "ogImage": null,
+        "canonicalUrl": null,
+        "robotsIndex": true,
+        "robotsFollow": true
+      },
+      "prefix": null,
+      "updatedAt": "2026-07-27T14:40:07.548Z",
+      "createdAt": "2026-07-27T14:40:07.546Z",
+      "url": "/api/media/file/bizon-tbr-tire-product.png",
+      "thumbnailURL": "/api/media/file/bizon-tbr-tire-product-300x225.jpg",
+      "filename": "bizon-tbr-tire-product.png",
+      "mimeType": "image/jpeg",
+      "filesize": 72468,
+      "width": 1024,
+      "height": 768,
+      "focalX": 50,
+      "focalY": 50,
+      "sizes": {
+        "thumbnail": {
+          "url": "/api/media/file/bizon-tbr-tire-product-300x225.jpg",
+          "width": 300,
+          "height": 225,
+          "mimeType": "image/jpeg",
+          "filesize": 7221,
+          "filename": "bizon-tbr-tire-product-300x225.jpg"
+        },
+        "card": {
+          "url": "/api/media/file/bizon-tbr-tire-product-600x450.jpg",
+          "width": 600,
+          "height": 450,
+          "mimeType": "image/jpeg",
+          "filesize": 21293,
+          "filename": "bizon-tbr-tire-product-600x450.jpg"
+        },
+        "hero": {
+          "url": null,
+          "width": null,
+          "height": null,
+          "mimeType": null,
+          "filesize": null,
+          "filename": null
+        },
+        "og": {
+          "url": "/api/media/file/bizon-tbr-tire-product-1200x630.jpg",
+          "width": 1200,
+          "height": 630,
+          "mimeType": "image/jpeg",
+          "filesize": 42727,
+          "filename": "bizon-tbr-tire-product-1200x630.jpg"
+        }
+      }
+    },
+    "gallery": [],
+    "documents": [],
+    "seo": {
+      "seoTitle": null,
+      "seoDescription": null,
+      "seoKeywords": null,
+      "ogTitle": null,
+      "ogDescription": null,
+      "ogImage": null,
+      "canonicalUrl": null,
+      "robotsIndex": true,
+      "robotsFollow": true
+    },
+    "showInMenu": true,
+    "menuOrder": 0,
+    "status": "published",
+    "publishedAt": "2026-07-27T07:04:01.190Z",
+    "updatedAt": "2026-07-27T14:40:07.853Z",
+    "createdAt": "2026-07-26T11:13:19.206Z"
+  },
+  {
+    "id": 19,
+    "name": "BIZON DSR177",
+    "generateSlug": false,
+    "slug": "dsr177",
+    "modelCode": "DSR177",
+    "tireType": {
+      "id": 1,
+      "name": "TBR — грузовые шины",
+      "generateSlug": false,
+      "slug": "tbr",
+      "description": "Radial truck tyres for highways and regional routes.",
+      "shortDescription": "Магистральные и региональные грузовые шины",
+      "coverImage": null,
+      "selectionVehicleTypes": [
+        "long-haul-tractor",
+        "regional-truck",
+        "construction-dumper"
+      ],
+      "selectionConditions": [
+        "long-haul",
+        "regional",
+        "mixed"
+      ],
+      "showInMenu": true,
+      "sortOrder": 0,
+      "seo": {
+        "seoTitle": null,
+        "seoDescription": null,
+        "seoKeywords": null,
+        "ogTitle": null,
+        "ogDescription": null,
+        "ogImage": null,
+        "canonicalUrl": null,
+        "robotsIndex": true,
+        "robotsFollow": true
+      },
+      "status": "published",
+      "publishedAt": "2026-07-26T11:07:55.302Z",
+      "updatedAt": "2026-07-26T11:07:55.316Z",
+      "createdAt": "2026-07-26T11:07:55.313Z"
+    },
+    "positions": [
+      "steer",
+      "drive",
+      "trailer"
+    ],
+    "applicationTypes": [
+      "off-road"
+    ],
+    "features": [
+      {
+        "id": "model-feature-43",
+        "key": "heavy-load",
+        "title": "Высокая грузоподъёмность",
+        "description": "Редакционный перевод: Big block deeper pattern is specially designed for mining road, making the tread more stronger."
+      },
+      {
+        "id": "model-feature-44",
+        "key": "handling",
+        "title": "Управляемость",
+        "description": "Редакционный перевод: Groove bottom steps and heat dissipation holes improve grip and driving force."
+      },
+      {
+        "id": "model-feature-45",
+        "key": "heavy-load",
+        "title": "Высокая грузоподъёмность",
+        "description": "Редакционный перевод: High strength steel wire carcass improves loading capacity."
+      }
+    ],
+    "variants": {
+      "docs": [
+        {
+          "id": 42,
+          "tireModel": 19,
+          "sku": "DSR177-12.00R20",
+          "supplierSku": null,
+          "sizeRaw": "12.00R20",
+          "sizeNormalized": "12.00R20",
+          "sizeFormat": "imperial",
+          "nominalWidthMm": null,
+          "imperialWidthIn": 12,
+          "aspectRatioPct": null,
+          "constructionCode": "R",
+          "rimDiameterIn": 20,
+          "plyRatingPr": 22,
+          "treadDepthMm": 26,
+          "standardRimIn": 8.5,
+          "pressureSingleKpa": 960,
+          "pressureDualKpa": 960,
+          "maxLoadSingleKg": 4250,
+          "maxLoadDualKg": 3875,
+          "loadIndexSingle": 158,
+          "loadIndexDual": 155,
+          "speedSymbol": "B",
+          "overallDiameterMm": 1125,
+          "sectionWidthMm": 315,
+          "price": null,
+          "availabilityStatus": "on_request",
+          "sortOrder": 0,
+          "status": "published",
+          "publishedAt": "2026-07-27T07:04:02.561Z",
+          "updatedAt": "2026-07-27T07:04:02.561Z",
+          "createdAt": "2026-07-26T11:13:34.319Z"
+        }
+      ],
+      "hasNextPage": false
+    },
+    "shortDescription": "Грузовая шина BIZON DSR177 для внедорожной эксплуатации.",
+    "fullDescription": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Модель BIZON DSR177. Позиция установки по каталогу: All position. Основные заявленные свойства: Стойкость к разрывам; Высокая грузоподъёмность; Теплоотвод.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr",
+            "textStyle": "",
+            "textFormat": 0
+          }
+        ],
+        "direction": "ltr"
+      }
+    },
+    "mainImage": {
+      "id": 25,
+      "title": "BIZON TBR Tire Product",
+      "alt": "Грузовая шина BIZON",
+      "mediaType": "image",
+      "sortOrder": 0,
+      "status": "published",
+      "publishedAt": "2026-07-27T14:40:07.537Z",
+      "seo": {
+        "seoTitle": null,
+        "seoDescription": null,
+        "seoKeywords": null,
+        "ogTitle": null,
+        "ogDescription": null,
+        "ogImage": null,
+        "canonicalUrl": null,
+        "robotsIndex": true,
+        "robotsFollow": true
+      },
+      "prefix": null,
+      "updatedAt": "2026-07-27T14:40:07.548Z",
+      "createdAt": "2026-07-27T14:40:07.546Z",
+      "url": "/api/media/file/bizon-tbr-tire-product.png",
+      "thumbnailURL": "/api/media/file/bizon-tbr-tire-product-300x225.jpg",
+      "filename": "bizon-tbr-tire-product.png",
+      "mimeType": "image/jpeg",
+      "filesize": 72468,
+      "width": 1024,
+      "height": 768,
+      "focalX": 50,
+      "focalY": 50,
+      "sizes": {
+        "thumbnail": {
+          "url": "/api/media/file/bizon-tbr-tire-product-300x225.jpg",
+          "width": 300,
+          "height": 225,
+          "mimeType": "image/jpeg",
+          "filesize": 7221,
+          "filename": "bizon-tbr-tire-product-300x225.jpg"
+        },
+        "card": {
+          "url": "/api/media/file/bizon-tbr-tire-product-600x450.jpg",
+          "width": 600,
+          "height": 450,
+          "mimeType": "image/jpeg",
+          "filesize": 21293,
+          "filename": "bizon-tbr-tire-product-600x450.jpg"
+        },
+        "hero": {
+          "url": null,
+          "width": null,
+          "height": null,
+          "mimeType": null,
+          "filesize": null,
+          "filename": null
+        },
+        "og": {
+          "url": "/api/media/file/bizon-tbr-tire-product-1200x630.jpg",
+          "width": 1200,
+          "height": 630,
+          "mimeType": "image/jpeg",
+          "filesize": 42727,
+          "filename": "bizon-tbr-tire-product-1200x630.jpg"
+        }
+      }
+    },
+    "gallery": [],
+    "documents": [],
+    "seo": {
+      "seoTitle": null,
+      "seoDescription": null,
+      "seoKeywords": null,
+      "ogTitle": null,
+      "ogDescription": null,
+      "ogImage": null,
+      "canonicalUrl": null,
+      "robotsIndex": true,
+      "robotsFollow": true
+    },
+    "showInMenu": true,
+    "menuOrder": 0,
+    "status": "published",
+    "publishedAt": "2026-07-27T07:04:01.292Z",
+    "updatedAt": "2026-07-27T14:40:07.971Z",
+    "createdAt": "2026-07-26T11:13:18.857Z"
+  }
+]

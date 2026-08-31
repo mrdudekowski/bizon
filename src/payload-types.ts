@@ -517,12 +517,9 @@ export interface TireModel {
     robotsIndex?: boolean | null;
     robotsFollow?: boolean | null;
   };
-  /**
-   * Показывать в меню
-   */
   showInMenu?: boolean | null;
   /**
-   * Порядок в меню
+   * Меньше значение — выше в списке меню
    */
   menuOrder?: number | null;
   status: 'draft' | 'published' | 'archived';
@@ -704,12 +701,9 @@ export interface WheelModel {
     robotsIndex?: boolean | null;
     robotsFollow?: boolean | null;
   };
-  /**
-   * Показывать в меню
-   */
   showInMenu?: boolean | null;
   /**
-   * Порядок в меню
+   * Меньше значение — выше в списке меню
    */
   menuOrder?: number | null;
   status: 'draft' | 'published' | 'archived';
@@ -985,6 +979,7 @@ export interface WheelVariant {
    * Диаметр окружности, мм — например: 335
    */
   pcd?: string | null;
+  pcdMm?: number | null;
   /**
    * мм, со знаком
    */
@@ -997,6 +992,21 @@ export interface WheelVariant {
   weight?: number | null;
   color?: string | null;
   finish?: string | null;
+  fastenerType?: string | null;
+  fastenerMaterial?: string | null;
+  /**
+   * Raw source value; не использовать как marketing copy.
+   */
+  sourceSpecification?: string | null;
+  /**
+   * Производственный label; не выводится публично.
+   */
+  internalReference?: string | null;
+  /**
+   * Source metadata; не является публичным claim.
+   */
+  manufacturingMarkings?: string | null;
+  manufacturingNotes?: string | null;
   /**
    * Через запятую или с новой строки — например: 11R22.5, 315/80R22.5
    */
@@ -1081,6 +1091,7 @@ export interface Request {
     | (
         | 'contact'
         | 'tire_selection'
+        | 'procurement'
         | 'branding'
         | 'supplier'
         | 'warranty'
@@ -1130,6 +1141,12 @@ export interface TireIqArticle {
    * Для карточек в списке статей
    */
   excerpt?: string | null;
+  /**
+   * Темы помогают группировать материалы по operational jobs.
+   */
+  taxonomy?:
+    | ('selection' | 'wear' | 'pressure' | 'load' | 'axles' | 'quarry' | 'construction' | 'tco' | 'diagnostics')[]
+    | null;
   content: {
     root: {
       type: string;
@@ -1164,12 +1181,9 @@ export interface TireIqArticle {
     robotsIndex?: boolean | null;
     robotsFollow?: boolean | null;
   };
-  /**
-   * Показывать в меню
-   */
   showInMenu?: boolean | null;
   /**
-   * Порядок в меню
+   * Меньше значение — выше в списке меню
    */
   menuOrder?: number | null;
   status: 'draft' | 'published' | 'archived';
@@ -1729,8 +1743,6 @@ export interface TireModelsSelect<T extends boolean = true> {
   slug?: T;
   modelCode?: T;
   tireType?: T;
-  showInMenu?: T;
-  menuOrder?: T;
   positions?: T;
   applicationTypes?: T;
   features?:
@@ -1760,6 +1772,8 @@ export interface TireModelsSelect<T extends boolean = true> {
         robotsIndex?: T;
         robotsFollow?: T;
       };
+  showInMenu?: T;
+  menuOrder?: T;
   status?: T;
   publishedAt?: T;
   updatedAt?: T;
@@ -1840,8 +1854,6 @@ export interface WheelModelsSelect<T extends boolean = true> {
   generateSlug?: T;
   slug?: T;
   wheelType?: T;
-  showInMenu?: T;
-  menuOrder?: T;
   series?: T;
   designStyle?: T;
   material?: T;
@@ -1865,6 +1877,8 @@ export interface WheelModelsSelect<T extends boolean = true> {
         robotsIndex?: T;
         robotsFollow?: T;
       };
+  showInMenu?: T;
+  menuOrder?: T;
   status?: T;
   publishedAt?: T;
   updatedAt?: T;
@@ -1882,12 +1896,19 @@ export interface WheelVariantsSelect<T extends boolean = true> {
   width?: T;
   boltHoles?: T;
   pcd?: T;
+  pcdMm?: T;
   offsetET?: T;
   centerBore?: T;
   loadRating?: T;
   weight?: T;
   color?: T;
   finish?: T;
+  fastenerType?: T;
+  fastenerMaterial?: T;
+  sourceSpecification?: T;
+  internalReference?: T;
+  manufacturingMarkings?: T;
+  manufacturingNotes?: T;
   compatibleTireSizes?: T;
   available?: T;
   price?: T;
@@ -2014,9 +2035,8 @@ export interface TireIqArticlesSelect<T extends boolean = true> {
   generateSlug?: T;
   slug?: T;
   excerpt?: T;
+  taxonomy?: T;
   content?: T;
-  showInMenu?: T;
-  menuOrder?: T;
   featuredImage?: T;
   author?: T;
   seo?:
@@ -2032,6 +2052,8 @@ export interface TireIqArticlesSelect<T extends boolean = true> {
         robotsIndex?: T;
         robotsFollow?: T;
       };
+  showInMenu?: T;
+  menuOrder?: T;
   status?: T;
   publishedAt?: T;
   updatedAt?: T;

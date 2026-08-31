@@ -101,10 +101,16 @@ export type CmsTireVariant = {
   size: string;
   rimDiameter?: number;
   loadIndex?: string;
+  loadIndexDual?: string;
   speedIndex?: string;
   plyRating?: string;
   overallDiameter?: number;
-  weight?: number;
+  sectionWidth?: number;
+  treadDepth?: number;
+  pressureSingleKpa?: number;
+  pressureDualKpa?: number;
+  maxLoadSingleKg?: number;
+  maxLoadDualKg?: number;
   recommendedRim?: string;
   available: boolean;
   price?: number;
@@ -126,6 +132,7 @@ export type CmsArticle = {
   imageUrl?: string | null;
   showInMenu: boolean;
   menuOrder: number;
+  taxonomy?: string[];
 };
 
 export type CmsStory = CmsArticle & {
@@ -182,12 +189,16 @@ export type CmsWheelVariant = {
   width?: number;
   boltHoles?: number;
   pcd?: string;
+  pcdMm?: number;
   offsetET?: number;
   centerBore?: number;
   loadRating?: string;
   weight?: number;
   color?: string;
   finish?: string;
+  fastenerType?: string;
+  fastenerMaterial?: string;
+  sourceSpecification?: string;
   compatibleTireSizes?: string;
   available: boolean;
   price?: number;

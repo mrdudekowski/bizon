@@ -83,6 +83,11 @@ export const WheelVariants: CollectionConfig = {
           label: "Разболтовка (PCD)",
           admin: { description: "Диаметр окружности, мм — например: 335" },
         },
+        {
+          name: "pcdMm",
+          type: "number",
+          label: "PCD (мм, canonical)",
+        },
       ],
     },
     {
@@ -131,6 +136,36 @@ export const WheelVariants: CollectionConfig = {
           label: "Покрытие / отделка",
         },
       ],
+    },
+    {
+      type: "row",
+      fields: [
+        { name: "fastenerType", type: "text", label: "Тип крепежа" },
+        { name: "fastenerMaterial", type: "text", label: "Материал крепежа" },
+      ],
+    },
+    {
+      name: "sourceSpecification",
+      type: "textarea",
+      label: "Исходная спецификация",
+      admin: { description: "Raw source value; не использовать как marketing copy." },
+    },
+    {
+      name: "internalReference",
+      type: "text",
+      label: "Внутренняя ссылка",
+      admin: { position: "sidebar", description: "Производственный label; не выводится публично." },
+    },
+    {
+      name: "manufacturingMarkings",
+      type: "textarea",
+      label: "Производственные маркировки",
+      admin: { description: "Source metadata; не является публичным claim." },
+    },
+    {
+      name: "manufacturingNotes",
+      type: "textarea",
+      label: "Производственные примечания",
     },
     {
       name: "compatibleTireSizes",

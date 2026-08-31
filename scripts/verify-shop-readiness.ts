@@ -36,6 +36,7 @@ function normalizedOption(value: string | null | undefined): string {
 }
 
 console.log("verify-shop-readiness: start");
+/** Level C release gate — requires client-provided CMS media and product data. Not part of CI Level A. */
 
 const payload = await getPayload();
 const [categoryResult, productResult, wheelTypeResult, wheelModelResult] = await Promise.all([

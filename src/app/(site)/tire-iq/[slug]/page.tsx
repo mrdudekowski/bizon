@@ -2,21 +2,23 @@ import { notFound } from "next/navigation";
 
 import { ArticleLayout } from "@/components/content/ArticleLayout";
 import { LexicalContent } from "@/components/content/LexicalContent";
-import { getAllTireIQSlugs, getTireIQArticleBySlug } from "@/lib/cms";
+import { TireIqContextualVisuals } from "@/components/content/TireIqContextualVisuals";
+import { getAllLocalTireIQSlugs, getLocalTireIQArticleBySlug } from "@/lib/content/localTireIq";
 import { createPageMetadata } from "@/lib/seo/metadata";
+import { getTireIqArticleCover } from "@/lib/content/tireIqVisuals";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
 export async function generateStaticParams() {
-  const slugs = await getAllTireIQSlugs();
+  const slugs = getAllLocalTireIQSlugs();
   return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
-  const article = await getTireIQArticleBySlug(slug);
+  const article = getLocalTireIQArticleBySlug(slug);
   if (!article) return {};
   return createPageMetadata({
     title: article.title,
@@ -27,7 +29,7 @@ export async function generateMetadata({ params }: PageProps) {
 
 export default async function TireIQArticlePage({ params }: PageProps) {
   const { slug } = await params;
-  const article = await getTireIQArticleBySlug(slug);
+  const article = getLocalTireIQArticleBySlug(slug);
   if (!article) notFound();
 
   return (
@@ -41,12 +43,13 @@ export default async function TireIQArticlePage({ params }: PageProps) {
         { href: `/tire-iq/${article.slug}`, label: article.title },
       ]}
       meta={article.publishedAt}
-      imageUrl={article.imageUrl}
+      imageUrl={article.imageUrl ?? getTireIqArticleCover(article.slug)}
       imageAlt={article.title}
       fallbackKey={article.slug}
       backHref="/tire-iq"
       backLabel="Все статьи"
     >
+      <TireIqContextualVisuals slug={article.slug} />
       <LexicalContent data={article.content} fallback={article.excerpt} />
     </ArticleLayout>
   );

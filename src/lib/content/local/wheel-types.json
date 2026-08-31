@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "name": "Кованые диски",
+    "generateSlug": false,
+    "slug": "forged",
+    "description": "Кованые диски BIZON для грузового и коммерческого транспорта.",
+    "shortDescription": "Высокопрочные кованые диски",
+    "coverImage": null,
+    "sortOrder": 0,
+    "seo": {
+      "seoTitle": null,
+      "seoDescription": null,
+      "seoKeywords": null,
+      "ogTitle": null,
+      "ogDescription": null,
+      "ogImage": null,
+      "canonicalUrl": null,
+      "robotsIndex": true,
+      "robotsFollow": true
+    },
+    "status": "published",
+    "publishedAt": "2026-07-26T17:34:04.039Z",
+    "updatedAt": "2026-07-26T18:09:55.097Z",
+    "createdAt": "2026-07-26T17:34:04.048Z"
+  }
+]
