@@ -1,11 +1,11 @@
 # BIZON main-app
 
-Public website (bizon.ru + BIZON Shop) on **Next.js 15**. No Payload CMS — content is static defaults until `backend-app` is connected.
+Public website (bizon.ru + BIZON Shop) on **Next.js 15**. No Payload CMS. Published pages and tire directions come from `backend-app` when `BACKEND_URL` is set. Without it, pages stay on code defaults and the catalog stays empty.
 
 Related branches:
 
-- `backend-app` — API (stub)
-- `frontend-cms` — admin UI (stub)
+- `backend-app` in this tree — the only Postgres writer. See `backend-app/README.md`.
+- `frontend-cms` — admin UI. It reads the same API and does not open the database.
 
 ## Setup
 
@@ -22,7 +22,7 @@ Open [http://localhost:3000](http://localhost:3000). `/admin` is not served.
 | Command | Description |
 |---------|-------------|
 | `npm run dev` | Development server |
-| `npm run build` | Production build (no database) |
+| `npm run build` | Production build. Database access stays in `backend-app`. |
 | `npm run test` | Vitest unit tests |
 | `npm run lint` | ESLint |
 

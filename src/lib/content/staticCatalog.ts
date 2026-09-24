@@ -1,3 +1,4 @@
+import { fetchPublishedTireDirections } from "./publishedBackend";
 import type {
   CmsArticle,
   CmsProduct,
@@ -69,7 +70,8 @@ export async function getAllPeopleStorySlugs(): Promise<string[]> {
 }
 
 export async function getTireTypes(): Promise<CmsTireType[]> {
-  return [];
+  const published = await fetchPublishedTireDirections(process.env.BACKEND_URL);
+  return published ?? [];
 }
 
 export async function getTireTypeBySlug(_slug: string): Promise<CmsTireType | null> {
