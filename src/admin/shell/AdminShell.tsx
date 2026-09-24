@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 
+import { databaseLinkLabel, type DatabaseLink } from "@/admin/system/databaseLink";
+
 import styles from "./AdminShell.module.css";
 
 const NAV = [
@@ -12,12 +14,20 @@ const NAV = [
   { href: "/media", label: "Медиа" },
 ] as const;
 
-export function AdminShell({ children }: { children: ReactNode }) {
+export function AdminShell({
+  children,
+  databaseLink,
+}: {
+  children: ReactNode;
+  databaseLink: DatabaseLink;
+}) {
   return (
     <div className={styles.shell}>
       <header className={styles.header}>
         <p className={styles.brand}>BIZON</p>
-        <p className={styles.note}>Данные локальные</p>
+        <p className={styles.note} data-database-state={databaseLink.state}>
+          {databaseLinkLabel(databaseLink)}
+        </p>
       </header>
       <div className={styles.body}>
         <nav className={styles.nav} aria-label="Разделы">
