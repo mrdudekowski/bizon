@@ -17,5 +17,18 @@ services:
       timeout: 5s
       retries: 10
 
+  backend:
+    build: ./backend-app
+    container_name: bizon-backend
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432/bizon
+      PORT: "4000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
 volumes:
   bizon_pg_data:
